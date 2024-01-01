@@ -2,7 +2,7 @@ import Api from './base';
 import type { ResultData } from './base';
 
 export interface UserInfo {
-  id: number;
+  id: string;
   email: string;
   wxId: string;
   nickname: string;
@@ -44,5 +44,5 @@ export const userRegister = (
 
 // 获取用户详情
 export const getUserDetails = (params: {
-  id: number;
+  id: string;
 }): Promise<ResultData<UserInfo>> => Api.get('/user/getUserInfo', { params });

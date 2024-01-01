@@ -9,7 +9,7 @@ const useUserStore = defineStore(
   'useUserStore',
   () => {
     const userInfo = reactive({
-      id: 0,
+      id: '',
       email: '',
       wxId: 'string',
       nickname: '',
@@ -20,7 +20,7 @@ const useUserStore = defineStore(
 
     const loginResData = reactive({
       token: '',
-      expired_at: 0,
+      tokenExpire: '',
       userInfo
     });
 
