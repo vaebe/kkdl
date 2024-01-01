@@ -2,6 +2,8 @@
 import { reactive, defineAsyncComponent } from 'vue';
 import dayjs from 'dayjs';
 import { createShortURL } from '@/api/shortURL.ts';
+import { useUserStore } from '@/stores';
+import { storeToRefs } from 'pinia';
 
 const LayoutHeader = defineAsyncComponent(
   () => import('@/components/LayoutHeader.vue')
@@ -9,13 +11,19 @@ const LayoutHeader = defineAsyncComponent(
 
 const { VITE_APP_BASE_URL } = import.meta.env;
 
+const userStore = useUserStore();
+const { isLogin } = storeToRefs(userStore);
+
+// 禁用今日之前的日期
+const isDateBeforeToday = (time) => {
+  return time.getTime() < new Date(new Date().toDateString()).getTime();
+};
+
 const info = reactive({
   title: '',
   rawUrl: '',
   expirationTime: dayjs().add(1, 'month').format('YYYY-MM-DD HH:mm:ss')
 });
-
-console.log(info);
 
 const checkData = (): boolean => {
   if (!info.title) {
@@ -74,7 +82,7 @@ const create = () => {
   <div class="short-url flex flex-col items-center">
     <layout-header class="mb-4"></layout-header>
 
-    <div class="w-11/12 lg:w-8/12">
+    <el-card class="w-11/12 lg:w-8/12">
       <el-form
         ref="ruleFormRef"
         :model="info"
@@ -98,12 +106,13 @@ const create = () => {
           />
         </el-form-item>
 
-        <el-form-item label="过期时间:">
+        <el-form-item v-if="isLogin" label="过期时间:">
           <el-date-picker
             v-model="info.expirationTime"
             type="date"
             label="过期时间"
             placeholder="请选择过期时间"
+            :disabled-date="isDateBeforeToday"
           />
         </el-form-item>
       </el-form>
@@ -111,7 +120,13 @@ const create = () => {
       <el-row justify="center">
         <el-button type="primary" @click="create">创建短链</el-button>
       </el-row>
-    </div>
+    </el-card>
+
+    <ul class="w-11/12 lg:w-8/12 text-gray-500">
+      <li class="mt-4 text-center text-xl">提示:</li>
+      <li>1. 生成的短链默认有效期一个月，登录后可指定任意时间。</li>
+      <li>2. 仅用于学习使用。</li>
+    </ul>
   </div>
 </template>
 
@@ -119,5 +134,6 @@ const create = () => {
 .short-url {
   width: 100vw;
   height: 100vh;
+  background: var(--el-bg-color);
 }
 </style>
