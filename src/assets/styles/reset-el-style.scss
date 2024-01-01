@@ -1,0 +1,89 @@
+.reset-el-style {
+  --el-border-radius-base: 2px;
+
+  /* 组件 width  100% */
+  .el-select,
+  .el-date-editor.el-input,
+  .el-range-editor.el-input__inner,
+  .el-date-editor.el-input__inner,
+  .el-autocomplete,
+  .el-select-v2 {
+    width: 100%;
+  }
+
+  /**
+  * el-menu
+  * =========================================================================
+  */
+  .el-menu {
+    border-right: none;
+
+    // icon
+    .el-icon {
+      margin-top: -5px;
+      margin-right: 10px;
+    }
+  }
+
+  .el-submenu .el-menu-item {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .el-sub-menu__title {
+    color: var(--el-text-color-primary);
+    border-bottom: 1px solid var(--el-border);
+  }
+
+  .el-menu-item {
+    color: var(--el-text-color-primary);
+
+    .submenu-text {
+      padding-left: 0.5vw;
+    }
+  }
+
+  .el-menu-item:hover,
+  .el-menu-item.is-active,
+  .el-menu-item.is-active:hover {
+    color: var(--el-text-color-primary);
+    background: var(--el-color-primary-light-9);
+    border-radius: var(--el-border-radius-base);
+  }
+
+  // 伪元素实现 菜单栏圆点
+  .el-menu-item.is-active::after {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    display: block;
+    width: 4px;
+    height: 12px;
+    margin-top: -6px;
+    content: '';
+    background: var(--el-fill-color) !important;
+  }
+
+  i.iconfont {
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: 20px;
+    color: var(--el-text-color-regular) !important;
+  }
+
+  /**
+  * el-pagination
+  * =========================================================================
+  */
+  .el-pagination {
+    justify-content: right;
+  }
+
+  /**
+  * .el-divider
+  */
+
+  .el-divider--horizontal {
+    margin: 12px 0;
+  }
+}
