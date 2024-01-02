@@ -63,12 +63,12 @@ const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const userStore = useUserStore();
 
-  // 进入后台管理页面 是管理员直接方形，否则提示并导航到首页
-  if (to.fullPath.includes('backstage')) {
-    if (userStore.isAdmin) {
+  // 未登录用户不能进入数据管理页面
+  if (to.fullPath.startsWith('/dm')) {
+    if (userStore.isLogin) {
       next();
     } else {
-      ElMessage.warning('您没有权限进入！');
+      ElMessage.warning('请先登录！');
       next('/');
     }
   } else {
