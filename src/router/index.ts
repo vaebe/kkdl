@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 import { useUserStore } from '@/stores';
+import dataManagementRouter from './dataManagement.ts';
 
 // 保存进入登录页面的路径
 const saveEnterTheLoginPagePath = (path: string): void => {
@@ -15,16 +16,18 @@ const routes: RouteRecordRaw[] = [
     redirect: (to: RouteLocationNormalized) => {
       return `${to.path}url`;
     },
-    component: () => import('@/components/ViewComponent.vue'),
-    children: []
-  },
-  {
-    path: '/url',
-    name: 'shortURL',
-    meta: {
-      title: '创建短链'
-    },
-    component: () => import('@/views/shortURL.vue')
+    component: () => import('@/views/baseLayout/baseLayout.vue'),
+    children: [
+      {
+        path: 'url',
+        name: 'create-short-URL',
+        meta: {
+          title: '创建短链'
+        },
+        component: () => import('@/views/shortURL.vue')
+      },
+      dataManagementRouter
+    ]
   },
   {
     path: '/login',

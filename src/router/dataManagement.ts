@@ -1,0 +1,25 @@
+import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
+
+const router: RouteRecordRaw = {
+  path: 'dm',
+  name: 'dm',
+  meta: {
+    title: '数据管理'
+  },
+  redirect: (to: RouteLocationNormalized) => {
+    return `${to.path}/short-url`;
+  },
+  component: () => import('@/views/baseLayout/dataManagementLayout.vue'),
+  children: [
+    {
+      path: 'short-url',
+      name: 'backstage-short-url',
+      meta: {
+        title: '短链管理'
+      },
+      component: () => import('@/views/dataManagement/shortUrl/index.vue')
+    }
+  ]
+};
+
+export default router;
