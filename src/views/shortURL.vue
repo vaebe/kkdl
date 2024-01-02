@@ -75,7 +75,7 @@ const create = () => {
 </script>
 
 <template>
-  <div class="short-url flex flex-col items-center">
+  <div class="flex flex-col items-center">
     <el-card class="w-11/12 lg:w-8/12 mt-4">
       <el-form
         ref="ruleFormRef"
@@ -124,10 +124,4 @@ const create = () => {
   </div>
 </template>
 
-<style scoped lang="scss">
-.short-url {
-  width: 100vw;
-  height: 100vh;
-  background: var(--el-bg-color);
-}
-</style>
+<style scoped lang="scss"></style>
