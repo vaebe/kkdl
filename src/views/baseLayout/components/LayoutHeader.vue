@@ -12,6 +12,7 @@ const { VITE_APP_TITLE } = import.meta.env;
 
 const userStore = useUserStore();
 const { userInfo, isLogin } = storeToRefs(userStore);
+const { loginOut } = userStore;
 
 const router = useRouter();
 // 跳转
@@ -47,7 +48,20 @@ const jumpPage = (path: string) => {
     </ul>
 
     <div class="flex justify-end items-center">
-      <p v-if="isLogin">{{ userInfo.nickname }}</p>
+      <el-popover v-if="isLogin" placement="bottom" trigger="click">
+        <template #reference>
+          <p class="cursor-pointer hover:text-blue-500">
+            {{ userInfo.nickname }}
+          </p>
+        </template>
+        <ul class="text-center space-y-2">
+          <li class="cursor-pointer hover:text-blue-400" @click="loginOut">
+            退出登录
+          </li>
+          <li class="cursor-pointer hover:text-blue-400">版本：1.0.0</li>
+        </ul>
+      </el-popover>
+
       <p v-else class="cursor-pointer">
         <span class="hover:text-blue-500" @click="jumpPage('login')">登录</span>
         ｜
