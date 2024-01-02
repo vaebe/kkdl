@@ -5,7 +5,7 @@ import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 
 const ThemeSwitch = defineAsyncComponent(
-  () => import('../../../components/ThemeSwitch.vue')
+  () => import('@/components/ThemeSwitch.vue')
 );
 
 const { VITE_APP_TITLE } = import.meta.env;
