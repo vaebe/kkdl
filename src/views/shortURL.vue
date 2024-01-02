@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { reactive, defineAsyncComponent } from 'vue';
+import { reactive } from 'vue';
 import dayjs from 'dayjs';
 import { createShortURL } from '@/api/shortURL.ts';
 import { useUserStore } from '@/stores';
 import { storeToRefs } from 'pinia';
-
-const LayoutHeader = defineAsyncComponent(
-  () => import('@/components/LayoutHeader.vue')
-);
 
 const { VITE_APP_BASE_URL } = import.meta.env;
 
@@ -80,9 +76,7 @@ const create = () => {
 
 <template>
   <div class="short-url flex flex-col items-center">
-    <layout-header class="mb-4"></layout-header>
-
-    <el-card class="w-11/12 lg:w-8/12">
+    <el-card class="w-11/12 lg:w-8/12 mt-4">
       <el-form
         ref="ruleFormRef"
         :model="info"
