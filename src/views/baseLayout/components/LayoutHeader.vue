@@ -4,7 +4,9 @@ import { useUserStore } from '@/stores';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 
-const ThemeSwitch = defineAsyncComponent(() => import('./ThemeSwitch.vue'));
+const ThemeSwitch = defineAsyncComponent(
+  () => import('../../../components/ThemeSwitch.vue')
+);
 
 const { VITE_APP_TITLE } = import.meta.env;
 
@@ -13,12 +15,8 @@ const { userInfo, isLogin } = storeToRefs(userStore);
 
 const router = useRouter();
 // 跳转
-const jumpLoginPage = () => {
-  router.push('/login');
-};
-
-const jumpRegisterUserPage = () => {
-  router.push('/register');
+const jumpPage = (path: string) => {
+  router.push(`/${path}`);
 };
 </script>
 
@@ -26,14 +24,34 @@ const jumpRegisterUserPage = () => {
   <div class="layout-header">
     <h1 class="title mt-2 text-2xl">{{ VITE_APP_TITLE }}</h1>
 
-    <div class="menu"></div>
+    <!--  用户登录后才需要展示菜单切换  -->
+    <ul v-if="isLogin" class="menu grid grid-cols-2 gap-2">
+      <li
+        :class="[
+          'cursor-pointer hover:text-blue-500',
+          { 'text-blue-600': $route.path.startsWith('/url') }
+        ]"
+        @click="jumpPage('url')"
+      >
+        创建短链
+      </li>
+      <li
+        :class="[
+          'cursor-pointer hover:text-blue-500',
+          { 'text-blue-600': $route.path.startsWith('/dm') }
+        ]"
+        @click="jumpPage('dm')"
+      >
+        数据管理
+      </li>
+    </ul>
 
     <div class="flex justify-end items-center">
       <p v-if="isLogin">{{ userInfo.nickname }}</p>
       <p v-else class="cursor-pointer">
-        <span class="hover:text-blue-500" @click="jumpLoginPage">登录</span>
+        <span class="hover:text-blue-500" @click="jumpPage('login')">登录</span>
         ｜
-        <span class="hover:text-blue-500" @click="jumpRegisterUserPage">
+        <span class="hover:text-blue-500" @click="jumpPage('register')">
           注册
         </span>
       </p>
