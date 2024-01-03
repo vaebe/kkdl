@@ -1,7 +1,7 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
 import { reactive, computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { getUserDetails } from '@/api/login';
+import { getUserDetails, userLoginOut } from '@/api/login';
 import type { LoginResData, UserInfo } from '@/api/login';
 import { resetObjToPrimitiveType } from '@/utils/tool';
 
@@ -68,6 +68,8 @@ const useUserStore = defineStore(
 
     // 退出登录
     const loginOut = async (): Promise<void> => {
+      await userLoginOut();
+
       // 重置登录信息
       Object.assign(loginResData, resetObjToPrimitiveType(loginResData));
       Object.assign(userInfo, resetObjToPrimitiveType(userInfo));

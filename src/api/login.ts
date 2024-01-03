@@ -32,6 +32,10 @@ export const userLogin = (
   data: LoginParams
 ): Promise<ResultData<LoginResData>> => Api.post('/login/emailLogin', data);
 
+// 用户退出登录
+export const userLoginOut = (): Promise<ResultData<LoginResData>> =>
+  Api.get('/login/signOut');
+
 // 获取邮箱验证码
 export const getVerificationCode = (
   data: EmailVerificationCodeParams

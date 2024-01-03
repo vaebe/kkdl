@@ -40,7 +40,7 @@ service.interceptors.request.use(
     const { getToken } = useUserStore();
 
     // header 中添加 authorization
-    config.headers.authorization = getToken() || '';
+    config.headers.authorization = `Bearer ${getToken() || ''}`;
 
     return config;
   },
