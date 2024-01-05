@@ -6,7 +6,7 @@ import { useUserStore } from '@/stores';
 export interface ResultData<T> {
   code: number;
   data: T;
-  msg: string;
+  message: string;
 }
 
 export interface ResultPageListData<T> {
@@ -17,7 +17,7 @@ export interface ResultPageListData<T> {
     pageSize: number;
     total: number;
   };
-  msg: string;
+  message: string;
 }
 
 const { VITE_APP_AXIOS_TIMEOUT, VITE_APP_BASE_URL } = import.meta.env;
@@ -61,11 +61,11 @@ service.interceptors.response.use(
     }
 
     if (res.code !== 0) {
-      // 服务端返回错误提示就展示 否则展示
+      // 服务端返回错误提示就展示
       const errorText =
         typeof res.message === 'string'
           ? res.message
-          : Object.values(res.msg).join('\r\n');
+          : Object.values(res.message).join('\r\n');
       ElMessage.error(errorText || '非常抱歉，遇到了一些错误！');
       return Promise.reject(errorText || 'error');
     }

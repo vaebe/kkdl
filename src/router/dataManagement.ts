@@ -18,6 +18,14 @@ const router: RouteRecordRaw = {
         title: '短链管理'
       },
       component: () => import('@/views/dataManagement/shortUrl/index.vue')
+    },
+    {
+      path: 'user',
+      name: 'backstage-user',
+      meta: {
+        title: '用户管理'
+      },
+      component: () => import('@/views/dataManagement/user/index.vue')
     }
   ]
 };
