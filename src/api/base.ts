@@ -56,8 +56,9 @@ service.interceptors.response.use(
 
     if (res.code === 401) {
       const userStore = useUserStore();
-      userStore.loginOut();
-      return Promise.reject(res);
+      userStore.clearLoginInfo();
+      ElMessage.warning('登录已过期请重新登录！');
+      return;
     }
 
     if (res.code !== 0) {

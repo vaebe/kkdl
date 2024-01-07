@@ -66,10 +66,8 @@ const useUserStore = defineStore(
       return loginResData.token;
     };
 
-    // 退出登录
-    const loginOut = async (): Promise<void> => {
-      await userLoginOut();
-
+    // 清除登录信息
+    const clearLoginInfo = async (): Promise<void> => {
       // 重置登录信息
       Object.assign(loginResData, resetObjToPrimitiveType(loginResData));
       Object.assign(userInfo, resetObjToPrimitiveType(userInfo));
@@ -81,12 +79,19 @@ const useUserStore = defineStore(
       await router.push('/login');
     };
 
+    // 退出登录
+    const loginOut = async (): Promise<void> => {
+      await userLoginOut();
+      await clearLoginInfo();
+    };
+
     return {
       userInfo,
       loginResData,
       setLoginResData,
       getUserInfo,
       getToken,
+      clearLoginInfo,
       loginOut,
       isLogin,
       isAdmin,
