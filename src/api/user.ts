@@ -3,7 +3,7 @@ import type { ResultData, ResultPageListData } from './base';
 import type { PaginationParameter } from '@/types';
 
 interface GetUserListParams extends PaginationParameter {
-  nickname: string;
+  nickName: string;
   email: string;
   wxId: string;
 }

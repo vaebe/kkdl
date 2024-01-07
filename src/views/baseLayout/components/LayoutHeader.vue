@@ -51,7 +51,7 @@ const jumpPage = (path: string) => {
       <el-popover v-if="isLogin" placement="bottom" trigger="click">
         <template #reference>
           <p class="cursor-pointer hover:text-blue-500">
-            {{ userInfo.nickname }}
+            {{ userInfo.nickName }}
           </p>
         </template>
         <ul class="text-center space-y-2">

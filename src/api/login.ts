@@ -5,7 +5,7 @@ export interface UserInfo {
   id: string;
   email: string;
   wxId: string;
-  nickname: string;
+  nickName: string;
   accountType: string;
   role: string;
   avatar: string;

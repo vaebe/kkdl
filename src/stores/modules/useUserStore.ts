@@ -12,7 +12,7 @@ const useUserStore = defineStore(
       id: '',
       email: '',
       wxId: 'string',
-      nickname: '',
+      nickName: '',
       accountType: '',
       role: '',
       avatar: ''
