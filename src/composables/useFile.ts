@@ -14,11 +14,11 @@ export const useUploadOpts = (): UseUploadOptsRes => {
   const { getToken } = useUserStore();
   const token = getToken();
   const uploadHeaders = {
-    authorization: token
+    authorization: `Bearer ${token}`
   };
 
   const { VITE_APP_BASE_URL } = import.meta.env;
-  const uploadUrl = `${VITE_APP_BASE_URL as string}/file/upload`;
+  const uploadUrl = `${VITE_APP_BASE_URL as string}/common/uploadFile`;
 
   const uploadFileTypeList = [
     'image/jpg',

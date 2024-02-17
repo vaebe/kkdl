@@ -70,7 +70,7 @@ const {
 const { uploadHeaders, uploadUrl, beforeImgUpload } = useUploadOpts();
 
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response: UploadRes) => {
-  dialogForm.avatar = response.data;
+  dialogForm.avatar = response.data.url;
 };
 
 defineExpose({
