@@ -127,22 +127,25 @@ defineExpose({
 
       <el-form-item label="头像：">
         <el-upload
-          class="w-40 h-40 flex items-center justify-center rounded border overflow-hidden"
           :headers="uploadHeaders"
           :action="uploadUrl"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeImgUpload"
         >
-          <el-image
-            v-if="dialogForm.avatar"
-            :src="dialogForm.avatar"
-            :lazy="true"
-          ></el-image>
+          <div
+            class="w-40 h-40 flex items-center justify-center rounded border overflow-hidden"
+          >
+            <el-image
+              v-if="dialogForm.avatar"
+              :src="dialogForm.avatar"
+              :lazy="true"
+            ></el-image>
 
-          <el-icon v-else :size="30">
-            <Plus />
-          </el-icon>
+            <el-icon v-else :size="30">
+              <Plus />
+            </el-icon>
+          </div>
         </el-upload>
       </el-form-item>
     </el-form>
