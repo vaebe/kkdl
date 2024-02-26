@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { reactive } from 'vue';
-import { getShortURLList } from '@/api/shortURL.ts';
+import { getShortURLList, deleteShortURL } from '@/api/shortURL.ts';
 import { usePageList } from '@/composables';
 
 const { VITE_APP_BASE_URL } = import.meta.env;
@@ -12,7 +12,8 @@ const searchForm = reactive({
 
 const { reset, page, tableData, handleCurrentChange, removeRow } = usePageList({
   searchForm,
-  getListApi: getShortURLList
+  getListApi: getShortURLList,
+  removeRowApi: deleteShortURL
 });
 reset();
 </script>
@@ -76,7 +77,7 @@ reset();
           prop="expirationTime"
           width="180"
         ></el-table-column>
-        <el-table-column label="操作" width="160" fixed="right">
+        <el-table-column label="操作" width="70" fixed="right">
           <template #default="scope">
             <el-button
               type="danger"

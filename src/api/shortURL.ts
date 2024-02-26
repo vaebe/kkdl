@@ -38,3 +38,8 @@ export const getShortURLList = (
   data: GetShortURLListParams
 ): Promise<ResultPageListData<ShortURLInfo>> =>
   Api.post('/shortURL/getList', data);
+
+// 删除用户
+export const deleteShortURL = (params: {
+  id: number;
+}): Promise<ResultData<string>> => Api.delete('/shortURL/delete', { params });
