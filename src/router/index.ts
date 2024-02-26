@@ -16,7 +16,7 @@ const routes: RouteRecordRaw[] = [
     redirect: (to: RouteLocationNormalized) => {
       return `${to.path}url`;
     },
-    component: () => import('@/views/baseLayout/baseLayout.vue'),
+    component: () => import('@/views/layout/baseLayout.vue'),
     children: [
       {
         path: 'url',

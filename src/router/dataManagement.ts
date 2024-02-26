@@ -9,7 +9,7 @@ const router: RouteRecordRaw = {
   redirect: (to: RouteLocationNormalized) => {
     return `${to.path}/short-url`;
   },
-  component: () => import('@/views/baseLayout/dataManagementLayout.vue'),
+  component: () => import('@/views/layout/dataManagementLayout.vue'),
   children: [
     {
       path: 'short-url',

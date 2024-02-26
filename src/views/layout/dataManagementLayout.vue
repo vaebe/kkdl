@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import LayoutMenu from '@/views/baseLayout/components/LayoutMenu.vue';
+import LayoutMenu from '@/views/layout/components/LayoutMenu.vue';
 </script>
 
 <template>
