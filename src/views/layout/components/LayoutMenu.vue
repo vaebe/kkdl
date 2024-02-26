@@ -32,8 +32,6 @@ const menuTreeData = ref(formatMenuData('/dm/', menuDataList));
 const route = useRoute();
 const defaultActiveMenu = computed(() => {
   const list = route.matched;
-  console.log(list[list.length - 1].path, route.path, menuTreeData.value);
-
   return list[list.length - 1].path;
 });
 </script>

@@ -55,8 +55,6 @@ const create = () => {
   }
 
   createShortURL(info).then((res) => {
-    console.log(res.data);
-
     const url = res.data?.shortUrl || '';
     if (!url) {
       ElMessage.error('短链生成错误！');
