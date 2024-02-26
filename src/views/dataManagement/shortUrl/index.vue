@@ -24,10 +24,10 @@ reset();
       <el-form :model="searchForm" label-width="90px">
         <el-row :gutter="10">
           <el-col :span="8">
-            <el-form-item label="短链标题：">
+            <el-form-item label="短链名称：">
               <el-input
                 v-model="searchForm.title"
-                placeholder="请输入短链标题"
+                placeholder="请输入短链名称"
               ></el-input>
             </el-form-item>
           </el-col>
@@ -60,13 +60,13 @@ reset();
 
       <el-table :data="tableData" stripe style="width: 100%" class="my-2">
         <el-table-column type="index" label="序号" width="90"></el-table-column>
-        <el-table-column label="短链标题" prop="title"></el-table-column>
+        <el-table-column label="短链名称" prop="title"></el-table-column>
         <el-table-column label="短链" prop="shortUrl">
           <template #default="scope">
             {{ VITE_APP_BASE_URL?.replace('api', scope.row.shortUrl) }}
           </template>
         </el-table-column>
-        <el-table-column label="跳转地址" prop="rawUrl"></el-table-column>
+        <el-table-column label="跳转链接" prop="rawUrl"></el-table-column>
         <el-table-column
           label="创建时间"
           prop="createdAt"
