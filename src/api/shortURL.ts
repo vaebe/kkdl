@@ -48,9 +48,9 @@ export const deleteShortURL = (params: {
   id: number;
 }): Promise<ResultData<string>> => Api.delete('/shortURL/delete', { params });
 
-// 批量导出模版下载
-export const batchExportShortURL = (data: SearchParams): Promise<any> =>
-  Api.post('/shortURL/batchExport', data, { responseType: 'arraybuffer' });
+// 导入模版下载
+export const templateDownloadShortURL = (): Promise<any> =>
+  Api.get('/shortURL/templateDownload', { responseType: 'arraybuffer' });
 
 // 批量导出
 export const batchExportShortURL = (data: SearchParams): Promise<any> =>

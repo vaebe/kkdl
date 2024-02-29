@@ -3,7 +3,8 @@ import { reactive } from 'vue';
 import {
   getShortURLList,
   deleteShortURL,
-  batchExportShortURL
+  batchExportShortURL,
+  templateDownloadShortURL
 } from '@/api/shortURL.ts';
 import { usePageList, useFileDownload } from '@/composables';
 
@@ -22,6 +23,17 @@ const { reset, page, tableData, handleCurrentChange, removeRow } = usePageList({
 reset();
 
 const { downloadStreamingFile } = useFileDownload();
+
+const templateDownload = async () => {
+  const res = await templateDownloadShortURL(searchForm);
+  await downloadStreamingFile({
+    data: res,
+    name: '短链管理导入模版',
+    type: '.xlsx'
+  });
+  ElMessage.success('导入模版下载成功!');
+};
+
 const batchExport = async () => {
   const res = await batchExportShortURL(searchForm);
   await downloadStreamingFile({ data: res, name: '短链管理', type: '.xlsx' });
@@ -69,8 +81,8 @@ const batchExport = async () => {
 
         <el-button-group class="ml-4">
           <el-button type="primary">批量导入</el-button>
+          <el-button @click="templateDownload">导入模版下载</el-button>
           <el-button @click="batchExport">批量导出</el-button>
-          <el-button>导出模版下载</el-button>
           <el-button>新增</el-button>
         </el-button-group>
       </div>
