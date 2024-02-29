@@ -41,7 +41,7 @@ const useUserStore = defineStore(
       Object.assign(userInfo, data.userInfo);
 
       if (isAdmin.value) {
-        router.push('/backstage');
+        router.push('/dm');
       } else {
         router.push(enterTheLoginPagePath.value);
       }
