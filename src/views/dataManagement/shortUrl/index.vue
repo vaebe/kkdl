@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 import { reactive } from 'vue';
-import { getShortURLList, deleteShortURL } from '@/api/shortURL.ts';
-import { usePageList } from '@/composables';
+import {
+  getShortURLList,
+  deleteShortURL,
+  batchExportShortURL
+} from '@/api/shortURL.ts';
+import { usePageList, useFileDownload } from '@/composables';
 
 const { VITE_APP_BASE_URL } = import.meta.env;
 
@@ -16,6 +20,13 @@ const { reset, page, tableData, handleCurrentChange, removeRow } = usePageList({
   removeRowApi: deleteShortURL
 });
 reset();
+
+const { downloadStreamingFile } = useFileDownload();
+const batchExport = async () => {
+  const res = await batchExportShortURL(searchForm);
+  await downloadStreamingFile({ data: res, name: '短链管理', type: '.xlsx' });
+  ElMessage.success('导出成功!');
+};
 </script>
 
 <template>
@@ -55,7 +66,13 @@ reset();
     <el-card>
       <div class="flex items-center justify-between">
         <span class="text-title">{{ $route.meta.title }}</span>
-        <el-button>新增</el-button>
+
+        <el-button-group class="ml-4">
+          <el-button type="primary">批量导入</el-button>
+          <el-button @click="batchExport">批量导出</el-button>
+          <el-button>导出模版下载</el-button>
+          <el-button>新增</el-button>
+        </el-button-group>
       </div>
 
       <el-table :data="tableData" stripe style="width: 100%" class="my-2">
