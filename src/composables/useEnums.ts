@@ -11,15 +11,15 @@ interface UseEnumsRes {
 export const useEnums = (): UseEnumsRes => {
   const roleEnums = [
     {
-      code: '01',
+      code: '00',
       name: '管理员'
     },
     {
-      code: '02',
+      code: '01',
       name: '普通用户'
     },
     {
-      code: '03',
+      code: '02',
       name: 'VIP'
     }
   ];
