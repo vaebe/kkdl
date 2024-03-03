@@ -4,9 +4,11 @@ import {
   getShortURLList,
   deleteShortURL,
   batchExportShortURL,
-  templateDownloadShortURL
+  templateDownloadShortURL,
+  batchImportShortURL
 } from '@/api/shortURL.ts';
 import { usePageList, useFileDownload } from '@/composables';
+import { useFileDialog } from '@vueuse/core';
 
 const { VITE_APP_BASE_URL } = import.meta.env;
 
@@ -22,10 +24,34 @@ const { reset, page, tableData, handleCurrentChange, removeRow } = usePageList({
 });
 reset();
 
+const {
+  open,
+  reset: onSelectFileReset,
+  onChange: onSelectFileChange
+} = useFileDialog({
+  accept: '.xlsx',
+  directory: false,
+  multiple: false
+});
+
+onSelectFileChange((files) => {
+  if (files && files?.length !== 0) {
+    const formData = new FormData();
+    formData.append('file', files[0]);
+
+    batchImportShortURL(formData).then(() => {
+      ElMessage.success('导入成功');
+      reset();
+    });
+  }
+
+  onSelectFileReset();
+});
+
 const { downloadStreamingFile } = useFileDownload();
 
 const templateDownload = async () => {
-  const res = await templateDownloadShortURL(searchForm);
+  const res = await templateDownloadShortURL();
   await downloadStreamingFile({
     data: res,
     name: '短链管理导入模版',
@@ -80,7 +106,7 @@ const batchExport = async () => {
         <span class="text-title">{{ $route.meta.title }}</span>
 
         <el-button-group class="ml-4">
-          <el-button type="primary">批量导入</el-button>
+          <el-button type="primary" @click="open">批量导入</el-button>
           <el-button @click="templateDownload">导入模版下载</el-button>
           <el-button @click="batchExport">批量导出</el-button>
           <el-button>新增</el-button>

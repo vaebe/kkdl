@@ -48,6 +48,11 @@ export const deleteShortURL = (params: {
   id: number;
 }): Promise<ResultData<string>> => Api.delete('/shortURL/delete', { params });
 
+// 批量导入短链
+export const batchImportShortURL = (
+  data: FormData
+): Promise<ResultData<string[]>> => Api.post('/shortURL/batchImport', data);
+
 // 导入模版下载
 export const templateDownloadShortURL = (): Promise<any> =>
   Api.get('/shortURL/templateDownload', { responseType: 'arraybuffer' });
