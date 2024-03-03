@@ -21,7 +21,7 @@
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.8",
     "echarts": "^5.4.3",
-    "element-plus": "^2.3.6",
+    "element-plus": "^2.6.0",
     "js-file-download": "^0.4.12",
     "lodash-es": "^4.17.21",
     "pinia": "^2.1.3",
