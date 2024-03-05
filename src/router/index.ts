@@ -20,11 +20,11 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: 'url',
-        name: 'create-short-URL',
+        name: 'create-short-url',
         meta: {
           title: '创建短链'
         },
-        component: () => import('@/views/shortURL.vue')
+        component: () => import('@/views/shortUrl.vue')
       },
       dataManagementRouter
     ]
