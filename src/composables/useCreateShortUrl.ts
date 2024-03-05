@@ -31,8 +31,6 @@ export const useCreateShortUrl = (): UseCreateShortUrlRes => {
       background: 'rgba(0, 0, 0, 0.7)'
     });
 
-    console.log('0-0-0-0-0-');
-
     shortUrlCreate(shortUrlFormRef.value.getData())
       .then((res) => {
         const url = res.data?.shortUrl || '';

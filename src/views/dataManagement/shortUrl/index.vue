@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { reactive, defineAsyncComponent, ref } from 'vue';
 import {
   getShortURLList,
   deleteShortURL,
@@ -9,6 +9,10 @@ import {
 } from '@/api/shortURL.ts';
 import { usePageList, useFileDownload } from '@/composables';
 import { useFileDialog } from '@vueuse/core';
+
+const AddDialog = defineAsyncComponent(
+  () => import('./components/AddDialog.vue')
+);
 
 const { VITE_APP_BASE_URL } = import.meta.env;
 
@@ -33,6 +37,11 @@ const {
   directory: false,
   multiple: false
 });
+
+const addDialogRef = ref();
+const addShortUrl = () => {
+  addDialogRef.value.openDialog();
+};
 
 onSelectFileChange((files) => {
   if (files && files?.length !== 0) {
@@ -109,7 +118,7 @@ const batchExport = async () => {
           <el-button type="primary" @click="open">批量导入</el-button>
           <el-button @click="templateDownload">导入模版下载</el-button>
           <el-button @click="batchExport">批量导出</el-button>
-          <el-button>新增</el-button>
+          <el-button @click="addShortUrl">新增</el-button>
         </el-button-group>
       </div>
 
@@ -154,6 +163,8 @@ const batchExport = async () => {
         @current-change="handleCurrentChange"
       ></el-pagination>
     </el-card>
+
+    <add-dialog ref="addDialogRef" @refresh-data="reset"></add-dialog>
   </div>
 </template>
 
