@@ -38,13 +38,14 @@ export const userLoginOut = (): Promise<ResultData<LoginResData>> =>
 
 // 获取邮箱验证码
 export const getVerificationCode = (
-  data: EmailVerificationCodeParams
-): Promise<ResultData<string>> => Api.post('/user/getVerificationCode', data);
+  params: EmailVerificationCodeParams
+): Promise<ResultData<string>> =>
+  Api.get('/common/getVerificationCodeEmail', { params });
 
 // 用户注册
 export const userRegister = (
   data: LoginParams
-): Promise<ResultData<LoginResData>> => Api.post('/user/create', data);
+): Promise<ResultData<LoginResData>> => Api.post('/user/registration', data);
 
 // 获取用户详情
 export const getUserDetails = (params: {

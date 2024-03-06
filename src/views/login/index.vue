@@ -59,7 +59,7 @@ const loginForm = reactive({
   email: '',
   password: '',
   accountType: '01',
-  code: ''
+  verificationCode: ''
 });
 
 const loginFormRules = reactive<FormRules>({
@@ -82,7 +82,7 @@ const loginFormRules = reactive<FormRules>({
       trigger: 'blur'
     }
   ],
-  code: [
+  verificationCode: [
     {
       required: true,
       message: '验证码不能为空！',
@@ -138,10 +138,10 @@ const pageTypeChange = () => {
   router.push(isLogin.value ? 'register' : 'login');
 };
 
-// 注册
+// 注册-注册完成后跳转登录页进行登录
 const register = () => {
-  userRegister(loginForm).then((res) => {
-    setLoginResData(res.data);
+  userRegister(loginForm).then(() => {
+    router.push('/login');
     ElMessage.success('注册成功！');
   });
 };
@@ -187,8 +187,11 @@ const loginOrRegister = () => {
             <el-input v-model="loginForm.email" />
           </el-form-item>
 
-          <el-form-item v-if="!isLogin" prop="code" label="验证码:">
-            <el-input v-model="loginForm.code" placeholder="请输入验证码">
+          <el-form-item v-if="!isLogin" prop="verificationCode" label="验证码:">
+            <el-input
+              v-model="loginForm.verificationCode"
+              placeholder="请输入验证码"
+            >
               <template #append>
                 <span v-if="captchaCountdown" class="cursor-pointer">
                   {{ captchaCountdown }}s

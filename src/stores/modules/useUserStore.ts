@@ -43,7 +43,12 @@ const useUserStore = defineStore(
       if (isAdmin.value) {
         router.push('/dm');
       } else {
-        router.push(enterTheLoginPagePath.value);
+        const path = ['/login', '/register'].includes(
+          enterTheLoginPagePath.value
+        )
+          ? '/dm'
+          : enterTheLoginPagePath.value;
+        router.push(path);
       }
     };
 
