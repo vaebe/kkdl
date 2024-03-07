@@ -79,8 +79,8 @@ const openAddAndViewDialog = (type: string, row?: any) => {
       </div>
 
       <el-table :data="tableData" stripe style="width: 100%" class="my-2">
-        <el-table-column type="index" label="序号" width="90"></el-table-column>
-        <el-table-column label="头像" prop="avatar" width="100">
+        <el-table-column type="index" label="序号" width="60"></el-table-column>
+        <el-table-column label="头像" prop="avatar" width="80">
           <template #default="scope">
             <el-image
               :src="scope.row.avatar"
@@ -94,8 +94,16 @@ const openAddAndViewDialog = (type: string, row?: any) => {
             {{ getCodeNameByCodeId(scope.row.accountType, accountTypeEnums) }}
           </template>
         </el-table-column>
-        <el-table-column label="邮箱" prop="email"></el-table-column>
-        <el-table-column label="微信ID" prop="wxId"></el-table-column>
+        <el-table-column
+          label="邮箱"
+          prop="email"
+          width="180"
+        ></el-table-column>
+        <el-table-column
+          label="微信ID"
+          prop="wxId"
+          width="180"
+        ></el-table-column>
         <el-table-column label="昵称" prop="nickName"></el-table-column>
         <el-table-column label="角色" prop="role" width="100">
           <template #default="scope">
