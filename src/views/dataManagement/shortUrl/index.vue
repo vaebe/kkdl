@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { reactive, defineAsyncComponent, ref } from 'vue';
 import {
-  getShortURLList,
-  deleteShortURL,
-  batchExportShortURL,
-  templateDownloadShortURL,
-  batchImportShortURL
-} from '@/api/shortURL.ts';
+  getShortUrlList,
+  deleteShortUrl,
+  batchExportShortUrl,
+  templateDownloadShortUrl,
+  batchImportShortUrl
+} from '@/api/shortUrl.ts';
 import { usePageList, useFileDownload } from '@/composables';
 import { useFileDialog } from '@vueuse/core';
 
@@ -23,8 +23,8 @@ const searchForm = reactive({
 
 const { reset, page, tableData, handleCurrentChange, removeRow } = usePageList({
   searchForm,
-  getListApi: getShortURLList,
-  removeRowApi: deleteShortURL
+  getListApi: getShortUrlList,
+  removeRowApi: deleteShortUrl
 });
 reset();
 
@@ -48,7 +48,7 @@ onSelectFileChange((files) => {
     const formData = new FormData();
     formData.append('file', files[0]);
 
-    batchImportShortURL(formData).then(() => {
+    batchImportShortUrl(formData).then(() => {
       ElMessage.success('导入成功');
       reset();
     });
@@ -60,7 +60,7 @@ onSelectFileChange((files) => {
 const { downloadStreamingFile } = useFileDownload();
 
 const templateDownload = async () => {
-  const res = await templateDownloadShortURL();
+  const res = await templateDownloadShortUrl();
   await downloadStreamingFile({
     data: res,
     name: '短链管理导入模版',
@@ -70,7 +70,7 @@ const templateDownload = async () => {
 };
 
 const batchExport = async () => {
-  const res = await batchExportShortURL(searchForm);
+  const res = await batchExportShortUrl(searchForm);
   await downloadStreamingFile({ data: res, name: '短链管理', type: '.xlsx' });
   ElMessage.success('导出成功!');
 };

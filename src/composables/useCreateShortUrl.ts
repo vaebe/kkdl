@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import type { Ref } from 'vue';
-import { createShortURL as shortUrlCreate } from '@/api/shortURL.ts';
+import { createShortUrl as shortUrlCreate } from '@/api/shortUrl.ts';
 import { ElLoading } from 'element-plus';
 
 interface CreateShortUrlOpts {
