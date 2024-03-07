@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, defineAsyncComponent, ref } from 'vue';
+import { reactive, defineAsyncComponent, ref, onMounted } from 'vue';
 import {
   getShortUrlList,
   deleteShortUrl,
@@ -9,12 +9,11 @@ import {
 } from '@/api/shortUrl.ts';
 import { usePageList, useFileDownload } from '@/composables';
 import { useFileDialog } from '@vueuse/core';
+import ClipboardJS from 'clipboard';
 
 const AddDialog = defineAsyncComponent(
   () => import('./components/AddDialog.vue')
 );
-
-const { VITE_APP_BASE_URL } = import.meta.env;
 
 const searchForm = reactive({
   title: '',
@@ -27,6 +26,34 @@ const { reset, page, tableData, handleCurrentChange, removeRow } = usePageList({
   removeRowApi: deleteShortUrl
 });
 reset();
+
+const { VITE_APP_BASE_URL } = import.meta.env;
+const getRowShortUrl = (url: string): string =>
+  VITE_APP_BASE_URL?.replace('api', url);
+
+// 一键复制
+const initClipboard = () => {
+  const clipboard = new ClipboardJS('.clipboardBtn', {
+    text: (trigger: Element) => {
+      return trigger.getAttribute('data-clipboard-text') as string;
+    }
+  });
+
+  clipboard.on('success', (e) => {
+    ElMessage.success('复制成功！');
+    e.clearSelection();
+  });
+
+  clipboard.on('error', (e) => {
+    // 数据存在，复制失败进行提示！
+    if (e.text) ElMessage.warning('复制失败！');
+    else ElMessage.warning('需要复制的数据为空！');
+  });
+};
+
+onMounted(() => {
+  initClipboard();
+});
 
 const {
   open,
@@ -123,14 +150,27 @@ const batchExport = async () => {
       </div>
 
       <el-table :data="tableData" stripe style="width: 100%" class="my-2">
-        <el-table-column type="index" label="序号" width="90"></el-table-column>
-        <el-table-column label="短链名称" prop="title"></el-table-column>
-        <el-table-column label="短链" prop="shortUrl">
+        <el-table-column type="index" label="序号" width="60"></el-table-column>
+        <el-table-column
+          label="短链名称"
+          prop="title"
+          width="200"
+        ></el-table-column>
+        <el-table-column label="短链" prop="shortUrl" width="240">
           <template #default="scope">
-            {{ VITE_APP_BASE_URL?.replace('api', scope.row.shortUrl) }}
+            <p
+              class="clipboardBtn text-blue-400 cursor-pointer"
+              :data-clipboard-text="getRowShortUrl(scope.row.shortUrl)"
+            >
+              {{ getRowShortUrl(scope.row.shortUrl) }}
+            </p>
           </template>
         </el-table-column>
-        <el-table-column label="跳转链接" prop="rawUrl"></el-table-column>
+        <el-table-column
+          label="跳转链接"
+          prop="rawUrl"
+          width="300"
+        ></el-table-column>
         <el-table-column
           label="创建时间"
           prop="createdAt"
