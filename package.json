@@ -29,6 +29,7 @@
     "pinia-plugin-persist": "^1.0.0",
     "qs": "^6.11.2",
     "ress": "^5.0.2",
+    "uuid": "^9.0.1",
     "vue": "^3.3.4",
     "vue-router": "^4.2.2"
   },
@@ -40,6 +41,7 @@
     "@types/lodash-es": "^4.17.7",
     "@types/node": "^20.2.5",
     "@types/qs": "^6.9.7",
+    "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "autoprefixer": "^10.4.14",
