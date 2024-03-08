@@ -1,5 +1,6 @@
 import Api from './base';
 import type { ResultData } from './base';
+import { stringify } from 'qs';
 
 export interface UserInfo {
   id: string;
@@ -27,6 +28,11 @@ export interface EmailVerificationCodeParams {
   email: string;
 }
 
+export interface GetMiniProgramCodeParams {
+  scene: string;
+  page: string;
+}
+
 // 用户登录
 export const userLogin = (
   data: LoginParams
@@ -51,3 +57,12 @@ export const userRegister = (
 export const getUserDetails = (params: {
   id: string;
 }): Promise<ResultData<UserInfo>> => Api.get('/user/getUserInfo', { params });
+
+const { VITE_APP_BASE_URL } = import.meta.env;
+
+// 获取小程序码
+export const getMiniProgramCode = (params: GetMiniProgramCodeParams): any => {
+  return `${
+    VITE_APP_BASE_URL as string
+  }/weChatMiniProgram/getMiniProgramCode?${stringify(params)}`;
+};
