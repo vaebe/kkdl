@@ -43,7 +43,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="miniProgramCode w-full">
+  <div class="mini-program-code">
     <img
       class="w-full h-full"
       :src="getMiniProgramCode(codeParams)"
@@ -52,4 +52,9 @@ onBeforeUnmount(() => {
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.mini-program-code {
+  width: 240px;
+  height: 240px;
+}
+</style>
