@@ -14,7 +14,7 @@ const CFooter = defineAsyncComponent(() => import('./components/CFooter.vue'));
 <template>
   <div class="login-box">
     <c-header></c-header>
-    <div class="login-content bg-gray-50 dark:bg-stone-700">
+    <div class="login-content bg-gray-50 dark:bg-stone-800">
       <div class="flex items-center justify-end">
         <mini-program-code-login></mini-program-code-login>
         <div class="line"></div>
