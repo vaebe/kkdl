@@ -14,7 +14,9 @@ const { createShortUrl, shortUrlFormRef } = useCreateShortUrl();
     <el-card class="w-11/12 lg:w-8/12 mt-4">
       <short-url-form ref="shortUrlFormRef"></short-url-form>
       <el-row justify="center">
-        <el-button type="primary" @click="createShortUrl">创建短链</el-button>
+        <el-button type="primary" @click="() => createShortUrl({})">
+          创建短链
+        </el-button>
       </el-row>
     </el-card>
 
