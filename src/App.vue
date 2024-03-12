@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
-import 'dayjs/locale/zh-cn';
-import { useDark } from '@vueuse/core';
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import 'dayjs/locale/zh-cn'
+import { useDark } from '@vueuse/core'
 
 // 设置系统名称
-const { VITE_APP_TITLE } = import.meta.env;
-document.title = VITE_APP_TITLE;
+const { VITE_APP_TITLE } = import.meta.env
+document.title = VITE_APP_TITLE
 
-useDark();
+useDark()
 </script>
 
 <template>
   <el-config-provider :locale="zhCn">
-    <router-view></router-view>
+    <router-view />
   </el-config-provider>
 </template>
 

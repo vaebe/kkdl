@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import LayoutHeader from '@/views/layout/components/LayoutHeader.vue';
+import LayoutHeader from '@/views/layout/components/LayoutHeader.vue'
 </script>
 
 <template>
   <div class="base-layout">
-    <layout-header></layout-header>
+    <LayoutHeader />
     <div class="base-layout__content-box">
       <router-view />
     </div>

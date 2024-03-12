@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+import { defineAsyncComponent } from 'vue'
 
-const { VITE_APP_TITLE } = import.meta.env;
+const { VITE_APP_TITLE } = import.meta.env
 
 const ThemeSwitch = defineAsyncComponent(
-  () => import('@/components/ThemeSwitch.vue')
-);
+  () => import('@/components/ThemeSwitch.vue'),
+)
 </script>
 
 <template>
   <div class="login-header">
-    <h1 class="title">{{ VITE_APP_TITLE }}</h1>
-    <theme-switch></theme-switch>
+    <h1 class="title">
+      {{ VITE_APP_TITLE }}
+    </h1>
+    <ThemeSwitch />
   </div>
 </template>
 

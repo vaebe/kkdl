@@ -1,39 +1,35 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
-import type { RouteRecordRaw } from 'vue-router';
-import { useRoute, useRouter } from 'vue-router';
+import { computed, ref } from 'vue'
+import type { RouteRecordRaw } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
-const router = useRouter();
-const routes = router?.getRoutes() || [];
-const menuDataList = routes.find((item) => item.path === '/dm')?.children || [];
+const router = useRouter()
+const routes = router?.getRoutes() || []
+const menuDataList = routes.find(item => item.path === '/dm')?.children || []
 
-const formatMenuData = (
-  basePath: string,
-  list: Array<RouteRecordRaw>
-): Array<RouteRecordRaw> => {
+function formatMenuData(basePath: string, list: Array<RouteRecordRaw>): Array<RouteRecordRaw> {
   return list.map((item) => {
-    const path = `${basePath}${item.path}`;
+    const path = `${basePath}${item.path}`
 
-    let children: Array<RouteRecordRaw> = [];
-    if (Array.isArray(item.children)) {
-      children = formatMenuData(`${path}/`, item.children);
-    }
+    let children: Array<RouteRecordRaw> = []
+    if (Array.isArray(item.children))
+      children = formatMenuData(`${path}/`, item.children)
 
     return {
       ...item,
       path,
-      children
-    } as RouteRecordRaw;
-  });
-};
+      children,
+    } as RouteRecordRaw
+  })
+}
 
-const menuTreeData = ref(formatMenuData('/dm/', menuDataList));
+const menuTreeData = ref(formatMenuData('/dm/', menuDataList))
 
-const route = useRoute();
+const route = useRoute()
 const defaultActiveMenu = computed(() => {
-  const list = route.matched;
-  return list[list.length - 1].path;
-});
+  const list = route.matched
+  return list[list.length - 1].path
+})
 </script>
 
 <template>

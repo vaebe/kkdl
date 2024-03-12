@@ -1,45 +1,45 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
-import { useUserStore } from '@/stores';
-import { storeToRefs } from 'pinia';
-import { useRouter } from 'vue-router';
+import { defineAsyncComponent } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores'
 
 const ThemeSwitch = defineAsyncComponent(
-  () => import('@/components/ThemeSwitch.vue')
-);
+  () => import('@/components/ThemeSwitch.vue'),
+)
 
-const { VITE_APP_TITLE } = import.meta.env;
+const { VITE_APP_TITLE } = import.meta.env
 
-const userStore = useUserStore();
-const { userInfo, isLogin } = storeToRefs(userStore);
-const { loginOut } = userStore;
+const userStore = useUserStore()
+const { userInfo, isLogin } = storeToRefs(userStore)
+const { loginOut } = userStore
 
-const router = useRouter();
+const router = useRouter()
 // 跳转
-const jumpPage = (path: string) => {
-  router.push(`/${path}`);
-};
+function jumpPage(path: string) {
+  router.push(`/${path}`)
+}
 </script>
 
 <template>
   <div class="layout-header">
-    <h1 class="title mt-2 text-2xl">{{ VITE_APP_TITLE }}</h1>
+    <h1 class="title mt-2 text-2xl">
+      {{ VITE_APP_TITLE }}
+    </h1>
 
     <!--  用户登录后才需要展示菜单切换  -->
     <ul v-if="isLogin" class="menu grid grid-cols-2 gap-2">
       <li
-        :class="[
-          'cursor-pointer hover:text-blue-500',
-          { 'text-blue-600': $route.path.startsWith('/url') }
+        class="cursor-pointer hover:text-blue-500" :class="[
+          { 'text-blue-600': $route.path.startsWith('/url') },
         ]"
         @click="jumpPage('url')"
       >
         创建短链
       </li>
       <li
-        :class="[
-          'cursor-pointer hover:text-blue-500',
-          { 'text-blue-600': $route.path.startsWith('/dm') }
+        class="cursor-pointer hover:text-blue-500" :class="[
+          { 'text-blue-600': $route.path.startsWith('/dm') },
         ]"
         @click="jumpPage('dm')"
       >
@@ -58,7 +58,9 @@ const jumpPage = (path: string) => {
           <li class="cursor-pointer hover:text-blue-400" @click="loginOut">
             退出登录
           </li>
-          <li class="cursor-pointer hover:text-blue-400">版本：1.0.0</li>
+          <li class="cursor-pointer hover:text-blue-400">
+            版本：1.0.0
+          </li>
         </ul>
       </el-popover>
 
@@ -69,7 +71,7 @@ const jumpPage = (path: string) => {
           注册
         </span>
       </p>
-      <theme-switch class="ml-2"></theme-switch>
+      <ThemeSwitch class="ml-2" />
     </div>
   </div>
 </template>

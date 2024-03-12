@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { reactive } from 'vue';
-import { saveUserInfo, updateUserInfo } from '@/api/user.ts';
-import { usePageListDialog } from '@/composables/usePageList.ts';
-import { useUploadOpts } from '@/composables/useFile.ts';
-import { Plus } from '@element-plus/icons-vue';
-import type { FormRules, UploadProps } from 'element-plus';
-import type { UploadRes } from '@/api/common.ts';
-import { useEnums } from '@/composables';
+import { reactive } from 'vue'
+import { Plus } from '@element-plus/icons-vue'
+import type { FormRules, UploadProps } from 'element-plus'
+import { saveUserInfo, updateUserInfo } from '@/api/user.ts'
+import { usePageListDialog } from '@/composables/usePageList.ts'
+import { useUploadOpts } from '@/composables/useFile.ts'
+import type { UploadRes } from '@/api/common.ts'
+import { useEnums } from '@/composables'
 
-const emit = defineEmits(['refresh-data']);
+const emit = defineEmits(['refreshData'])
 
 const dialogForm = reactive({
   avatar: '',
@@ -16,8 +16,8 @@ const dialogForm = reactive({
   id: '',
   nickName: '',
   password: '',
-  role: ''
-});
+  role: '',
+})
 
 const rules = reactive<FormRules>({
   email: [
@@ -25,8 +25,8 @@ const rules = reactive<FormRules>({
     {
       type: 'email',
       message: '请输入正确的邮箱地址！',
-      trigger: ['blur', 'change']
-    }
+      trigger: ['blur', 'change'],
+    },
   ],
   nickName: [
     { required: true, message: '昵称不能为空！', trigger: 'blur' },
@@ -34,21 +34,21 @@ const rules = reactive<FormRules>({
       min: 2,
       max: 30,
       message: '请输入大于2小于30长度的昵称！',
-      trigger: 'blur'
-    }
+      trigger: 'blur',
+    },
   ],
   password: [
     {
       min: 6,
       max: 12,
       message: '请输入大于6小于12的密码！',
-      trigger: 'blur'
-    }
+      trigger: 'blur',
+    },
   ],
-  role: [{ required: true, message: '角色不能为空', trigger: 'change' }]
-});
+  role: [{ required: true, message: '角色不能为空', trigger: 'change' }],
+})
 
-const { roleEnums } = useEnums();
+const { roleEnums } = useEnums()
 
 const {
   dialogTitle,
@@ -57,25 +57,25 @@ const {
   dialogVisible,
   dialogType,
   dialogFormRef,
-  save
+  save,
 } = usePageListDialog({
   saveForm: dialogForm,
   saveApi: saveUserInfo,
   updateApi: updateUserInfo,
   saveSuccessFunc: () => {
-    emit('refresh-data');
-  }
-});
+    emit('refreshData')
+  },
+})
 
-const { uploadHeaders, uploadUrl, beforeImgUpload } = useUploadOpts();
+const { uploadHeaders, uploadUrl, beforeImgUpload } = useUploadOpts()
 
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response: UploadRes) => {
-  dialogForm.avatar = response.data.url;
-};
+  dialogForm.avatar = response.data.url
+}
 
 defineExpose({
-  openDialog
-});
+  openDialog,
+})
 </script>
 
 <template>
@@ -91,7 +91,7 @@ defineExpose({
         <el-input
           v-model="dialogForm.email"
           placeholder="请输入用户账号"
-        ></el-input>
+        />
       </el-form-item>
 
       <el-form-item label="昵称：" prop="nickName">
@@ -99,7 +99,7 @@ defineExpose({
           v-model="dialogForm.nickName"
           placeholder="请输入昵称"
           maxlength="40"
-        ></el-input>
+        />
       </el-form-item>
 
       <el-form-item
@@ -108,7 +108,7 @@ defineExpose({
         :rules="{
           required: dialogType === 'add',
           message: '密码不能为空！',
-          trigger: 'blur'
+          trigger: 'blur',
         }"
       >
         <el-input v-model="dialogForm.password" type="password" show-password />
@@ -140,7 +140,7 @@ defineExpose({
               v-if="dialogForm.avatar"
               :src="dialogForm.avatar"
               :lazy="true"
-            ></el-image>
+            />
 
             <el-icon v-else :size="30">
               <Plus />
@@ -155,7 +155,9 @@ defineExpose({
         <el-button v-if="!dialogIsView" type="primary" @click="save">
           保存
         </el-button>
-        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button @click="dialogVisible = false">
+          取消
+        </el-button>
       </div>
     </template>
   </el-dialog>

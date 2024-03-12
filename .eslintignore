@@ -1,7 +1,6 @@
 node_modules/*
 /dist
 /src/*.d.ts
-/**/__tests__/*
 **.json
 **.svg
 *.js

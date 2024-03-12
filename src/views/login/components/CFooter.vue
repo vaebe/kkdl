@@ -9,12 +9,12 @@
       Released under the MIT License.
     </el-link>
 
-    <el-divider direction="vertical"></el-divider>
+    <el-divider direction="vertical" />
     <el-link href="https://github.com/vaebe" target="_blank">
       Copyright © 2023-present vaebe.
     </el-link>
 
-    <el-divider direction="vertical"></el-divider>
+    <el-divider direction="vertical" />
     <el-link href="https://beian.miit.gov.cn" target="_blank">
       豫ICP备2022013746号
     </el-link>

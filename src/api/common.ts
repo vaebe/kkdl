@@ -1,11 +1,12 @@
-import Api from './base';
-import type { ResultData } from './base';
+import Api from './base'
+import type { ResultData } from './base'
 
 export type UploadRes = ResultData<{
-  name: string;
-  url: string;
-}>;
+  name: string
+  url: string
+}>
 
 // 文件上传
-export const uploadFile = (data: FormData): Promise<UploadRes> =>
-  Api.post('/common/uploadFile', data);
+export function uploadFile(data: FormData): Promise<UploadRes> {
+  return Api.post('/common/uploadFile', data)
+}

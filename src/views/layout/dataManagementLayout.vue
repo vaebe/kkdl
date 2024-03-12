@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import LayoutMenu from '@/views/layout/components/LayoutMenu.vue';
+import LayoutMenu from '@/views/layout/components/LayoutMenu.vue'
 </script>
 
 <template>
   <div class="dm-layout">
-    <layout-menu></layout-menu>
+    <LayoutMenu />
     <div class="dm-layout__content-box">
       <el-scrollbar height="calc(100vh - 58px)">
         <div style="margin: 18px">

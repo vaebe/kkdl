@@ -1,32 +1,32 @@
 <script lang="ts" setup>
-import { reactive, ref, defineAsyncComponent } from 'vue';
-import { getUserList, removeUser } from '@/api/user.ts';
-import { usePageList, useEnums } from '@/composables';
-import { getCodeNameByCodeId } from '@/utils/tool.ts';
+import { defineAsyncComponent, reactive, ref } from 'vue'
+import { getUserList, removeUser } from '@/api/user.ts'
+import { useEnums, usePageList } from '@/composables'
+import { getCodeNameByCodeId } from '@/utils/tool.ts'
 
 const AddAndViewDialog = defineAsyncComponent(
-  () => import('./components/AddAndViewDialog.vue')
-);
+  () => import('./components/AddAndViewDialog.vue'),
+)
 
 const searchForm = reactive({
   nickName: '',
   email: '',
-  wxId: ''
-});
+  wxId: '',
+})
 
 const { reset, page, tableData, handleCurrentChange, removeRow } = usePageList({
   searchForm,
   getListApi: getUserList,
-  removeRowApi: removeUser
-});
-reset();
+  removeRowApi: removeUser,
+})
+reset()
 
-const { roleEnums, accountTypeEnums } = useEnums();
+const { roleEnums, accountTypeEnums } = useEnums()
 
-const addAndViewDialogRef = ref();
-const openAddAndViewDialog = (type: string, row?: any) => {
-  addAndViewDialogRef.value.openDialog(type, row);
-};
+const addAndViewDialogRef = ref()
+function openAddAndViewDialog(type: string, row?: any) {
+  addAndViewDialogRef.value.openDialog(type, row)
+}
 </script>
 
 <template>
@@ -39,7 +39,7 @@ const openAddAndViewDialog = (type: string, row?: any) => {
               <el-input
                 v-model="searchForm.email"
                 placeholder="请输入邮箱"
-              ></el-input>
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -48,7 +48,7 @@ const openAddAndViewDialog = (type: string, row?: any) => {
                 v-model="searchForm.wxId"
                 placeholder="请输入微信ID"
                 maxlength="11"
-              ></el-input>
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -56,13 +56,15 @@ const openAddAndViewDialog = (type: string, row?: any) => {
               <el-input
                 v-model="searchForm.nickName"
                 placeholder="请输入昵称"
-              ></el-input>
+              />
             </el-form-item>
           </el-col>
 
           <el-col :span="24">
             <el-row type="flex" justify="end">
-              <el-button @click="reset">重置</el-button>
+              <el-button @click="reset">
+                重置
+              </el-button>
               <el-button type="primary" @click="handleCurrentChange(1)">
                 查询
               </el-button>
@@ -75,18 +77,20 @@ const openAddAndViewDialog = (type: string, row?: any) => {
     <el-card>
       <div class="flex items-center justify-between">
         <span class="text-title">{{ $route.meta.title }}</span>
-        <el-button @click="openAddAndViewDialog('add')">新增</el-button>
+        <el-button @click="openAddAndViewDialog('add')">
+          新增
+        </el-button>
       </div>
 
       <el-table :data="tableData" stripe style="width: 100%" class="my-2">
-        <el-table-column type="index" label="序号" width="60"></el-table-column>
+        <el-table-column type="index" label="序号" width="60" />
         <el-table-column label="头像" prop="avatar" width="80">
           <template #default="scope">
             <el-image
               :src="scope.row.avatar"
               class="w-10 h-10"
               :lazy="true"
-            ></el-image>
+            />
           </template>
         </el-table-column>
         <el-table-column label="账号类型" prop="accountType" width="100">
@@ -98,13 +102,13 @@ const openAddAndViewDialog = (type: string, row?: any) => {
           label="邮箱"
           prop="email"
           width="180"
-        ></el-table-column>
+        />
         <el-table-column
           label="微信ID"
           prop="wxId"
           width="180"
-        ></el-table-column>
-        <el-table-column label="昵称" prop="nickName"></el-table-column>
+        />
+        <el-table-column label="昵称" prop="nickName" />
         <el-table-column label="角色" prop="role" width="100">
           <template #default="scope">
             {{ getCodeNameByCodeId(scope.row.role, roleEnums) }}
@@ -114,7 +118,7 @@ const openAddAndViewDialog = (type: string, row?: any) => {
           label="创建时间"
           prop="createdAt"
           width="180"
-        ></el-table-column>
+        />
         <el-table-column label="操作" width="160" fixed="right">
           <template #default="scope">
             <el-button
@@ -149,13 +153,13 @@ const openAddAndViewDialog = (type: string, row?: any) => {
         layout="total,prev, pager, next,jumper"
         :total="page.total"
         @current-change="handleCurrentChange"
-      ></el-pagination>
+      />
     </el-card>
 
-    <add-and-view-dialog
+    <AddAndViewDialog
       ref="addAndViewDialogRef"
       @refresh-data="reset"
-    ></add-and-view-dialog>
+    />
   </div>
 </template>
 

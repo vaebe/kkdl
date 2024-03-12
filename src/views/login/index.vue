@@ -1,27 +1,27 @@
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue';
+import { defineAsyncComponent } from 'vue'
 
 const MiniProgramCodeLogin = defineAsyncComponent(
-  () => import('./components/MiniProgramCodeLogin.vue')
-);
+  () => import('./components/MiniProgramCodeLogin.vue'),
+)
 const EmailLogin = defineAsyncComponent(
-  () => import('./components/EmailLogin.vue')
-);
-const CHeader = defineAsyncComponent(() => import('./components/CHeader.vue'));
-const CFooter = defineAsyncComponent(() => import('./components/CFooter.vue'));
+  () => import('./components/EmailLogin.vue'),
+)
+const CHeader = defineAsyncComponent(() => import('./components/CHeader.vue'))
+const CFooter = defineAsyncComponent(() => import('./components/CFooter.vue'))
 </script>
 
 <template>
   <div class="login-box">
-    <c-header></c-header>
+    <CHeader />
     <div class="login-content bg-gray-50 dark:bg-stone-800">
       <div class="flex items-center justify-end">
-        <mini-program-code-login></mini-program-code-login>
-        <div class="line"></div>
-        <email-login></email-login>
+        <MiniProgramCodeLogin />
+        <div class="line" />
+        <EmailLogin />
       </div>
     </div>
-    <c-footer></c-footer>
+    <CFooter />
   </div>
 </template>
 

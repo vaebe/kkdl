@@ -1,20 +1,20 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
-import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
-import { useUserStore } from '@/stores';
-import dataManagementRouter from './dataManagement.ts';
+import { createRouter, createWebHashHistory } from 'vue-router'
+import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
+import dataManagementRouter from './dataManagement.ts'
+import { useUserStore } from '@/stores'
 
 // 保存进入登录页面的路径
-const saveEnterTheLoginPagePath = (path: string): void => {
-  const { setEnterTheLoginPagePath } = useUserStore();
-  setEnterTheLoginPagePath(path);
-};
+function saveEnterTheLoginPagePath(path: string): void {
+  const { setEnterTheLoginPagePath } = useUserStore()
+  setEnterTheLoginPagePath(path)
+}
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'layout',
     redirect: (to: RouteLocationNormalized) => {
-      return `${to.path}url`;
+      return `${to.path}url`
     },
     component: () => import('@/views/layout/baseLayout.vue'),
     children: [
@@ -22,58 +22,60 @@ const routes: RouteRecordRaw[] = [
         path: 'url',
         name: 'create-short-url',
         meta: {
-          title: '创建短链'
+          title: '创建短链',
         },
-        component: () => import('@/views/shortUrl.vue')
+        component: () => import('@/views/shortUrl.vue'),
       },
-      dataManagementRouter
-    ]
+      dataManagementRouter,
+    ],
   },
   {
     path: '/login',
     name: 'login',
     meta: {
-      title: '登录'
+      title: '登录',
     },
     beforeEnter: (_to, from) => {
-      saveEnterTheLoginPagePath(from.fullPath);
-      return true;
+      saveEnterTheLoginPagePath(from.fullPath)
+      return true
     },
-    component: () => import('@/views/login/index.vue')
+    component: () => import('@/views/login/index.vue'),
   },
   {
     path: '/register',
     name: 'register',
     meta: {
-      title: '注册'
+      title: '注册',
     },
     beforeEnter: (_to, from) => {
-      saveEnterTheLoginPagePath(from.fullPath);
-      return true;
+      saveEnterTheLoginPagePath(from.fullPath)
+      return true
     },
-    component: () => import('@/views/login/index.vue')
-  }
-];
+    component: () => import('@/views/login/index.vue'),
+  },
+]
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
-});
+  routes,
+})
 
 router.beforeEach((to, _from, next) => {
-  const userStore = useUserStore();
+  const userStore = useUserStore()
 
   // 未登录用户不能进入数据管理页面
   if (to.fullPath.startsWith('/dm')) {
     if (userStore.isLogin) {
-      next();
-    } else {
-      ElMessage.warning('请先登录！');
-      next('/');
+      next()
     }
-  } else {
-    next();
+    else {
+      ElMessage.warning('请先登录！')
+      next('/')
+    }
   }
-});
+  else {
+    next()
+  }
+})
 
-export default router;
+export default router

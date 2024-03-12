@@ -1,68 +1,70 @@
-import Api from './base';
-import type { ResultData } from './base';
-import { stringify } from 'qs';
+import { stringify } from 'qs'
+import Api from './base'
+import type { ResultData } from './base'
 
 export interface UserInfo {
-  id: string;
-  email: string;
-  wxId: string;
-  nickName: string;
-  accountType: string;
-  role: string;
-  avatar: string;
+  id: string
+  email: string
+  wxId: string
+  nickName: string
+  accountType: string
+  role: string
+  avatar: string
 }
 
 export interface LoginResData {
-  token: string;
-  tokenExpire: string;
-  userInfo: UserInfo;
+  token: string
+  tokenExpire: string
+  userInfo: UserInfo
 }
 
 export interface LoginParams {
-  email: string;
-  password: string;
-  accountType: string;
+  email: string
+  password: string
+  accountType: string
 }
 
 export interface EmailVerificationCodeParams {
-  email: string;
+  email: string
 }
 
 export interface GetMiniProgramCodeParams {
-  scene: string;
-  page: string;
+  scene: string
+  page: string
 }
 
 // 用户登录
-export const userLogin = (
-  data: LoginParams
-): Promise<ResultData<LoginResData>> => Api.post('/login/emailLogin', data);
+export function userLogin(data: LoginParams): Promise<ResultData<LoginResData>> {
+  return Api.post('/login/emailLogin', data)
+}
 
 // 用户退出登录
-export const userLoginOut = (): Promise<ResultData<LoginResData>> =>
-  Api.get('/login/signOut');
+export function userLoginOut(): Promise<ResultData<LoginResData>> {
+  return Api.get('/login/signOut')
+}
 
 // 获取邮箱验证码
-export const getVerificationCode = (
-  params: EmailVerificationCodeParams
-): Promise<ResultData<string>> =>
-  Api.get('/common/getVerificationCodeEmail', { params });
+export function getVerificationCode(params: EmailVerificationCodeParams): Promise<ResultData<string>> {
+  return Api.get('/common/getVerificationCodeEmail', { params })
+}
 
 // 用户注册
-export const userRegister = (
-  data: LoginParams
-): Promise<ResultData<LoginResData>> => Api.post('/user/registration', data);
+export function userRegister(data: LoginParams): Promise<ResultData<LoginResData>> {
+  return Api.post('/user/registration', data)
+}
 
 // 获取用户详情
-export const getUserDetails = (params: {
-  id: string;
-}): Promise<ResultData<UserInfo>> => Api.get('/user/getUserInfo', { params });
+export function getUserDetails(params: {
+  id: string
+}): Promise<ResultData<UserInfo>> {
+  return Api.get('/user/getUserInfo', { params })
+}
 
-const { VITE_APP_BASE_URL } = import.meta.env;
+const { VITE_APP_BASE_URL } = import.meta.env
 
 // 获取小程序码
-export const getMiniProgramCode = (params: GetMiniProgramCodeParams): any => {
+export function getMiniProgramCode(params: GetMiniProgramCodeParams): any {
   return `${
     VITE_APP_BASE_URL as string
-  }/weChatMiniProgram/getMiniProgramCode?${stringify(params)}`;
-};
+  }/weChatMiniProgram/getMiniProgramCode?${stringify(params)}`
+}
