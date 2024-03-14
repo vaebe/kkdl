@@ -3,12 +3,6 @@ import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import dataManagementRouter from './dataManagement.ts'
 import { useUserStore } from '@/stores'
 
-// 保存进入登录页面的路径
-function saveEnterTheLoginPagePath(path: string): void {
-  const { setEnterTheLoginPagePath } = useUserStore()
-  setEnterTheLoginPagePath(path)
-}
-
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -35,10 +29,6 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: '登录',
     },
-    beforeEnter: (_to, from) => {
-      saveEnterTheLoginPagePath(from.fullPath)
-      return true
-    },
     component: () => import('@/views/login/index.vue'),
   },
   {
@@ -46,10 +36,6 @@ const routes: RouteRecordRaw[] = [
     name: 'register',
     meta: {
       title: '注册',
-    },
-    beforeEnter: (_to, from) => {
-      saveEnterTheLoginPagePath(from.fullPath)
-      return true
     },
     component: () => import('@/views/login/index.vue'),
   },
