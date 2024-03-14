@@ -24,6 +24,7 @@ const router: RouteRecordRaw = {
       name: 'backstage-user',
       meta: {
         title: '用户管理',
+        role: ['admin'],
       },
       component: () => import('@/views/dataManagement/user/index.vue'),
     },

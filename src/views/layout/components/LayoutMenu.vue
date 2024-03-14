@@ -2,13 +2,26 @@
 import { computed, ref } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { useRoute, useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
+import { useUserStore } from '@/stores'
+
+const { isAdmin } = storeToRefs(useUserStore())
 
 const router = useRouter()
 const routes = router?.getRoutes() || []
 const menuDataList = routes.find(item => item.path === '/dm')?.children || []
 
-function formatMenuData(basePath: string, list: Array<RouteRecordRaw>): Array<RouteRecordRaw> {
-  return list.map((item) => {
+function formatMenuData(
+  basePath: string,
+  list: Array<RouteRecordRaw>,
+): Array<RouteRecordRaw> {
+  let data = list
+
+  // 过滤出只有管理员能看的路由
+  if (!isAdmin.value)
+    data = list.filter(item => !item.meta?.role?.includes('admin'))
+
+  return data.map((item) => {
     const path = `${basePath}${item.path}`
 
     let children: Array<RouteRecordRaw> = []
