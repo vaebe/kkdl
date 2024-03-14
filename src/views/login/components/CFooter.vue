@@ -16,7 +16,7 @@
 
     <el-divider direction="vertical" />
     <el-link href="https://beian.miit.gov.cn" target="_blank">
-      豫ICP备2022013746号
+      豫ICP备2022013746号-3
     </el-link>
   </div>
 </template>
