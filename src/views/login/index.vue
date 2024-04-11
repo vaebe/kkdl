@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 
 const MiniProgramCodeLogin = defineAsyncComponent(
   () => import('./components/MiniProgramCodeLogin.vue'),
@@ -9,16 +9,19 @@ const EmailLogin = defineAsyncComponent(
 )
 const CHeader = defineAsyncComponent(() => import('./components/CHeader.vue'))
 const CFooter = defineAsyncComponent(() => import('./components/CFooter.vue'))
+const LoginTypeTabs = defineAsyncComponent(() => import('./components/LoginTypeTabs.vue'))
+
+const loginType = ref('0')
 </script>
 
 <template>
-  <div class="login-box">
+  <div class="login">
     <CHeader />
-    <div class="login-content bg-gray-50 dark:bg-stone-800">
-      <div class="flex items-center justify-end">
-        <MiniProgramCodeLogin />
-        <div class="line" />
-        <EmailLogin />
+    <div class="login-content bg-white dark:bg-stone-900">
+      <div class="w-[300px]  mr-20">
+        <LoginTypeTabs v-model="loginType" class="mb-4" />
+        <MiniProgramCodeLogin v-if="loginType === '1'" />
+        <EmailLogin v-else />
       </div>
     </div>
     <CFooter />
@@ -26,23 +29,16 @@ const CFooter = defineAsyncComponent(() => import('./components/CFooter.vue'))
 </template>
 
 <style lang="scss" scoped>
-.login-box {
+.login {
   width: 100vw;
   height: 100vh;
 
   .login-content {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     width: 100vw;
     height: calc(100vh - 100px);
-
-    .line {
-      width: 1px;
-      height: 260px;
-      margin: 0 40px;
-      background: rgb(0 0 0 / 10%);
-    }
   }
 }
 </style>

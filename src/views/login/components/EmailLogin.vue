@@ -166,9 +166,6 @@ function loginOrRegister() {
 
 <template>
   <div class="email-login flex flex-col items-center">
-    <h1 class="text-2xl tracking-widest">
-      账号密码登录
-    </h1>
     <el-form
       ref="loginFormRef"
       class="w-full my-2"
@@ -225,6 +222,6 @@ function loginOrRegister() {
 
 <style lang="scss" scoped>
 .email-login {
-  width: 320px;
+  width: 100%;
 }
 </style>

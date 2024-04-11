@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { useWebSocket } from '@vueuse/core'
-import { onBeforeUnmount, reactive, watch } from 'vue'
+import { onBeforeUnmount, reactive, ref, watch } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import { useUserStore } from '@/stores'
 import { getMiniProgramCode } from '@/api/login'
+
+const loading = ref(true)
+function setLoading(type: boolean) {
+  loading.value = type
+}
 
 const codeParams = reactive({
   scene: uuidv4().replaceAll('-', ''),
@@ -43,18 +48,25 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="mini-program-code">
+  <div
+    v-loading="loading"
+    element-loading-text="Loading..."
+    element-loading-background="rgba(0, 0, 0, 0.3)"
+    class="mini-program-code"
+  >
     <img
       class="w-full h-full"
       :src="getMiniProgramCode(codeParams)"
       alt="miniProgramCode"
+      @load="setLoading(false)"
+      @error="setLoading(false)"
     >
   </div>
 </template>
 
 <style scoped lang="scss">
 .mini-program-code {
-  width: 240px;
-  height: 240px;
+  width: 300px;
+  height: 300px;
 }
 </style>
