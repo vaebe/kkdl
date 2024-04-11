@@ -22,8 +22,8 @@ function jumpPage(path: string) {
 </script>
 
 <template>
-  <div class="layout-header">
-    <h1 class="title mt-2 text-2xl">
+  <div class="layout-header w-full h-[60px] px-2 flex items-center justify-between ">
+    <h1 class="mt-2 text-xl">
       {{ VITE_APP_TITLE }}
     </h1>
 
@@ -78,19 +78,6 @@ function jumpPage(path: string) {
 
 <style scoped lang="scss">
 .layout-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100vw;
-  height: 58px;
-  padding: 0 1vw;
   border-bottom: 1px solid var(--el-border-color);
-
-  .title {
-    display: inline-block;
-    color: transparent;
-    background: linear-gradient(90deg, #fd9248, #fa1768);
-    background-clip: text;
-  }
 }
 </style>

@@ -19,7 +19,7 @@ import LayoutHeader from '@/views/layout/components/LayoutHeader.vue'
 
   &__content-box {
     width: 100vw;
-    height: calc(100vh - 58px);
+    height: calc(100vh - 60px);
   }
 }
 </style>

@@ -1,16 +1,22 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from 'vue'
+import { useRouter } from 'vue-router'
 
 const { VITE_APP_TITLE } = import.meta.env
 
 const ThemeSwitch = defineAsyncComponent(
   () => import('@/components/ThemeSwitch.vue'),
 )
+
+const router = useRouter()
+function jumpHome() {
+  router.push('/')
+}
 </script>
 
 <template>
-  <div class="login-header">
-    <h1 class="title">
+  <div class="w-full h-[60px] px-2 flex items-center justify-between">
+    <h1 class="text-xl cursor-pointer" @click="jumpHome">
       {{ VITE_APP_TITLE }}
     </h1>
     <ThemeSwitch />
@@ -18,16 +24,4 @@ const ThemeSwitch = defineAsyncComponent(
 </template>
 
 <style scoped lang="scss">
-.login-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100vw;
-  height: 60px;
-  padding: 0 10px;
-
-  .title {
-    font-size: 28px;
-  }
-}
 </style>
