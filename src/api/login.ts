@@ -44,8 +44,8 @@ export function userLoginOut(): Promise<ResultData<LoginResData>> {
 }
 
 // 获取邮箱验证码
-export function getVerificationCode(params: EmailVerificationCodeParams): Promise<ResultData<string>> {
-  return Api.get('/common/getVerificationCodeEmail', { params })
+export function getCaptcha(params: EmailVerificationCodeParams): Promise<ResultData<string>> {
+  return Api.get('/common/getCaptcha', { params })
 }
 
 // 用户注册

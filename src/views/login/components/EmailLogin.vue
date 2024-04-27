@@ -2,7 +2,7 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getVerificationCode, userLogin, userRegister } from '@/api/login'
+import { getCaptcha, userLogin, userRegister } from '@/api/login'
 
 import { useUserStore } from '@/stores'
 
@@ -107,7 +107,7 @@ function sendTheVerificationCode() {
   loginFormRef.value?.validateField('userAccount', (valid) => {
     if (valid) {
       // 发送验证码
-      getVerificationCode({ email: loginForm.email }).then(() => {
+      getCaptcha({ email: loginForm.email }).then(() => {
         ElMessage.success('验证码发送成功！')
 
         // 验证码发送成功开始倒计时
