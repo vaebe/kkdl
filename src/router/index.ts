@@ -8,18 +8,18 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'layout',
     redirect: (to: RouteLocationNormalized) => {
-      return `${to.path}url`
+      return `${to.path}login`
     },
     component: () => import('@/views/layout/baseLayout.vue'),
     children: [
-      {
-        path: 'url',
-        name: 'create-short-url',
-        meta: {
-          title: '创建短链',
-        },
-        component: () => import('@/views/shortUrl.vue'),
-      },
+      // {
+      //   path: 'url',
+      //   name: 'create-short-url',
+      //   meta: {
+      //     title: '创建短链',
+      //   },
+      //   component: () => import('@/views/shortUrl.vue'),
+      // },
       dataManagementRouter,
     ],
   },

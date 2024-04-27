@@ -165,7 +165,7 @@ function loginOrRegister() {
 </script>
 
 <template>
-  <div class="email-login flex flex-col items-center">
+  <div class="email-login w-[380px] flex flex-col items-center">
     <el-form
       ref="loginFormRef"
       class="w-full my-2"
@@ -222,6 +222,5 @@ function loginOrRegister() {
 
 <style lang="scss" scoped>
 .email-login {
-  width: 100%;
 }
 </style>
