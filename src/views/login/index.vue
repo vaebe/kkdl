@@ -1,11 +1,17 @@
 <script lang="ts" setup>
 import { defineAsyncComponent } from 'vue'
+import { useColorMode } from '@vueuse/core'
 
 const EmailLogin = defineAsyncComponent(
   () => import('./components/EmailLogin.vue'),
 )
 const CHeader = defineAsyncComponent(() => import('./components/CHeader.vue'))
 const CFooter = defineAsyncComponent(() => import('./components/CFooter.vue'))
+
+const mode = useColorMode({
+  attribute: 'class',
+})
+mode.value = 'light'
 </script>
 
 <template>
