@@ -24,7 +24,9 @@ function create() {
 
 function openDialog() {
   dialogVisible.value = true
+}
 
+function dialogOpened() {
   nextTick(() => {
     shortUrlFormRef.value.resetData()
   })
@@ -36,7 +38,7 @@ defineExpose({
 </script>
 
 <template>
-  <el-dialog v-model="dialogVisible" title="创建短链" width="680px">
+  <el-dialog v-model="dialogVisible" title="创建短链" width="680px" @opened="dialogOpened">
     <ShortUrlForm ref="shortUrlFormRef" />
     <template #footer>
       <div class="flex justify-center">

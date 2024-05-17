@@ -9,7 +9,7 @@ const userStore = useUserStore()
 const { isLogin } = storeToRefs(userStore)
 
 // 禁用今日之前的日期
-function isDateBeforeToday(time) {
+function isDateBeforeToday(time: Date) {
   return time.getTime() < new Date(new Date().toDateString()).getTime()
 }
 
@@ -56,7 +56,7 @@ function getData() {
 
 function resetData() {
   Object.keys(info).forEach((item) => {
-    info[item] = defaultData[item]
+    info[item as keyof DefaultDataType] = defaultData[item as keyof DefaultDataType]
   })
 }
 
