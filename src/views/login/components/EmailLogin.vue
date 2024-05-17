@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
-import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useMagicKeys } from '@vueuse/core'
 import { getCaptcha, userLogin, userRegister } from '@/api/login'
 
 import { useUserStore } from '@/stores'
@@ -162,6 +163,17 @@ function loginOrRegister() {
       ElMessage.warning('请检查表单是否填写正确！')
   })
 }
+
+const { current } = useMagicKeys()
+
+const KeyboardWatch = watch(current, (v) => {
+  if (v.has('enter'))
+    loginOrRegister()
+})
+
+onBeforeUnmount(() => {
+  KeyboardWatch()
+})
 </script>
 
 <template>
@@ -212,7 +224,7 @@ function loginOrRegister() {
     </el-button>
 
     <p
-      class="mt-4 text-sm text-gray-300 cursor-pointer hover:text-blue-400"
+      class="mt-4 text-sm text-gray-400 cursor-pointer hover:text-blue-400"
       @click="pageTypeChange"
     >
       {{ tipsText }}
