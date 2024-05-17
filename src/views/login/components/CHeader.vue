@@ -10,10 +10,13 @@ function jumpHome() {
 </script>
 
 <template>
-  <div class="w-full h-[58px] px-2 flex items-center justify-between shadow">
-    <h1 class="text-2xl text-black cursor-pointer" @click="jumpHome">
-      {{ VITE_APP_TITLE }}
-    </h1>
+  <div class="w-full h-[58px] px-2  shadow">
+    <div class="w-full h-full flex  items-center">
+      <img src="@/../public/logo.svg" alt="logo" style="width: 38px;height: 38px">
+      <h1 class="text-2xl text-black cursor-pointer" @click="jumpHome">
+        {{ VITE_APP_TITLE }}
+      </h1>
+    </div>
   </div>
 </template>
 
