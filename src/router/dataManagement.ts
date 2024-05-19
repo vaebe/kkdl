@@ -7,26 +7,34 @@ const router: RouteRecordRaw = {
     title: '数据管理',
   },
   redirect: (to: RouteLocationNormalized) => {
-    return `${to.path}/short-url`
+    return `${to.path}/shortUrl`
   },
   component: () => import('@/views/layout/dmLayout.vue'),
   children: [
     {
-      path: 'short-url',
-      name: 'backstage-short-url',
+      path: 'user',
+      name: 'backstage.user',
+      meta: {
+        title: '用户管理',
+        role: ['admin'],
+      },
+      component: () => import('@/views/dataManagement/user/index.vue'),
+    },
+    {
+      path: 'shortUrl',
+      name: 'backstage.shortUrl',
       meta: {
         title: '短链管理',
       },
       component: () => import('@/views/dataManagement/shortUrl/index.vue'),
     },
     {
-      path: 'user',
-      name: 'backstage-user',
+      path: 'shortUrlVisits',
+      name: 'backstage.shortUrlVisits',
       meta: {
-        title: '用户管理',
-        role: ['admin'],
+        title: '短链信息管理',
       },
-      component: () => import('@/views/dataManagement/user/index.vue'),
+      component: () => import('@/views/dataManagement/shortUrlVisits/index.vue'),
     },
   ],
 }
