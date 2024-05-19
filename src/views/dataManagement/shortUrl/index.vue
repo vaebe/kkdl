@@ -49,7 +49,8 @@ function initClipboard() {
     // 数据存在，复制失败进行提示！
     if (e.text)
       ElMessage.warning('复制失败！')
-    else ElMessage.warning('需要复制的数据为空！')
+    else
+      ElMessage.warning('需要复制的数据为空！')
   })
 }
 
@@ -57,11 +58,7 @@ onMounted(() => {
   initClipboard()
 })
 
-const {
-  open,
-  reset: onSelectFileReset,
-  onChange: onSelectFileChange,
-} = useFileDialog({
+const { open, reset: onSelectFileReset, onChange: onSelectFileChange } = useFileDialog({
   accept: '.xlsx',
   directory: false,
   multiple: false,
@@ -90,11 +87,7 @@ const { downloadStreamingFile } = useFileDownload()
 
 async function templateDownload() {
   const res = await templateDownloadShortUrl()
-  await downloadStreamingFile({
-    data: res,
-    name: '短链管理导入模版',
-    type: '.xlsx',
-  })
+  await downloadStreamingFile({ data: res, name: '短链管理导入模版', type: '.xlsx' })
   ElMessage.success('导入模版下载成功!')
 }
 
@@ -112,18 +105,12 @@ async function batchExport() {
         <el-row :gutter="10">
           <el-col :span="8">
             <el-form-item label="短链名称：">
-              <el-input
-                v-model="searchForm.title"
-                placeholder="请输入短链名称"
-              />
+              <el-input v-model="searchForm.title" placeholder="请输入短链名称" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="跳转链接：">
-              <el-input
-                v-model="searchForm.rawUrl"
-                placeholder="请输入跳转链接"
-              />
+              <el-input v-model="searchForm.rawUrl" placeholder="请输入跳转链接" />
             </el-form-item>
           </el-col>
 
@@ -163,12 +150,8 @@ async function batchExport() {
 
       <el-table :data="tableData" stripe style="width: 100%" class="my-2">
         <el-table-column type="index" label="序号" width="60" />
-        <el-table-column
-          label="短链名称"
-          prop="title"
-          width="200"
-        />
-        <el-table-column label="短链" prop="shortUrl" width="240">
+        <el-table-column label="短链名称" prop="title" min-width="200" />
+        <el-table-column label="短链" prop="shortUrl" min-width="240">
           <template #default="scope">
             <p
               class="clipboardBtn text-blue-400 cursor-pointer"
@@ -178,28 +161,12 @@ async function batchExport() {
             </p>
           </template>
         </el-table-column>
-        <el-table-column
-          label="跳转链接"
-          prop="rawUrl"
-          width="300"
-        />
-        <el-table-column
-          label="创建时间"
-          prop="createdAt"
-          width="180"
-        />
-        <el-table-column
-          label="过期时间"
-          prop="expirationTime"
-          width="180"
-        />
+        <el-table-column label="跳转链接" prop="rawUrl" min-width="300" />
+        <el-table-column label="创建时间" prop="createdAt" min-width="180" />
+        <el-table-column label="过期时间" prop="expirationTime" min-width="180" />
         <el-table-column label="操作" width="70" fixed="right">
           <template #default="scope">
-            <el-button
-              type="danger"
-              link
-              @click="removeRow({ id: scope.row.id })"
-            >
+            <el-button type="danger" link @click="removeRow({ id: scope.row.id })">
               删除
             </el-button>
           </template>
