@@ -30,11 +30,11 @@ const useUserStore = defineStore(
     const router = useRouter()
 
     // 设置登录返回数据
-    const setLoginResData = (data: LoginResData): void => {
+    const setLoginResData = (data: LoginResData) => {
       Object.assign(loginResData, data)
       Object.assign(userInfo, data.userInfo)
 
-      router.push('/dm')
+      router.push('/shortUrl')
     }
 
     // 获取用户信息
@@ -57,7 +57,7 @@ const useUserStore = defineStore(
     }
 
     // 清除登录信息
-    const clearLoginInfo = async (): Promise<void> => {
+    const clearLoginInfo = async () => {
       // 重置登录信息
       Object.assign(loginResData, resetObjToPrimitiveType(loginResData))
       Object.assign(userInfo, resetObjToPrimitiveType(userInfo))
@@ -70,7 +70,7 @@ const useUserStore = defineStore(
     }
 
     // 退出登录
-    const loginOut = async (): Promise<void> => {
+    const loginOut = async () => {
       await userLoginOut()
       await clearLoginInfo()
     }

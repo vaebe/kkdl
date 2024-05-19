@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@element-plus/icons-vue':
-    specifier: ^2.1.0
-    version: 2.1.0(vue@3.4.21)
+    specifier: ^2.3.1
+    version: 2.3.1(vue@3.4.21)
   '@vueuse/core':
     specifier: ^10.1.2
     version: 10.1.2(vue@3.4.21)
@@ -27,8 +27,8 @@ dependencies:
     specifier: ^5.4.3
     version: 5.4.3
   element-plus:
-    specifier: ^2.6.0
-    version: 2.6.0(vue@3.4.21)
+    specifier: ^2.7.3
+    version: 2.7.3(vue@3.4.21)
   js-file-download:
     specifier: ^0.4.12
     version: 0.4.12
@@ -565,14 +565,6 @@ packages:
   /@dprint/toml@0.5.4:
     resolution: {integrity: sha512-d+5GwwzztZD0QixmOBhaO6nWVLsAeYsJ1HJYNxDoDRbASFCpza9BBVshG5ctBRXCkkIHhD9BO1SnbOoRQltUQw==}
     dev: true
-
-  /@element-plus/icons-vue@2.1.0(vue@3.4.21):
-    resolution: {integrity: sha512-PSBn3elNoanENc1vnCfh+3WA9fimRC7n+fWkf3rE5jvv+aBohNHABC/KAR5KWPecxWxDTVT1ERpRbOMRcOV/vA==}
-    peerDependencies:
-      vue: ^3.2.0
-    dependencies:
-      vue: 3.4.21(typescript@5.0.4)
-    dev: false
 
   /@element-plus/icons-vue@2.3.1(vue@3.4.21):
     resolution: {integrity: sha512-XxVUZv48RZAd87ucGS48jPf6pKu0yV5UCg9f4FFwtrYxXOwWuVJo6wOvSLKEoMQKjv8GsX/mhP6UsC1lRwbUWg==}
@@ -2630,8 +2622,8 @@ packages:
     resolution: {integrity: sha512-K3WPQ36bUOtXg/1+69bFlFOvdSm0/0bGqmsfPDLRXLanoKXdA+pIWuf/VbA9b+2CwBFuONgl4NEz4OEm+OJOKA==}
     dev: true
 
-  /element-plus@2.6.0(vue@3.4.21):
-    resolution: {integrity: sha512-MP+N48P+diyndR+GjY+0VOrUmFnajD4U0CkrXIMzmeRmq4+dwi0bdzVo587v4wDo9Hs+ggviyacqm3NS8JYVqw==}
+  /element-plus@2.7.3(vue@3.4.21):
+    resolution: {integrity: sha512-OaqY1kQ2xzNyRFyge3fzM7jqMwux+464RBEqd+ybRV9xPiGxtgnj/sVK4iEbnKnzQIa9XK03DOIFzoToUhu1DA==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:

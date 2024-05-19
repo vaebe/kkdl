@@ -1,26 +1,41 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
-import dataManagementRouter from './dataManagement.ts'
 import { useUserStore } from '@/stores'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'layout',
+    name: 'base',
     redirect: (to: RouteLocationNormalized) => {
       return `${to.path}login`
     },
     component: () => import('@/views/layout/baseLayout.vue'),
     children: [
-      // {
-      //   path: 'url',
-      //   name: 'create-short-url',
-      //   meta: {
-      //     title: '创建短链',
-      //   },
-      //   component: () => import('@/views/shortUrl.vue'),
-      // },
-      dataManagementRouter,
+      {
+        path: 'shortUrl',
+        name: 'shortUrl',
+        meta: {
+          title: '短链管理',
+        },
+        component: () => import('@/views/dataManagement/shortUrl/index.vue'),
+      },
+      {
+        path: 'shortUrlVisits',
+        name: 'shortUrlVisits',
+        meta: {
+          title: '短链信息管理',
+        },
+        component: () => import('@/views/dataManagement/shortUrlVisits/index.vue'),
+      },
+      {
+        path: 'user',
+        name: 'user',
+        meta: {
+          title: '用户管理',
+          role: ['admin'],
+        },
+        component: () => import('@/views/dataManagement/user/index.vue'),
+      },
     ],
   },
   {

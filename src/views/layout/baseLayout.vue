@@ -5,9 +5,12 @@ import LayoutHeader from '@/views/layout/components/LayoutHeader.vue'
 <template>
   <div class="base-layout">
     <LayoutHeader />
-    <div class="base-layout__content-box">
-      <router-view />
-    </div>
+
+    <el-scrollbar height="calc(100vh - 58px)">
+      <div style="margin: 18px">
+        <router-view />
+      </div>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -15,11 +18,7 @@ import LayoutHeader from '@/views/layout/components/LayoutHeader.vue'
 .base-layout {
   width: 100vw;
   height: 100vh;
-  background: var(--el-bg-color-overlay);
-
-  &__content-box {
-    width: 100vw;
-    height: calc(100vh - 60px);
-  }
+  overflow: hidden;
+  background: var(--el-bg-color-page);
 }
 </style>
