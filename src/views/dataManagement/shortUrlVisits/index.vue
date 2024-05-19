@@ -53,7 +53,7 @@ reset()
         <el-table-column type="index" label="序号" width="60" fixed="left" />
         <el-table-column label="短链" prop="shortUrl" min-width="90" fixed="left" />
         <el-table-column label="跳转链接" prop="rawUrl" min-width="300" />
-        <el-table-column label="ip" prop="ip" min-width="100" />
+        <el-table-column label="ip" prop="ip" min-width="140" />
         <el-table-column label="userAgent" prop="userAgent" min-width="300" />
         <el-table-column label="客户端浏览器信息" prop="secChUa" min-width="300" />
         <el-table-column label="是否来自移动设备" prop="secChUaMobile" min-width="200" />
