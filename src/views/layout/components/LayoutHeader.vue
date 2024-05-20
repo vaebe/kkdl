@@ -49,7 +49,7 @@ function menuChange(path: string) {
 </script>
 
 <template>
-  <div class="layout-header w-full h-[58px] px-2 flex items-center justify-between">
+  <div class="layout-header w-full h-[58px] px-2 flex items-center justify-between shadow">
     <div class="h-full flex  items-center">
       <img src="@/../public/logo.svg" alt="logo" style="width: 32px;height: 32px">
       <h1 class="text-2xl  cursor-pointer ml-2" @click="jumpPage('dm')">
@@ -91,7 +91,6 @@ function menuChange(path: string) {
 <style scoped lang="scss">
 .layout-header {
   background: var(--el-bg-color);
-  border-bottom: 1px solid var(--el-border-color);
 }
 </style>
 
