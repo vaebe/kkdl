@@ -59,7 +59,12 @@ reset()
         <el-table-column label="是否来自移动设备" prop="secChUaMobile" min-width="200" />
         <el-table-column label="客户端平台" prop="secChUaPlatform" min-width="100" />
         <el-table-column label="secFetchUser" prop="secFetchUser" min-width="140" />
-        <el-table-column label="创建时间" prop="createdAt" min-width="180" />
+        <el-table-column label="洲" prop="continent" min-width="140" />
+        <el-table-column label="国家" prop="country" min-width="140" />
+        <el-table-column label="市" prop="city" min-width="140" />
+        <el-table-column label="纬度" prop="lat" min-width="140" />
+        <el-table-column label="经度" prop="lon" min-width="140" />
+        <el-table-column label="访问时间" prop="createdAt" min-width="180" />
       </el-table>
       <el-pagination
         background
