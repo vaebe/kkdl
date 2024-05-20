@@ -17,7 +17,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
           title: '短链管理',
         },
-        component: () => import('@/views/dataManagement/shortUrl/index.vue'),
+        component: () => import('@/views/shortUrl/index.vue'),
       },
       {
         path: 'shortUrlVisits',
@@ -25,7 +25,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
           title: '短链信息管理',
         },
-        component: () => import('@/views/dataManagement/shortUrlVisits/index.vue'),
+        component: () => import('@/views/shortUrlVisits/index.vue'),
       },
       {
         path: 'user',
@@ -34,7 +34,7 @@ const routes: RouteRecordRaw[] = [
           title: '用户管理',
           role: ['admin'],
         },
-        component: () => import('@/views/dataManagement/user/index.vue'),
+        component: () => import('@/views/user/index.vue'),
       },
     ],
   },
