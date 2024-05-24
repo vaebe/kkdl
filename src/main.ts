@@ -3,7 +3,7 @@ import router from './router'
 import store from './stores'
 import App from './App.vue'
 
-import 'ress/ress.css'
+import 'ress/dist/ress.min.css'
 import '@/assets/styles/index.scss'
 
 const app = createApp(App)
