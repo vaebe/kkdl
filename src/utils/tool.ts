@@ -1,6 +1,3 @@
-import * as echarts from 'echarts'
-import type { EChartsOption, EChartsType } from 'echarts'
-
 type PrimitiveData = Record<
   string,
   string | number | any[] | Record<string, any> | null
@@ -68,26 +65,4 @@ export function isVideo(url: string): boolean {
  */
 export function getAssetsImgFile(url: string): string {
   return new URL(`../assets/img/${url}`, import.meta.url).href
-}
-
-/**
- *  设置 Echarts 配置
- * @param dom
- * @param option
- */
-export function setEchartsDom(dom: HTMLElement, option: EChartsOption): EChartsType {
-  const echartsDom = echarts.getInstanceByDom(dom)
-  // 加载过图表 清除后加载
-  if (echartsDom)
-    echartsDom?.dispose && echartsDom.dispose()
-
-  const chartBox = echarts.init(dom)
-  chartBox.setOption(option)
-  window.removeEventListener('resize', () => {
-    chartBox.resize()
-  })
-  window.addEventListener('resize', () => {
-    chartBox.resize()
-  })
-  return chartBox
 }

@@ -18,7 +18,6 @@
     "clipboard": "^2.0.11",
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.8",
-    "echarts": "^5.4.3",
     "element-plus": "^2.7.3",
     "js-file-download": "^0.4.12",
     "lodash-es": "^4.17.21",
