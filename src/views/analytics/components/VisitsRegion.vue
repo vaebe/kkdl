@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { AnalyzeShortLinkAccessByCountriesInfo } from '@/api/analytics.ts'
-import { analyzeShortLinkAccessByCountries } from '@/api/analytics.ts'
+import type { AnalyzeShortLinkAccessByRegionInfo } from '@/api/analytics.ts'
+import { analyzeShortLinkAccessByRegion } from '@/api/analytics.ts'
 
-const list = ref<AnalyzeShortLinkAccessByCountriesInfo[]>([])
+const list = ref<AnalyzeShortLinkAccessByRegionInfo[]>([])
 function getData() {
-  analyzeShortLinkAccessByCountries({ code: '', dateType: '30d' }).then((res) => {
+  analyzeShortLinkAccessByRegion({ code: '', dateType: '30d' }).then((res) => {
     if (res.code === 0)
       list.value = res.data ?? []
   })
@@ -15,7 +15,7 @@ getData()
 const maxValue = computed(() => Math.max(...list.value.map(item => item.clicks)))
 
 // 获取百分比
-function getPercentage(item: AnalyzeShortLinkAccessByCountriesInfo) {
+function getPercentage(item: AnalyzeShortLinkAccessByRegionInfo) {
   if (list.value?.length === 1) {
     return 100
   }

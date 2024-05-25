@@ -16,13 +16,13 @@ export function analyzeShortLinkAccessByTime(params: AnalyzeParams): Promise<Res
   return Api.get('/analytics/clicksTime', { params })
 }
 
-export interface AnalyzeShortLinkAccessByCountriesInfo {
+export interface AnalyzeShortLinkAccessByRegionInfo {
   clicks: number
   countryCode: string
   country: string
 }
 
-// 根据国家分析短链访问数据
-export function analyzeShortLinkAccessByCountries(params: AnalyzeParams): Promise<ResultData<AnalyzeShortLinkAccessByCountriesInfo[]>> {
-  return Api.get('/analytics/clicksCountries', { params })
+// 根据区域分析短链访问数据
+export function analyzeShortLinkAccessByRegion(params: AnalyzeParams): Promise<ResultData<AnalyzeShortLinkAccessByRegionInfo[]>> {
+  return Api.get('/analytics/clicksRegion', { params })
 }

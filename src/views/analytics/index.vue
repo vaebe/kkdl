@@ -3,7 +3,7 @@ import { defineAsyncComponent } from 'vue'
 
 const CHeader = defineAsyncComponent(() => import('./components/CHeader.vue'))
 const VisitsTime = defineAsyncComponent(() => import('./components/VisitsTime.vue'))
-const VisitsCountry = defineAsyncComponent(() => import('./components/VisitsCountry.vue'))
+const VisitsRegion = defineAsyncComponent(() => import('./components/VisitsRegion.vue'))
 const VisitsDevice = defineAsyncComponent(() => import('./components/VisitsDevice.vue'))
 </script>
 
@@ -20,7 +20,7 @@ const VisitsDevice = defineAsyncComponent(() => import('./components/VisitsDevic
         <VisitsTime class="w-11/12" />
 
         <div class="w-11/12 my-2 grid grid-cols-2 gap-2">
-          <VisitsCountry />
+          <VisitsRegion />
           <VisitsDevice />
         </div>
       </div>
