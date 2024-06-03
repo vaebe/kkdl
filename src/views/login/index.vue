@@ -20,7 +20,7 @@ mode.value = 'light'
     <div class="bg2" />
     <div class="bg3" />
 
-    <CHeader class="absolute top-0 z-10" />
+    <CHeader class="absolute top-0 z-20" />
 
     <div class="absolute z-10 w-full h-full flex justify-center items-center">
       <EmailLogin />
