@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
+import { useUserStore } from '@/stores'
 
 const { VITE_APP_TITLE } = import.meta.env
 
+const { isLogin } = storeToRefs(useUserStore())
+
 const router = useRouter()
 function jumpHome() {
-  router.push('/')
+  router.push(isLogin.value ? '/shortUrl' : '/')
 }
 </script>
 
@@ -18,7 +22,17 @@ function jumpHome() {
       </h1>
     </div>
 
-    <div class="w-1/2 flex items-center justify-end cursor-pointer">
+    <!--  登录  -->
+    <div v-if="isLogin" class="w-1/2 flex items-center justify-end cursor-pointer">
+      <router-link to="/shortUrl">
+        <p class="px-6 py-0.5 bg-black border-4 border-white hover:border-4 hover:border-gray-200 text-white rounded-3xl ">
+          短链管理
+        </p>
+      </router-link>
+    </div>
+
+    <!--  未登录  -->
+    <div v-else class="w-1/2 flex items-center justify-end cursor-pointer">
       <router-link to="/register">
         <p class="mr-4 text-gray-500 hover:text-black">
           注册
