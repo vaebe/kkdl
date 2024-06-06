@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { inject, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { ECOption } from '@/composables'
 import { useEcharts } from '@/composables'
-import { analyzeShortLinkAccessByTime } from '@/api/analytics.ts'
+import { type AnalyzeParams, analyzeShortLinkAccessByTime } from '@/api/analytics.ts'
+
+const searchForm = inject<AnalyzeParams>('searchForm')
 
 const { initChart, echarts } = useEcharts()
 
 const visitsToTal = ref(0)
 
 async function initLineChart() {
-  const res = await analyzeShortLinkAccessByTime({ code: '', dateType: '24h' })
+  const res = await analyzeShortLinkAccessByTime({ code: '', dateType: searchForm!.dateType })
 
   const list = res.code === 0 ? res.data ?? [] : []
 
@@ -23,7 +25,7 @@ async function initLineChart() {
       trigger: 'axis',
     },
     grid: {
-      top: '1%',
+      top: '2%',
       left: '3%',
       right: '3%',
       bottom: '3%',
@@ -79,13 +81,22 @@ async function initLineChart() {
   initChart(document.getElementById('lintChart') as HTMLElement, option)
 }
 
+const searchFormWatch = ref()
+
 onMounted(() => {
-  initLineChart()
+  searchFormWatch.value = watch(() => searchForm, () => {
+    if (searchForm?.dateType)
+      initLineChart()
+  }, { immediate: true, deep: true })
+})
+
+onBeforeUnmount(() => {
+  searchFormWatch?.value()
 })
 </script>
 
 <template>
-  <div class="relative z-0 border border-gray-200 bg-white px-7 py-5  sm:rounded-lg sm:border-gray-100 sm:shadow-lg">
+  <div class="relative z-0 border border-gray-200 bg-white px-7 py-5 sm:rounded-lg sm:border-gray-100 sm:shadow-lg">
     <p class="my-2">
       <span>总数:</span>
       <span class="ml-2">{{ visitsToTal }}</span>

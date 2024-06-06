@@ -1,19 +1,42 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, provide, reactive } from 'vue'
 
 const CHeader = defineAsyncComponent(() => import('./components/CHeader.vue'))
 const VisitsTime = defineAsyncComponent(() => import('./components/VisitsTime.vue'))
 const VisitsRegion = defineAsyncComponent(() => import('./components/VisitsRegion.vue'))
 const VisitsDevice = defineAsyncComponent(() => import('./components/VisitsDevice.vue'))
+
+const options = [
+  {
+    code: '24h',
+    name: '24 Hour',
+  },
+  {
+    code: '7d',
+    name: '7 Day',
+  },
+  {
+    code: '30d',
+    name: '30 Day',
+  },
+]
+
+const searchForm = reactive({
+  dateType: '24h',
+})
+
+provide('searchForm', searchForm)
 </script>
 
 <template>
-  <div class="w-[100vw] h-[100vh] bg-gray-50 ">
+  <div class="analytics w-[100vw] h-[100vh] bg-gray-50 ">
     <el-scrollbar style="height: 100vh">
       <CHeader class="sticky top-0" />
 
-      <div class="sticky top-[58px] z-10  my-5 bg-gray-50 py-3 md:py-3 shadow-md">
-        dasdsadsadsadsa
+      <div class="w-11/12 mx-auto my-6 bg-gray-50 flex justify-end">
+        <el-select v-model="searchForm.dateType" placeholder="Select" size="large" style="width: 240px">
+          <el-option v-for="item in options" :key="item.code" :label="item.name" :value="item.code" />
+        </el-select>
       </div>
 
       <div class="mt-4 flex flex-col items-center justify-center">
@@ -28,6 +51,8 @@ const VisitsDevice = defineAsyncComponent(() => import('./components/VisitsDevic
   </div>
 </template>
 
-<style scoped lang="scss">
-
+<style  lang="scss">
+.analytics {
+  --el-border-radius-base: 0.5rem;
+}
 </style>

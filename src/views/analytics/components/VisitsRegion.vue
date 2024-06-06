@@ -1,16 +1,26 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import type { AnalyzeShortLinkAccessByRegionInfo } from '@/api/analytics.ts'
+import { computed, inject, onBeforeUnmount, ref, watch } from 'vue'
+import type { AnalyzeParams, AnalyzeShortLinkAccessByRegionInfo } from '@/api/analytics.ts'
 import { analyzeShortLinkAccessByRegion } from '@/api/analytics.ts'
+
+const searchForm = inject<AnalyzeParams>('searchForm')
 
 const list = ref<AnalyzeShortLinkAccessByRegionInfo[]>([])
 function getData() {
-  analyzeShortLinkAccessByRegion({ code: '', dateType: '30d' }).then((res) => {
+  analyzeShortLinkAccessByRegion({ code: '', dateType: searchForm!.dateType }).then((res) => {
     if (res.code === 0)
       list.value = res.data ?? []
   })
 }
-getData()
+
+const searchFormWatch = watch(() => searchForm, () => {
+  if (searchForm?.dateType)
+    getData()
+}, { immediate: true, deep: true })
+
+onBeforeUnmount(() => {
+  searchFormWatch()
+})
 
 const maxValue = computed(() => Math.max(...list.value.map(item => item.clicks)))
 
@@ -31,7 +41,7 @@ function getIcon(code: string) {
 </script>
 
 <template>
-  <div class="relative z-0 border border-gray-200 bg-white px-7 py-5  sm:rounded-lg sm:border-gray-100 sm:shadow-lg">
+  <div class="relative z-0 border border-gray-200 bg-white px-7 py-5 sm:rounded-lg sm:border-gray-100 sm:shadow-lg">
     <p class="my-2">
       <span>国家</span>
     </p>
