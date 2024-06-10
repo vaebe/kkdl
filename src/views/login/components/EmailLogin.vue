@@ -3,6 +3,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMagicKeys } from '@vueuse/core'
+import { Loading } from '@element-plus/icons-vue'
 import { getCaptcha, userLogin, userRegister } from '@/api/login'
 
 import { useUserStore } from '@/stores'
@@ -137,20 +138,32 @@ function pageTypeChange() {
   router.push(isLogin.value ? 'register' : 'login')
 }
 
+const pageLoading = ref(false)
+
 // 注册-注册完成后跳转登录页进行登录
 function register() {
-  userRegister(loginForm).then(() => {
-    router.push('/login')
-    ElMessage.success('注册成功！')
-  })
+  pageLoading.value = true
+  userRegister(loginForm)
+    .then(() => {
+      router.push('/login')
+      ElMessage.success('注册成功！')
+    })
+    .finally(() => {
+      pageLoading.value = false
+    })
 }
 
 // 登录
 function login() {
-  userLogin(loginForm).then((res) => {
-    setLoginResData(res.data)
-    ElMessage.success('登录成功！')
-  })
+  pageLoading.value = true
+  userLogin(loginForm)
+    .then((res) => {
+      setLoginResData(res.data)
+      ElMessage.success('登录成功！')
+    })
+    .finally(() => {
+      pageLoading.value = false
+    })
 }
 
 // 登录或者注册
@@ -219,8 +232,13 @@ onBeforeUnmount(() => {
       </el-form-item>
     </el-form>
 
-    <el-button type="primary" class="w-full" @click="loginOrRegister">
-      {{ loginButText }}
+    <el-button type="primary" class="w-full" :disabled="pageLoading" @click="loginOrRegister">
+      <el-icon v-if="pageLoading" v-loading>
+        <Loading />
+      </el-icon>
+      <span class="ml-4">
+        {{ loginButText }}
+      </span>
     </el-button>
 
     <p
