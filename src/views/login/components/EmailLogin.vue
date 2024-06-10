@@ -1,12 +1,37 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
-import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMagicKeys } from '@vueuse/core'
 import { Loading } from '@element-plus/icons-vue'
 import { getCaptcha, userLogin, userRegister } from '@/api/login'
 
 import { useUserStore } from '@/stores'
+
+const { setLoginResData } = useUserStore()
+
+const loginForm = reactive({
+  email: '',
+  password: '',
+  accountType: '01',
+  verificationCode: '',
+})
+
+const loginFormRules = reactive<FormRules>({
+  email: [
+    { required: true, message: '账号不能为空！', trigger: 'blur' },
+    { type: 'email', message: '请输入正确的邮箱地址！', trigger: ['blur', 'change'] },
+  ],
+  password: [
+    { required: true, message: '密码不能为空！', trigger: 'blur' },
+  ],
+  verificationCode: [
+    { required: true, message: '验证码不能为空！', trigger: 'blur' },
+    { min: 6, max: 6, message: '请输入六位验证码！', trigger: 'blur' },
+  ],
+})
+
+const loginFormRef = ref<FormInstance>()
 
 // 验证码倒计时
 const captchaCountdown = ref(0)
@@ -25,8 +50,6 @@ function startCaptchaCountdown() {
   // 开始定时器
   captchaCountdownTimer = window.setInterval(() => {
     captchaCountdown.value -= 1
-    // 缓存倒计时
-    localStorage.setItem('captchaCountdown', `${captchaCountdown.value}`)
 
     // 倒计时小于 1 赋值 0 并清除定时器
     if (captchaCountdown.value < 1) {
@@ -36,68 +59,10 @@ function startCaptchaCountdown() {
   }, 1000)
 }
 
-onMounted(() => {
-  // 获取缓存的倒计时
-  const storeCaptchaCountdown = Number.parseInt(
-    window.localStorage.getItem('captchaCountdown') || '0',
-  )
-  captchaCountdown.value = storeCaptchaCountdown
-
-  // 缓存的倒计时不等于 0 时继续进行倒计时
-  if (storeCaptchaCountdown !== 0)
-    startCaptchaCountdown()
-})
-
 // 页面销毁前清除定时器
 onBeforeUnmount(() => {
   clearCaptchaCountdownTimer()
 })
-
-const { setLoginResData } = useUserStore()
-
-const loginForm = reactive({
-  email: '',
-  password: '',
-  accountType: '01',
-  verificationCode: '',
-})
-
-const loginFormRules = reactive<FormRules>({
-  email: [
-    {
-      required: true,
-      message: '账号不能为空！',
-      trigger: 'blur',
-    },
-    {
-      type: 'email',
-      message: '请输入正确的邮箱地址！',
-      trigger: ['blur', 'change'],
-    },
-  ],
-  password: [
-    {
-      required: true,
-      message: '密码不能为空！',
-      trigger: 'blur',
-    },
-  ],
-  verificationCode: [
-    {
-      required: true,
-      message: '验证码不能为空！',
-      trigger: 'blur',
-    },
-    {
-      min: 6,
-      max: 6,
-      message: '请输入六位验证码！',
-      trigger: 'blur',
-    },
-  ],
-})
-
-const loginFormRef = ref<FormInstance>()
 
 // 发送验证码
 function sendTheVerificationCode() {
@@ -191,31 +156,18 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="email-login w-[380px] flex flex-col items-center">
-    <el-form
-      ref="loginFormRef"
-      class="w-full my-2"
-      :model="loginForm"
-      :rules="loginFormRules"
-      :label-width="0"
-    >
+    <el-form ref="loginFormRef" class="w-full my-2" :model="loginForm" :rules="loginFormRules" :label-width="0">
       <el-form-item prop="email" label="">
         <el-input v-model="loginForm.email" placeholder="请输入账号" />
       </el-form-item>
 
       <el-form-item v-if="!isLogin" prop="verificationCode" label="">
-        <el-input
-          v-model="loginForm.verificationCode"
-          placeholder="请输入验证码"
-        >
+        <el-input v-model="loginForm.verificationCode" placeholder="请输入验证码">
           <template #append>
             <span v-if="captchaCountdown" class="cursor-pointer">
               {{ captchaCountdown }}s
             </span>
-            <span
-              v-else
-              class="cursor-pointer"
-              @click="sendTheVerificationCode"
-            >
+            <span v-else class="cursor-pointer" @click="sendTheVerificationCode">
               验证码
             </span>
           </template>
@@ -223,12 +175,7 @@ onBeforeUnmount(() => {
       </el-form-item>
 
       <el-form-item prop="password" label="">
-        <el-input
-          v-model="loginForm.password"
-          show-password
-          type="password"
-          placeholder="请输入密码"
-        />
+        <el-input v-model="loginForm.password" show-password type="password" placeholder="请输入密码" />
       </el-form-item>
     </el-form>
 
@@ -251,6 +198,4 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss" scoped>
-.email-login {
-}
 </style>
