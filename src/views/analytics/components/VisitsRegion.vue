@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { computed, inject, onBeforeUnmount, ref, watch } from 'vue'
-import type { AnalyzeParams, AnalyzeShortLinkAccessByRegionInfo } from '@/api/analytics.ts'
+import type { AnalyzeParams, AnalyzeRegionParams, AnalyzeShortLinkAccessByRegionInfo } from '@/api/analytics.ts'
 import { analyzeShortLinkAccessByRegion } from '@/api/analytics.ts'
+
+const typeList = [{ label: 'Countries', value: 'countries' }, { label: 'Cities', value: 'cities' }]
+const curType = ref<AnalyzeRegionParams['type']>('countries')
 
 const searchForm = inject<AnalyzeParams>('searchForm')
 
 const list = ref<AnalyzeShortLinkAccessByRegionInfo[]>([])
 function getData() {
-  analyzeShortLinkAccessByRegion({ code: '', dateType: searchForm!.dateType }).then((res) => {
+  analyzeShortLinkAccessByRegion({ code: '', dateType: searchForm!.dateType, type: curType.value }).then((res) => {
     if (res.code === 0)
       list.value = res.data ?? []
   })
@@ -42,9 +45,7 @@ function getIcon(code: string) {
 
 <template>
   <div class="relative z-0 border border-gray-200 bg-white px-7 py-5 sm:rounded-lg sm:border-gray-100 sm:shadow-lg">
-    <p class="my-2">
-      <span>国家</span>
-    </p>
+    <el-segmented v-model="curType" class="my-2" :options="typeList" block @change="getData" />
 
     <el-scrollbar style="height: 40vh">
       <div
@@ -55,7 +56,7 @@ function getIcon(code: string) {
           <div class="z-10 flex items-center space-x-2 px-2">
             <img :alt="item.countryCode" :src="getIcon(item.countryCode)" class="h-3 w-5">
             <div class="truncate text-sm text-gray-800 underline-offset-4 group-hover:underline">
-              {{ item.country }}
+              {{ item.name }}
             </div>
           </div>
           <div

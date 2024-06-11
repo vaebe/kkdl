@@ -2,7 +2,7 @@ import Api from './base'
 import type { ResultData } from './base'
 
 export interface AnalyzeParams {
-  code: string
+  code?: string
   dateType: '24h' | '7d' | '30d'
 }
 
@@ -16,13 +16,32 @@ export function analyzeShortLinkAccessByTime(params: AnalyzeParams): Promise<Res
   return Api.get('/analytics/clicksTime', { params })
 }
 
+export interface AnalyzeRegionParams extends AnalyzeParams {
+  type: 'countries' | 'cities'
+}
+
 export interface AnalyzeShortLinkAccessByRegionInfo {
   clicks: number
   countryCode: string
-  country: string
+  code: string
+  name: string
 }
 
 // 根据区域分析短链访问数据
-export function analyzeShortLinkAccessByRegion(params: AnalyzeParams): Promise<ResultData<AnalyzeShortLinkAccessByRegionInfo[]>> {
+export function analyzeShortLinkAccessByRegion(params: AnalyzeRegionParams): Promise<ResultData<AnalyzeShortLinkAccessByRegionInfo[]>> {
   return Api.get('/analytics/clicksRegion', { params })
+}
+
+export interface AnalyzeDeviceParams extends AnalyzeParams {
+  type: 'devices' | 'browsers' | 'os'
+}
+
+export interface AnalyzeShortLinkAccessByDeviceInfo {
+  clicks: number
+  name: string
+}
+
+// 根据设备分析短链访问数据
+export function analyzeShortLinkAccessByDevice(params: AnalyzeDeviceParams): Promise<ResultData<AnalyzeShortLinkAccessByDeviceInfo[]>> {
+  return Api.get('/analytics/clicksDevices', { params })
 }
