@@ -1,4 +1,4 @@
-# kkdl-短链生成平台
+# kkdl-短链生成平台 [![Netlify Status](https://api.netlify.com/api/v1/badges/086b9e0f-893f-4d7a-a38d-1c9734df5224/deploy-status)](https://app.netlify.com/sites/kkdl/deploys)
 
 用于生成短链及管理的后台管理程序
 

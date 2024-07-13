@@ -27,11 +27,11 @@ const curMenu = ref(`/shortUrl`)
 const menuDataList = computed(() => {
   let list = routes.filter(item => !['base', 'login', 'register'].includes(item!.name as string))
 
-  // 过滤出只有管理员能看的路由
+  // 不是管理员，则过滤掉管理员菜单
   if (!isAdmin.value) {
     list = list.filter((item) => {
       const roleList = item.meta?.role as string[] ?? []
-      return roleList.includes('admin')
+      return !roleList.includes('admin')
     })
   }
 
