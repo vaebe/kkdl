@@ -71,7 +71,7 @@ function sendTheVerificationCode() {
     return
 
   // 验证用户账号是否填写正确
-  loginFormRef.value?.validateField('userAccount', (valid) => {
+  loginFormRef.value?.validateField('email', (valid) => {
     if (valid) {
       // 发送验证码
       getCaptcha({ email: loginForm.email }).then(() => {
