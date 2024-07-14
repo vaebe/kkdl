@@ -42,7 +42,7 @@ export function useCreateShortUrl(): UseCreateShortUrlRes {
         shortUrlFormRef.value.resetData()
 
         const shortUrl = VITE_APP_BASE_URL.replace('api', url)
-        ElMessageBox.alert(shortUrl, '创建成功,生成的短链如下：', {
+        ElMessageBox.alert(shortUrl, '创建成功', {
           type: 'success',
           autofocus: true,
           center: true,
