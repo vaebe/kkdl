@@ -3,7 +3,6 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { computed, onBeforeUnmount, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMagicKeys } from '@vueuse/core'
-import { Loading } from '@element-plus/icons-vue'
 import { getCaptcha, userLogin, userRegister } from '@/api/login'
 
 import { useUserStore } from '@/stores'
@@ -64,6 +63,7 @@ onBeforeUnmount(() => {
   clearCaptchaCountdownTimer()
 })
 
+const sendCodeLoading = ref(false)
 // 发送验证码
 function sendTheVerificationCode() {
   // 获取验证码倒计时大于 0 直接返回
@@ -73,16 +73,16 @@ function sendTheVerificationCode() {
   // 验证用户账号是否填写正确
   loginFormRef.value?.validateField('email', (valid) => {
     if (valid) {
+      sendCodeLoading.value = true
       // 发送验证码
       getCaptcha({ email: loginForm.email }).then(() => {
         ElMessage.success('验证码发送成功！')
 
         // 验证码发送成功开始倒计时
         startCaptchaCountdown()
+      }).finally(() => {
+        sendCodeLoading.value = false
       })
-    }
-    else {
-      ElMessage.warning('请检查账号是否填写正确！')
     }
   })
 }
@@ -103,31 +103,28 @@ function pageTypeChange() {
   router.push(isLogin.value ? 'register' : 'login')
 }
 
-const pageLoading = ref(false)
-
+const loginLoading = ref(false)
 // 注册-注册完成后跳转登录页进行登录
 function register() {
-  pageLoading.value = true
   userRegister(loginForm)
     .then(() => {
       router.push('/login')
       ElMessage.success('注册成功！')
     })
     .finally(() => {
-      pageLoading.value = false
+      loginLoading.value = false
     })
 }
 
 // 登录
 function login() {
-  pageLoading.value = true
   userLogin(loginForm)
     .then((res) => {
       setLoginResData(res.data)
       ElMessage.success('登录成功！')
     })
     .finally(() => {
-      pageLoading.value = false
+      loginLoading.value = false
     })
 }
 
@@ -135,10 +132,10 @@ function login() {
 function loginOrRegister() {
   // 校验表单数据是否填写正确，正确调用对应的函数，错误则进行提示
   loginFormRef.value?.validate((val) => {
-    if (val)
+    if (val) {
+      loginLoading.value = true
       isLogin.value ? login() : register()
-    else
-      ElMessage.warning('请检查表单是否填写正确！')
+    }
   })
 }
 
@@ -156,7 +153,10 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="email-login w-[380px] flex flex-col items-center">
-    <el-form ref="loginFormRef" class="w-full my-2" :model="loginForm" :rules="loginFormRules" :label-width="0">
+    <el-form
+      ref="loginFormRef" class="w-full my-2" :model="loginForm"
+      :rules="loginFormRules" :label-width="0"
+    >
       <el-form-item prop="email" label="">
         <el-input v-model="loginForm.email" placeholder="请输入账号" />
       </el-form-item>
@@ -164,12 +164,12 @@ onBeforeUnmount(() => {
       <el-form-item v-if="!isLogin" prop="verificationCode" label="">
         <el-input v-model="loginForm.verificationCode" placeholder="请输入验证码">
           <template #append>
-            <span v-if="captchaCountdown" class="cursor-pointer">
-              {{ captchaCountdown }}s
-            </span>
-            <span v-else class="cursor-pointer" @click="sendTheVerificationCode">
-              验证码
-            </span>
+            <el-button
+              :disabled="sendCodeLoading"
+              :loading="sendCodeLoading" @click="sendTheVerificationCode"
+            >
+              {{ captchaCountdown ? `${captchaCountdown}s` : '验证码' }}
+            </el-button>
           </template>
         </el-input>
       </el-form-item>
@@ -179,10 +179,10 @@ onBeforeUnmount(() => {
       </el-form-item>
     </el-form>
 
-    <el-button type="primary" class="w-full" :disabled="pageLoading" @click="loginOrRegister">
-      <el-icon v-if="pageLoading" v-loading>
-        <Loading />
-      </el-icon>
+    <el-button
+      type="primary" class="w-full" :disabled="loginLoading"
+      :loading="loginLoading" @click="loginOrRegister"
+    >
       <span class="ml-4">
         {{ loginButText }}
       </span>
