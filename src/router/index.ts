@@ -55,14 +55,6 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/login/index.vue'),
   },
   {
-    path: '/github',
-    name: 'github.login',
-    meta: {
-      title: '登录',
-    },
-    component: () => import('@/views/login/github.vue'),
-  },
-  {
     path: '/register',
     name: 'register',
     meta: {

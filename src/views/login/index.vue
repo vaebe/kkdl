@@ -23,9 +23,16 @@ mode.value = 'light'
 
     <CHeader class="absolute top-0 z-20" />
 
-    <div class="absolute z-10 w-full h-full flex flex-col justify-center items-center">
-      <EmailLogin />
-      <GithubLogin class="mt-4" />
+    <div
+      class="absolute z-10 w-full h-full flex flex-col justify-center items-center"
+    >
+      <div
+        id="login-container"
+        class="p-6 rounded flex flex-col justify-center items-center"
+      >
+        <EmailLogin />
+        <GithubLogin class="mt-4" />
+      </div>
     </div>
     <CFooter class="absolute bottom-0 z-10" />
   </div>
