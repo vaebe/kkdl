@@ -1,5 +1,3 @@
-import { ref } from 'vue'
-import type { Ref } from 'vue'
 import { ElLoading } from 'element-plus'
 import { createShortUrl as shortUrlCreate } from '@/api/shortUrl.ts'
 

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, onBeforeUnmount, ref, watch } from 'vue'
 import type { AnalyzeParams, AnalyzeRegionParams, AnalyzeShortLinkAccessByRegionInfo } from '@/api/analytics.ts'
 import { analyzeShortLinkAccessByRegion } from '@/api/analytics.ts'
 

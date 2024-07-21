@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
 
 const { VITE_APP_TITLE } = import.meta.env

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { defineAsyncComponent, provide, reactive } from 'vue'
-
 const CHeader = defineAsyncComponent(() => import('./components/CHeader.vue'))
 const VisitsTime = defineAsyncComponent(() => import('./components/VisitsTime.vue'))
 const VisitsRegion = defineAsyncComponent(() => import('./components/VisitsRegion.vue'))

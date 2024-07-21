@@ -1,12 +1,9 @@
 <script lang="ts" setup>
-import { reactive } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
 import type { FormRules, UploadProps } from 'element-plus'
 import { saveUserInfo, updateUserInfo } from '@/api/user.ts'
-import { usePageListDialog } from '@/composables/usePageList.ts'
-import { useUploadOpts } from '@/composables/useFile.ts'
+import { useEnums, usePageListDialog, useUploadOpts } from '@/composables'
 import type { UploadRes } from '@/api/common.ts'
-import { useEnums } from '@/composables'
 
 const emit = defineEmits(['refreshData'])
 

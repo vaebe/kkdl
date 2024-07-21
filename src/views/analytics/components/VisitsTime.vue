@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { inject, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { ECOption } from '@/composables'
 import { useEcharts } from '@/composables'
 import { type AnalyzeParams, analyzeShortLinkAccessByTime } from '@/api/analytics.ts'

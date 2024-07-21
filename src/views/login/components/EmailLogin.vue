@@ -1,8 +1,5 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
-import { computed, onBeforeUnmount, reactive, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useMagicKeys } from '@vueuse/core'
 import { getCaptcha, userLogin, userRegister } from '@/api/login'
 
 import { useUserStore } from '@/stores'

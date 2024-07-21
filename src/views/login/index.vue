@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue'
-import { useColorMode } from '@vueuse/core'
-
 const EmailLogin = defineAsyncComponent(
   () => import('./components/EmailLogin.vue'),
 )

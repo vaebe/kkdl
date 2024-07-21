@@ -1,6 +1,4 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { computed, reactive } from 'vue'
-import { useRouter } from 'vue-router'
 import { getUserDetails, userLoginOut } from '@/api/login'
 import type { LoginResData, UserInfo } from '@/api/login'
 import { resetObjToPrimitiveType } from '@/utils/tool'

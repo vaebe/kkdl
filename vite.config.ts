@@ -13,11 +13,11 @@ export default defineConfig({
     vue(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
-      // imports: [
-      //   'vue',
-      //   'vue-router',
-      //   '@vueuse/core',
-      // ],
+      imports: [
+        'vue',
+        'vue-router',
+        '@vueuse/core',
+      ],
     }),
     Components({
       resolvers: [ElementPlusResolver()],

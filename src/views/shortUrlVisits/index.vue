@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { reactive } from 'vue'
 import {
   getShortUrlVisitsList,
 } from '@/api/shortUrlVisits.ts'

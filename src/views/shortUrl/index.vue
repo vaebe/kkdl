@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { defineAsyncComponent, onMounted, reactive, ref } from 'vue'
-import { useFileDialog } from '@vueuse/core'
 import ClipboardJS from 'clipboard'
 import {
   batchExportShortUrl,

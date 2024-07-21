@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { computed, inject, onBeforeUnmount, ref, watch } from 'vue'
 import type { AnalyzeDeviceParams, AnalyzeParams, AnalyzeShortLinkAccessByDeviceInfo } from '@/api/analytics.ts'
 import { analyzeShortLinkAccessByDevice } from '@/api/analytics.ts'
 
-const typeList = [{ label: 'Devices', value: 'devices' }, { label: 'Browsers', value: 'browsers' }, { label: 'OS', value: 'os' }]
+const typeList = [
+  { label: 'Devices', value: 'devices' },
+  { label: 'Browsers', value: 'browsers' },
+  { label: 'OS', value: 'os' },
+]
 
 const curType = ref<AnalyzeDeviceParams['type']>('devices')
 

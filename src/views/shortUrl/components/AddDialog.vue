@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineAsyncComponent, nextTick, ref } from 'vue'
 import { useCreateShortUrl } from '@/composables/useCreateShortUrl.ts'
 
 const emit = defineEmits(['refreshData'])

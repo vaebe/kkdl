@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores'
 
 const ThemeSwitch = defineAsyncComponent(

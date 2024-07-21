@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue'
-import { useRoute, useRouter } from 'vue-router'
 import { ElLoading } from 'element-plus'
-import { ref } from 'vue'
 import { useUserStore } from '@/stores'
 import { githubLogin } from '@/api/login'
 
