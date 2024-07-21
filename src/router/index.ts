@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import { useUserStore } from '@/stores'
 
@@ -55,6 +55,14 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/login/index.vue'),
   },
   {
+    path: '/github',
+    name: 'github.login',
+    meta: {
+      title: '登录',
+    },
+    component: () => import('@/views/login/github.vue'),
+  },
+  {
     path: '/register',
     name: 'register',
     meta: {
@@ -65,7 +73,7 @@ const routes: RouteRecordRaw[] = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 })
 

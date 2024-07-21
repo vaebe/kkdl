@@ -152,7 +152,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="email-login w-[380px] flex flex-col items-center">
+  <div class="email-login w-[340px] flex flex-col items-center">
     <el-form
       ref="loginFormRef" class="w-full my-2" :model="loginForm"
       :rules="loginFormRules" :label-width="0"

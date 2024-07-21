@@ -1,18 +1,36 @@
 <script lang="ts" setup>
 import { defineAsyncComponent } from 'vue'
 import { useColorMode } from '@vueuse/core'
+import { useRoute, useRouter } from 'vue-router'
+import { githubLogin } from '@/api/login'
+import { useUserStore } from '@/stores'
 
-const EmailLogin = defineAsyncComponent(
-  () => import('./components/EmailLogin.vue'),
-)
 const CHeader = defineAsyncComponent(() => import('./components/CHeader.vue'))
 const CFooter = defineAsyncComponent(() => import('./components/CFooter.vue'))
-const GithubLogin = defineAsyncComponent(() => import('./components/GithubLogin.vue'))
 
 const mode = useColorMode({
   attribute: 'class',
 })
 mode.value = 'light'
+
+const { setLoginResData } = useUserStore()
+
+const route = useRoute()
+const code = route.query.code as string
+
+function loginGithub() {
+  githubLogin({ code }).then((res) => {
+    setLoginResData(res.data)
+    ElMessage.success('登录成功！')
+  })
+}
+
+// code 存在执行 github 登录逻辑否则返回正常登录页面
+const router = useRouter()
+if (code)
+  loginGithub()
+else
+  router.replace('/login')
 </script>
 
 <template>
@@ -23,9 +41,8 @@ mode.value = 'light'
 
     <CHeader class="absolute top-0 z-20" />
 
-    <div class="absolute z-10 w-full h-full flex flex-col justify-center items-center">
-      <EmailLogin />
-      <GithubLogin class="mt-4" />
+    <div class="absolute z-10 w-full h-full flex justify-center items-center">
+      正在登录请稍后...
     </div>
     <CFooter class="absolute bottom-0 z-10" />
   </div>

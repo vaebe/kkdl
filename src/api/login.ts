@@ -38,6 +38,11 @@ export function userLogin(data: LoginParams): Promise<ResultData<LoginResData>> 
   return Api.post('/login/emailLogin', data)
 }
 
+// github 登录
+export function githubLogin(data: { code: string }): Promise<ResultData<LoginResData>> {
+  return Api.post('/login/githubLogin', data)
+}
+
 // 用户退出登录
 export function userLoginOut(): Promise<ResultData<LoginResData>> {
   return Api.get('/login/signOut')
