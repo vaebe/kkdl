@@ -13,7 +13,7 @@ declare module 'element-plus/dist/locale/zh-cn.mjs' {
 
 interface ImportMetaEnv {
   VITE_APP_TITLE: string
-  VITE_APP_AXIOS_TIMEOUT: number
+  VITE_APP_AXIOS_TIMEOUT: string
   VITE_APP_BASE_URL: string
   VITE_APP_LOGIN_WS_UR: string
   VITE_APP_GITHUB_CLIENT_ID: string

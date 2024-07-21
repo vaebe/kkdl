@@ -32,7 +32,7 @@ const service = axios.create({
     params.timestamp = new Date().getTime()
     return stringify(params, { arrayFormat: 'brackets' })
   },
-  timeout: Number.parseInt(VITE_APP_AXIOS_TIMEOUT || 0),
+  timeout: Number.parseInt(VITE_APP_AXIOS_TIMEOUT) || 0,
 })
 
 // 请求拦截器
