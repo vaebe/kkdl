@@ -25,7 +25,7 @@ const routes = router?.getRoutes() || []
 const curMenu = ref(`/shortUrl`)
 
 const menuDataList = computed(() => {
-  let list = routes.filter(item => !['base', 'login', 'register'].includes(item!.name as string))
+  let list = routes.filter(item => !['base', 'login', 'register', 'github.login'].includes(item!.name as string))
 
   // 不是管理员，则过滤掉管理员菜单
   if (!isAdmin.value) {
