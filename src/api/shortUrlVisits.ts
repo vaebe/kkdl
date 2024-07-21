@@ -7,29 +7,32 @@ export interface GetShortUrlVisitsListParams extends PaginationParameter {
 }
 
 export interface ShortUrlVisitsInfo {
-  id: string // 主键ID
-  userId: string // 用户ID
+  id: number // bigint unsigned
+  userId: string // 用户id
   shortUrl: string // 短链,唯一，不能为空
-  rawUrl: string // 原始URL，不能为空
-  ip: string // IP地址，不能为空
-  userAgent: string // 客户端软件的类型、版本和其他相关信息
-  secChUa: string // 客户端使用的浏览器和版本
-  secChUaMobile: string // 请求是否来自移动设备。?0 表示不是移动设备，?1 表示是移动设备
-  secChUaPlatform: string // 客户端所运行的平台
-  secFetchUser: string // 请求是否是用户发起的,?1 表示是用户发起的请求
-  continent: string // 大洲名称
-  continentCode: string // 大洲代码
-  country: string // 国家名称
-  countryCode: string // 国家代码
-  region: string // 地区或州的短代码（FIPS或ISO）
-  regionName: string // 地区或州名称
-  city: string // 城市名称
-  district: string // 位置的区（郡）
-  lat: number // 纬度
-  lon: number // 经度
-  createdAt: string // 创建时间，默认为当前时间戳
-  updatedAt: string // 更新时间
-  deletedAt: string // 删除时间
+  rawUrl: string // 原始 url 不能为空
+  userAgent: string // 用户代理字符串，存储提供的完整用户代理
+  browserName: string | null // 浏览器名称
+  browserVersion: string | null // 浏览器版本
+  deviceModel: string | null // 设备型号
+  engineName: string | null // 浏览器引擎名称
+  engineVersion: string | null // 浏览器引擎版本
+  osName: string | null // 操作系统名称
+  osVersion: string | null // 操作系统版本
+  ip: string // ip 不能为空
+  continent: string | null // 大洲名称
+  continentCode: string | null // 大洲代码
+  country: string | null // 国家名称
+  countryCode: string | null // 国家代码
+  region: string | null // 地区或州的短代码（FIPS或ISO）
+  regionName: string | null // 地区或州名称
+  city: string | null // 城市名称
+  district: string | null // 位置的区（郡）
+  lat: number | null // 纬度
+  lon: number | null // 经度
+  createdAt: Date | null // 创建时间，默认为当前时间戳
+  updatedAt: Date | null // 更新时间
+  deletedAt: Date | null // 删除时间
 }
 
 // 获取短链列表

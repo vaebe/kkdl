@@ -54,10 +54,14 @@ reset()
         <el-table-column label="跳转链接" prop="rawUrl" min-width="300" />
         <el-table-column label="ip" prop="ip" min-width="140" />
         <el-table-column label="userAgent" prop="userAgent" min-width="300" />
-        <el-table-column label="客户端浏览器信息" prop="secChUa" min-width="300" />
-        <el-table-column label="是否来自移动设备" prop="secChUaMobile" min-width="200" />
-        <el-table-column label="客户端平台" prop="secChUaPlatform" min-width="100" />
-        <el-table-column label="secFetchUser" prop="secFetchUser" min-width="140" />
+        <el-table-column label="浏览器名称" prop="browserName" min-width="140" />
+        <el-table-column label="浏览器版本" prop="browserVersion" min-width="100" />
+        <el-table-column label="设备型号" prop="deviceModel" min-width="100" />
+        <el-table-column label="浏览器引擎名称" prop="engineName" min-width="140" />
+        <el-table-column label="浏览器引擎版本" prop="engineVersion" min-width="140" />
+        <el-table-column label="操作系统名称" prop="osName" min-width="140" />
+        <el-table-column label="操作系统版本" prop="osVersion" min-width="140" />
+        <el-table-column label="ip" prop="ip" min-width="140" />
         <el-table-column label="洲" prop="continent" min-width="140" />
         <el-table-column label="国家" prop="country" min-width="140" />
         <el-table-column label="市" prop="city" min-width="140" />
