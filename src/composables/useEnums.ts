@@ -33,6 +33,10 @@ export function useEnums(): UseEnumsRes {
       code: '02',
       name: '微信注册',
     },
+    {
+      code: '03',
+      name: 'github',
+    },
   ]
 
   return {
