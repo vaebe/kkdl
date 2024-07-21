@@ -15,18 +15,23 @@ mode.value = 'light'
 
 const { setLoginResData } = useUserStore()
 
+const router = useRouter()
+
 const route = useRoute()
+
 const code = route.query.code as string
 
 function loginGithub() {
   githubLogin({ code }).then((res) => {
     setLoginResData(res.data)
     ElMessage.success('登录成功！')
+  }).catch(() => {
+    ElMessage.warning('登录失败！')
+    router.replace('/login')
   })
 }
 
 // code 存在执行 github 登录逻辑否则返回正常登录页面
-const router = useRouter()
 if (code)
   loginGithub()
 else
