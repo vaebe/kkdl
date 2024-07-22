@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-import { useUserStore } from '@/stores'
-
 const { VITE_APP_TITLE } = import.meta.env
 
 const { isLogin } = storeToRefs(useUserStore())
@@ -15,7 +12,7 @@ function jumpHome() {
 <template>
   <div class="relative z-10 w-full h-[58px] px-20 flex items-center justify-between bg-white shadow">
     <div class="w-1/2 h-full flex  items-center">
-      <img src="@/../public/logo.svg" alt="logo" style="width: 32px;height: 32px">
+      <img src="/logo.svg" alt="logo" style="width: 32px;height: 32px">
       <h1 class="text-2xl text-black cursor-pointer ml-2" @click="jumpHome">
         {{ VITE_APP_TITLE }}
       </h1>

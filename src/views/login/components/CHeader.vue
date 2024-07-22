@@ -12,7 +12,7 @@ function jumpHome() {
 <template>
   <div class="w-full h-[58px] px-4 shadow flex items-center justify-between">
     <div class="w-full h-full flex items-center">
-      <img src="@/../public/logo.svg" alt="logo" style="width: 32px;height: 32px">
+      <img src="/logo.svg" alt="logo" style="width: 32px;height: 32px">
       <h1 class="text-2xl text-black cursor-pointer ml-2" @click="jumpHome">
         {{ VITE_APP_TITLE }}
       </h1>

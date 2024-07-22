@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { getUserList, removeUser } from '@/api/user.ts'
-import { useEnums, usePageList } from '@/composables'
 import { getCodeNameByCodeId } from '@/utils/tool.ts'
 
 const AddAndViewDialog = defineAsyncComponent(

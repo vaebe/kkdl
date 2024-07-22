@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue'
 import { ElLoading } from 'element-plus'
-import { useUserStore } from '@/stores'
 import { githubLogin } from '@/api/login'
 
 const loadingDom = document.getElementById('login-container') as HTMLElement

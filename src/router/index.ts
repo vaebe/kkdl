@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
-import { useUserStore } from '@/stores'
+import { useUserStore } from '@/stores/modules/useUserStore'
 
 const routes: RouteRecordRaw[] = [
   {

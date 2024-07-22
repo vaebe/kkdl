@@ -17,6 +17,21 @@ export default defineConfig({
         'vue',
         'vue-router',
         '@vueuse/core',
+        'pinia',
+        {
+          from: 'vue-router',
+          imports: ['RouteLocationRaw', 'RouteLocationNormalized', 'RouteRecordRaw'],
+          type: true,
+        },
+        {
+          from: 'useEcharts',
+          imports: ['ECOption'],
+          type: true,
+        },
+      ],
+      dirs: [
+        './src/composables',
+        './src/stores',
       ],
     }),
     Components({

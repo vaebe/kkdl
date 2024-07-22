@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { useWebSocket } from '@vueuse/core'
-import { onBeforeUnmount, reactive, ref, watch } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { useUserStore } from '@/stores'
 import { getMiniProgramCode } from '@/api/login'
 
 const loading = ref(true)

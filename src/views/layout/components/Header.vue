@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-import { useUserStore } from '@/stores'
-
 const ThemeSwitch = defineAsyncComponent(
   () => import('@/components/ThemeSwitch.vue'),
 )
@@ -49,7 +46,7 @@ function menuChange(path: string) {
 <template>
   <div class="layout-header w-full h-[58px] px-2 flex items-center justify-between shadow">
     <div class="h-full flex  items-center">
-      <img src="@/../public/logo.svg" alt="logo" style="width: 32px;height: 32px">
+      <img src="/logo.svg" alt="logo" style="width: 32px;height: 32px">
       <h1 class="text-2xl  cursor-pointer ml-2" @click="jumpPage('dm')">
         {{ VITE_APP_TITLE }}
       </h1>

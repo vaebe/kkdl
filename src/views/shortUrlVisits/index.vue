@@ -1,8 +1,5 @@
 <script lang="ts" setup>
-import {
-  getShortUrlVisitsList,
-} from '@/api/shortUrlVisits.ts'
-import { usePageList } from '@/composables'
+import { getShortUrlVisitsList } from '@/api/shortUrlVisits.ts'
 
 const searchForm = reactive({
   code: '',

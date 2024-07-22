@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useCreateShortUrl } from '@/composables/useCreateShortUrl.ts'
-
 const emit = defineEmits(['refreshData'])
 
 const ShortUrlForm = defineAsyncComponent(

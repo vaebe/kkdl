@@ -7,7 +7,6 @@ import {
   getShortUrlList,
   templateDownloadShortUrl,
 } from '@/api/shortUrl.ts'
-import { useFileDownload, usePageList } from '@/composables'
 
 const AddDialog = defineAsyncComponent(
   () => import('./components/AddDialog.vue'),

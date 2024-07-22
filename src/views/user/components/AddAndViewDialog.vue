@@ -2,7 +2,6 @@
 import { Plus } from '@element-plus/icons-vue'
 import type { FormRules, UploadProps } from 'element-plus'
 import { saveUserInfo, updateUserInfo } from '@/api/user.ts'
-import { useEnums, usePageListDialog, useUploadOpts } from '@/composables'
 import type { UploadRes } from '@/api/common.ts'
 
 const emit = defineEmits(['refreshData'])
