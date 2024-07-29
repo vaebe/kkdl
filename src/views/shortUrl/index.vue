@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import ClipboardJS from 'clipboard'
+import { Icon } from '@iconify/vue'
 import {
   batchExportShortUrl,
   batchImportShortUrl,
@@ -29,31 +29,18 @@ function getRowShortUrl(url: string): string {
   return VITE_APP_BASE_URL?.replace('api', url)
 }
 
-// 一键复制
-function initClipboard() {
-  const clipboard = new ClipboardJS('.clipboardBtn', {
-    text: (trigger: Element) => {
-      return trigger.getAttribute('data-clipboard-text') as string
-    },
-  })
+const { copy, isSupported } = useClipboard()
 
-  clipboard.on('success', (e) => {
-    ElMessage.success('复制成功！')
-    e.clearSelection()
-  })
+function copyText(str: string) {
+  if (!isSupported) {
+    ElMessage.warning('不支持一键复制!')
+    return
+  }
 
-  clipboard.on('error', (e) => {
-    // 数据存在，复制失败进行提示！
-    if (e.text)
-      ElMessage.warning('复制失败！')
-    else
-      ElMessage.warning('需要复制的数据为空！')
-  })
+  copy(str)
+
+  ElMessage.success(`复制成功: ${str}`)
 }
-
-onMounted(() => {
-  initClipboard()
-})
 
 const { open, reset: onSelectFileReset, onChange: onSelectFileChange } = useFileDialog({
   accept: '.xlsx',
@@ -148,14 +135,19 @@ async function batchExport() {
       <el-table :data="tableData" stripe style="width: 100%" class="my-2">
         <el-table-column type="index" label="序号" width="60" />
         <el-table-column label="短链名称" prop="title" min-width="200" />
-        <el-table-column label="短链" prop="shortUrl" min-width="240">
+        <el-table-column label="短链" prop="shortUrl" min-width="260">
           <template #default="scope">
-            <p
-              class="clipboardBtn text-blue-400 cursor-pointer"
-              :data-clipboard-text="getRowShortUrl(scope.row.shortUrl)"
-            >
-              {{ getRowShortUrl(scope.row.shortUrl) }}
-            </p>
+            <div class="flex items-center justify-between">
+              <el-link type="primary" target="_blank" :href="getRowShortUrl(scope.row.shortUrl)">
+                {{ getRowShortUrl(scope.row.shortUrl) }}
+              </el-link>
+              <Icon
+                width="20" height="20"
+                icon="ph:copy-bold"
+                class="ml-2 cursor-pointer hover:text-blue-500"
+                @click="copyText(getRowShortUrl(scope.row.shortUrl))"
+              />
+            </div>
           </template>
         </el-table-column>
         <el-table-column label="跳转链接" prop="rawUrl" min-width="300" />
