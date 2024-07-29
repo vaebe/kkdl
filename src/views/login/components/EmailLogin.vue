@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
 import { useCountdown } from '../composables/useCountdown'
-import { emailVerificationCodeLogin, getCaptcha, userLogin, userRegCheck, userRegister } from '@/api/login'
+import { emailVerificationCodeLogin, getCaptcha, userLogin } from '@/api/login'
 
 const loginTypeList = [
   {
@@ -19,7 +19,6 @@ const curLoginType = ref('01')
 const loginForm = reactive({
   email: '',
   password: '',
-  accountType: '01',
   verificationCode: '',
 })
 
@@ -66,44 +65,14 @@ function sendTheVerificationCode() {
   })
 }
 
-const route = useRoute()
-
-// 判断当前是否是登录页面
-const isLogin = computed(() => route.path.includes('login'))
-const loginButText = computed(() => (isLogin.value ? '登录' : '点击注册'))
-const tipsText = computed(() =>
-  isLogin.value ? '没有账号，点击注册！' : '已有账号，点击登录！',
-)
-
 const router = useRouter()
 
 // 切换页面类型： 登录｜注册
-function pageTypeChange() {
-  router.push(isLogin.value ? 'register' : 'login')
+function jumpToRegister() {
+  router.push('register')
 }
 
 const loginLoading = ref(false)
-// 注册-注册完成后跳转登录页进行登录
-async function register() {
-  const regCheck = await userRegCheck({ email: loginForm.email })
-
-  if (regCheck.code !== 0)
-    return
-
-  if (regCheck.data.isRegistered) {
-    ElMessage.warning('该账号已注册, 请直接登录！')
-    return
-  }
-
-  userRegister(loginForm)
-    .then(() => {
-      router.push('/login')
-      ElMessage.success('注册成功！')
-    })
-    .finally(() => {
-      loginLoading.value = false
-    })
-}
 
 const { setLoginResData } = useUserStore()
 
@@ -122,22 +91,11 @@ function login() {
     })
 }
 
-// 登录或者注册
-function loginOrRegister() {
-  // 校验表单数据是否填写正确，正确调用对应的函数，错误则进行提示
-  loginFormRef.value?.validate((val) => {
-    if (val) {
-      loginLoading.value = true
-      isLogin.value ? login() : register()
-    }
-  })
-}
-
 const { current } = useMagicKeys()
 
 const KeyboardWatch = watch(current, (v) => {
   if (v.has('enter'))
-    loginOrRegister()
+    login()
 })
 
 onBeforeUnmount(() => {
@@ -157,12 +115,13 @@ onBeforeUnmount(() => {
         <el-input v-model="loginForm.email" placeholder="请输入账号" />
       </el-form-item>
 
-      <el-form-item v-if="!isLogin || curLoginType === '02'" prop="verificationCode" label="">
+      <el-form-item v-if="curLoginType === '02'" prop="verificationCode" label="">
         <el-input v-model="loginForm.verificationCode" placeholder="请输入验证码">
           <template #append>
             <el-button
               :disabled="sendCodeLoading"
-              :loading="sendCodeLoading" @click="sendTheVerificationCode"
+              :loading="sendCodeLoading"
+              @click="sendTheVerificationCode"
             >
               {{ countdown ? `${countdown}s` : '验证码' }}
             </el-button>
@@ -177,18 +136,18 @@ onBeforeUnmount(() => {
 
     <el-button
       type="primary" class="w-full" :disabled="loginLoading"
-      :loading="loginLoading" @click="loginOrRegister"
+      :loading="loginLoading" @click="login"
     >
       <span class="ml-4">
-        {{ loginButText }}
+        登录
       </span>
     </el-button>
 
     <p
       class="mt-4 text-sm text-gray-400 cursor-pointer hover:text-blue-400"
-      @click="pageTypeChange"
+      @click="jumpToRegister"
     >
-      {{ tipsText }}
+      已有账号，点击登录！
     </p>
   </div>
 </template>

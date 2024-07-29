@@ -21,7 +21,6 @@ export interface LoginResData {
 export interface LoginParams {
   email: string
   password: string
-  accountType: string
 }
 
 export interface GetMiniProgramCodeParams {
