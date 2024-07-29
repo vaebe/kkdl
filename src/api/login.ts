@@ -24,10 +24,6 @@ export interface LoginParams {
   accountType: string
 }
 
-export interface EmailVerificationCodeParams {
-  email: string
-}
-
 export interface GetMiniProgramCodeParams {
   scene: string
   page: string
@@ -49,13 +45,18 @@ export function userLoginOut(): Promise<ResultData<LoginResData>> {
 }
 
 // 获取邮箱验证码
-export function getCaptcha(params: EmailVerificationCodeParams): Promise<ResultData<string>> {
+export function getCaptcha(params: { email: string }): Promise<ResultData<string>> {
   return Api.get('/common/getCaptcha', { params })
 }
 
 // 用户注册
 export function userRegister(data: LoginParams): Promise<ResultData<LoginResData>> {
   return Api.post('/user/registration', data)
+}
+
+// 邮箱验证码登录
+export function emailVerificationCodeLogin(data: { email: string, code: string }): Promise<ResultData<LoginResData>> {
+  return Api.post('/login/verificationCode', data)
 }
 
 // 获取用户详情

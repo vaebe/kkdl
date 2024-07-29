@@ -1,10 +1,19 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
-import { getCaptcha, userLogin, userRegister } from '@/api/login'
+import { emailVerificationCodeLogin, getCaptcha, userLogin, userRegister } from '@/api/login'
 
-import { useUserStore } from '@/stores'
+const loginTypeList = [
+  {
+    label: '账号密码登录',
+    value: '01',
+  },
+  {
+    label: '邮箱验证码登录',
+    value: '02',
+  },
+]
 
-const { setLoginResData } = useUserStore()
+const curLoginType = ref('01')
 
 const loginForm = reactive({
   email: '',
@@ -113,13 +122,18 @@ function register() {
     })
 }
 
+const { setLoginResData } = useUserStore()
+
 // 登录
 function login() {
-  userLogin(loginForm)
-    .then((res) => {
-      setLoginResData(res.data)
-      ElMessage.success('登录成功！')
-    })
+  const api = curLoginType.value === '01'
+    ? userLogin(loginForm)
+    : emailVerificationCodeLogin({ email: loginForm.email, code: loginForm.verificationCode })
+
+  api.then((res) => {
+    setLoginResData(res.data)
+    ElMessage.success('登录成功！')
+  })
     .finally(() => {
       loginLoading.value = false
     })
@@ -150,6 +164,8 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="email-login w-[340px] flex flex-col items-center">
+    <el-segmented v-model="curLoginType" :options="loginTypeList" block class="w-full" />
+
     <el-form
       ref="loginFormRef" class="w-full my-2" :model="loginForm"
       :rules="loginFormRules" :label-width="0"
@@ -158,7 +174,7 @@ onBeforeUnmount(() => {
         <el-input v-model="loginForm.email" placeholder="请输入账号" />
       </el-form-item>
 
-      <el-form-item v-if="!isLogin" prop="verificationCode" label="">
+      <el-form-item v-if="!isLogin || curLoginType === '02'" prop="verificationCode" label="">
         <el-input v-model="loginForm.verificationCode" placeholder="请输入验证码">
           <template #append>
             <el-button
@@ -171,7 +187,7 @@ onBeforeUnmount(() => {
         </el-input>
       </el-form-item>
 
-      <el-form-item prop="password" label="">
+      <el-form-item v-if="curLoginType === '01'" prop="password" label="">
         <el-input v-model="loginForm.password" show-password type="password" placeholder="请输入密码" />
       </el-form-item>
     </el-form>
