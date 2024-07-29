@@ -60,9 +60,7 @@ export function emailVerificationCodeLogin(data: { email: string, code: string }
 }
 
 // 获取用户详情
-export function getUserDetails(params: {
-  id: string
-}): Promise<ResultData<UserInfo>> {
+export function getUserDetails(params: { id: string }): Promise<ResultData<UserInfo>> {
   return Api.get('/user/getUserInfo', { params })
 }
 
@@ -73,4 +71,9 @@ export function getMiniProgramCode(params: GetMiniProgramCodeParams): any {
   return `${
     VITE_APP_BASE_URL as string
   }/weChatMiniProgram/getMiniProgramCode?${stringify(params)}`
+}
+
+// 检查用户是否已经注册
+export function userRegCheck(params: { email: string }): Promise<ResultData<{ isRegistered: boolean }>> {
+  return Api.post('/login/userRegCheck', { params })
 }
