@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
-import { emailVerificationCodeLogin, getCaptcha, userLogin, userRegister } from '@/api/login'
+import { useCountdown } from '../composables/useCountdown'
+import { emailVerificationCodeLogin, getCaptcha, userLogin, userRegCheck, userRegister } from '@/api/login'
 
 const loginTypeList = [
   {
@@ -38,54 +39,26 @@ const loginFormRules = reactive<FormRules>({
 
 const loginFormRef = ref<FormInstance>()
 
-// 验证码倒计时
-const captchaCountdown = ref(0)
-
-// 验证码的定时器
-let captchaCountdownTimer = 0
-// 清除获取验证码的定时器
-function clearCaptchaCountdownTimer() {
-  window.clearInterval(captchaCountdownTimer)
-}
-
-// 开始倒计时
-function startCaptchaCountdown() {
-  captchaCountdown.value = 60
-
-  // 开始定时器
-  captchaCountdownTimer = window.setInterval(() => {
-    captchaCountdown.value -= 1
-
-    // 倒计时小于 1 赋值 0 并清除定时器
-    if (captchaCountdown.value < 1) {
-      captchaCountdown.value = 0
-      clearCaptchaCountdownTimer()
-    }
-  }, 1000)
-}
-
-// 页面销毁前清除定时器
-onBeforeUnmount(() => {
-  clearCaptchaCountdownTimer()
-})
+const { countdown, startCountdown } = useCountdown()
 
 const sendCodeLoading = ref(false)
 // 发送验证码
 function sendTheVerificationCode() {
   // 获取验证码倒计时大于 0 直接返回
-  if (captchaCountdown.value > 0)
+  if (countdown.value > 0)
     return
 
   // 验证用户账号是否填写正确
   loginFormRef.value?.validateField('email', (valid) => {
     if (valid) {
       sendCodeLoading.value = true
+
       // 发送验证码
       getCaptcha({ email: loginForm.email }).then(() => {
         ElMessage.success('验证码发送成功！')
 
         // 验证码发送成功开始倒计时
-        startCaptchaCountdown()
+        startCountdown()
       }).finally(() => {
         sendCodeLoading.value = false
       })
@@ -111,7 +84,17 @@ function pageTypeChange() {
 
 const loginLoading = ref(false)
 // 注册-注册完成后跳转登录页进行登录
-function register() {
+async function register() {
+  const regCheck = await userRegCheck({ email: loginForm.email })
+
+  if (regCheck.code !== 0)
+    return
+
+  if (regCheck.data.isRegistered) {
+    ElMessage.warning('该账号已注册, 请直接登录！')
+    return
+  }
+
   userRegister(loginForm)
     .then(() => {
       router.push('/login')
@@ -181,7 +164,7 @@ onBeforeUnmount(() => {
               :disabled="sendCodeLoading"
               :loading="sendCodeLoading" @click="sendTheVerificationCode"
             >
-              {{ captchaCountdown ? `${captchaCountdown}s` : '验证码' }}
+              {{ countdown ? `${countdown}s` : '验证码' }}
             </el-button>
           </template>
         </el-input>
