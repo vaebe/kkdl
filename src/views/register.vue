@@ -56,14 +56,16 @@ function sendTheVerificationCode() {
       }
 
       // 发送验证码
-      getCaptcha({ email: registerForm.email }).then(() => {
-        ElMessage.success('验证码发送成功！')
+      getCaptcha({ email: registerForm.email })
+        .then(() => {
+          ElMessage.success('验证码发送成功！')
 
-        // 验证码发送成功开始倒计时
-        startCountdown()
-      }).finally(() => {
-        sendCodeLoading.value = false
-      })
+          // 验证码发送成功开始倒计时
+          startCountdown()
+        })
+        .finally(() => {
+          sendCodeLoading.value = false
+        })
     }
   })
 }
@@ -75,10 +77,10 @@ function jumpToLogin() {
   router.push('/login')
 }
 
-const loginLoading = ref(false)
+const loading = ref(false)
 // 注册-注册完成后跳转登录页进行登录
 async function register() {
-  loginLoading.value = true
+  loading.value = true
 
   userRegister(registerForm)
     .then(() => {
@@ -86,19 +88,15 @@ async function register() {
       ElMessage.success('注册成功！')
     })
     .finally(() => {
-      loginLoading.value = false
+      loading.value = false
     })
 }
 
 const { current } = useMagicKeys()
 
-const KeyboardWatch = watch(current, (v) => {
+watch(current, (v) => {
   if (v.has('enter'))
     register()
-})
-
-onBeforeUnmount(() => {
-  KeyboardWatch()
 })
 </script>
 
@@ -115,7 +113,8 @@ onBeforeUnmount(() => {
             <template #append>
               <el-button
                 :disabled="sendCodeLoading"
-                :loading="sendCodeLoading" @click="sendTheVerificationCode"
+                :loading="sendCodeLoading"
+                @click="sendTheVerificationCode"
               >
                 {{ countdown ? `${countdown}s` : '验证码' }}
               </el-button>
@@ -128,7 +127,7 @@ onBeforeUnmount(() => {
         </el-form-item>
       </el-form>
 
-      <el-button type="primary" class="w-full" :disabled="loginLoading" :loading="loginLoading" @click="register">
+      <el-button type="primary" class="w-full" :disabled="loading" :loading="loading" @click="register">
         <span class="ml-4">
           注册
         </span>

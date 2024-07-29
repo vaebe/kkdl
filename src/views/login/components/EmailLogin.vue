@@ -93,13 +93,9 @@ function login() {
 
 const { current } = useMagicKeys()
 
-const KeyboardWatch = watch(current, (v) => {
+watch(current, (v) => {
   if (v.has('enter'))
     login()
-})
-
-onBeforeUnmount(() => {
-  KeyboardWatch()
 })
 </script>
 
