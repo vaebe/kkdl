@@ -75,5 +75,5 @@ export function getMiniProgramCode(params: GetMiniProgramCodeParams): any {
 
 // 检查用户是否已经注册
 export function userRegCheck(params: { email: string }): Promise<ResultData<{ isRegistered: boolean }>> {
-  return Api.post('/login/userRegCheck', { params })
+  return Api.get('/login/userRegCheck', { params })
 }

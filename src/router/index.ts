@@ -59,7 +59,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: '注册',
     },
-    component: () => import('@/views/login/index.vue'),
+    component: () => import('@/views/register.vue'),
   },
 ]
 
