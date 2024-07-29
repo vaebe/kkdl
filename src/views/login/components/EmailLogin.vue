@@ -78,17 +78,20 @@ const { setLoginResData } = useUserStore()
 
 // 登录
 function login() {
-  const api = curLoginType.value === '01'
-    ? userLogin(loginForm)
-    : emailVerificationCodeLogin({ email: loginForm.email, code: loginForm.verificationCode })
+  loginFormRef.value?.validate((val) => {
+    if (val) {
+      const api = curLoginType.value === '01'
+        ? userLogin(loginForm)
+        : emailVerificationCodeLogin({ email: loginForm.email, code: loginForm.verificationCode })
 
-  api.then((res) => {
-    setLoginResData(res.data)
-    ElMessage.success('登录成功！')
+      api.then((res) => {
+        setLoginResData(res.data)
+        ElMessage.success('登录成功！')
+      }).finally(() => {
+        loginLoading.value = false
+      })
+    }
   })
-    .finally(() => {
-      loginLoading.value = false
-    })
 }
 
 const { current } = useMagicKeys()
