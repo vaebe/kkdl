@@ -55,7 +55,7 @@ export function userRegister(data: LoginParams): Promise<ResultData<LoginResData
 
 // 邮箱验证码登录
 export function emailVerificationCodeLogin(data: { email: string, code: string }): Promise<ResultData<LoginResData>> {
-  return Api.post('/login/verificationCode', data)
+  return Api.post('/login/verificationCodeLogin', data)
 }
 
 // 获取用户详情
