@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import NProgress from 'nprogress'
 import { useUserStore } from '@/stores/modules/useUserStore'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'base',
-    redirect: (to: RouteLocationNormalized) => {
+    redirect: (to: RouteLocation) => {
       return `${to.path}login`
     },
     component: () => import('@/views/layout/baseLayout.vue'),
@@ -68,7 +69,10 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, _from, next) => {
+router.beforeEach((to, from, next) => {
+  if (to.path !== from.path)
+    NProgress.start()
+
   const userStore = useUserStore()
 
   // 未登录用户不能进入数据管理页面
@@ -84,6 +88,10 @@ router.beforeEach((to, _from, next) => {
   else {
     next()
   }
+})
+
+router.afterEach(() => {
+  NProgress.done()
 })
 
 export default router

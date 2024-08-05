@@ -20,7 +20,7 @@ export default defineConfig({
         'pinia',
         {
           from: 'vue-router',
-          imports: ['RouteLocationRaw', 'RouteLocationNormalized', 'RouteRecordRaw'],
+          imports: ['RouteLocationRaw', 'RouteLocationNormalized', 'RouteRecordRaw', 'RouteLocation'],
           type: true,
         },
         {
@@ -46,7 +46,7 @@ export default defineConfig({
       'vue-router',
       '@vueuse/core',
       'dayjs',
-      'dayjs/plugin/localizedFormat'
+      'dayjs/plugin/localizedFormat',
     ],
   },
   resolve: {
