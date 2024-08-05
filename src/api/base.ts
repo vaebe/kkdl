@@ -96,7 +96,7 @@ function formatTheResponseDataToJson<T>(data: T): T {
   try {
     return JSON.parse(enc.decode(uint8Msg))
   }
-  catch (e) {
+  catch {
     return data
   }
 }
