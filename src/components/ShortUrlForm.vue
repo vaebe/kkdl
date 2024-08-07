@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
-import { storeToRefs } from 'pinia'
 import { cloneDeep } from 'lodash-es'
-import { useUserStore } from '@/stores'
 
 const userStore = useUserStore()
 const { isLogin } = storeToRefs(userStore)
