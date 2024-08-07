@@ -5,11 +5,13 @@ import type { ResultData } from './base'
 export interface UserInfo {
   id: string
   email: string
-  wxId: string
   nickName: string
   accountType: string
   role: string
   avatar: string
+  updatedAt: string | null
+  createdAt: string
+  deletedAt: string | null
 }
 
 export interface LoginResData {

@@ -18,28 +18,14 @@ const dialogForm = reactive({
 const rules = reactive<FormRules>({
   email: [
     { required: true, message: '用户账号不能为空！', trigger: 'blur' },
-    {
-      type: 'email',
-      message: '请输入正确的邮箱地址！',
-      trigger: ['blur', 'change'],
-    },
+    { type: 'email', message: '请输入正确的邮箱地址！', trigger: ['blur', 'change'] },
   ],
   nickName: [
     { required: true, message: '昵称不能为空！', trigger: 'blur' },
-    {
-      min: 2,
-      max: 30,
-      message: '请输入大于2小于30长度的昵称！',
-      trigger: 'blur',
-    },
+    { min: 2, max: 30, message: '请输入大于2小于30长度的昵称！', trigger: 'blur' },
   ],
   password: [
-    {
-      min: 6,
-      max: 12,
-      message: '请输入大于6小于12的密码！',
-      trigger: 'blur',
-    },
+    { min: 6, max: 12, message: '请输入大于6小于12的密码！', trigger: 'blur' },
   ],
   role: [{ required: true, message: '角色不能为空', trigger: 'change' }],
 })
@@ -84,28 +70,16 @@ defineExpose({
       :disabled="dialogIsView"
     >
       <el-form-item label="用户账号：" prop="email">
-        <el-input
-          v-model="dialogForm.email"
-          placeholder="请输入用户账号"
-        />
+        <el-input v-model="dialogForm.email" placeholder="请输入用户账号" />
       </el-form-item>
 
       <el-form-item label="昵称：" prop="nickName">
-        <el-input
-          v-model="dialogForm.nickName"
-          placeholder="请输入昵称"
-          maxlength="40"
-        />
+        <el-input v-model="dialogForm.nickName" placeholder="请输入昵称" maxlength="40" />
       </el-form-item>
 
       <el-form-item
-        label="密码："
-        prop="password"
-        :rules="{
-          required: dialogType === 'add',
-          message: '密码不能为空！',
-          trigger: 'blur',
-        }"
+        label="密码：" prop="password"
+        :rules="{ required: dialogType === 'add', message: '密码不能为空！', trigger: 'blur' }"
       >
         <el-input v-model="dialogForm.password" type="password" show-password />
       </el-form-item>
@@ -132,11 +106,7 @@ defineExpose({
           <div
             class="w-40 h-40 flex items-center justify-center rounded border overflow-hidden"
           >
-            <el-image
-              v-if="dialogForm.avatar"
-              :src="dialogForm.avatar"
-              :lazy="true"
-            />
+            <el-image v-if="dialogForm.avatar" :src="dialogForm.avatar" :lazy="true" />
 
             <el-icon v-else :size="30">
               <Plus />

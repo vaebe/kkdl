@@ -5,19 +5,19 @@ import type { PaginationParameter } from '@/types'
 interface GetUserListParams extends PaginationParameter {
   nickName: string
   email: string
-  wxId: string
 }
 
 export interface UserInfo {
   id?: string
   email: string
-  wxId: string
   avatar: string
   nickName: string
   password?: string
-  role: number
-  updated_at: string
-  created_at: string
+  role: string
+  accountType: string
+  updatedAt: string | null
+  createdAt: string
+  deletedAt: string | null
 }
 
 // 获取用户列表
