@@ -69,7 +69,7 @@ const router = createRouter({
   routes,
 })
 
-const ignoreRouteNameList = ['base', 'login', 'register']
+const ignoreRouteNameList = ['base', 'login', 'register', 'analytics']
 
 router.beforeEach((to, from, next) => {
   if (to.path !== from.path)
