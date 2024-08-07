@@ -10,17 +10,16 @@ const { userInfo, isLogin, isAdmin } = storeToRefs(userStore)
 const { loginOut } = userStore
 
 const router = useRouter()
-// 跳转
-function jumpPage(path: string) {
-  router.push(`/${path}`)
-}
-
 const routes = router?.getRoutes() || []
 
-const curMenu = ref(`/shortUrl`)
+const route = useRoute()
+
+const curMenu = ref(route.path)
+
+const ignoreRouteNameList = ['base', 'login', 'register', 'github.login']
 
 const menuDataList = computed(() => {
-  let list = routes.filter(item => !['base', 'login', 'register', 'github.login'].includes(item!.name as string))
+  let list = routes.filter(item => !ignoreRouteNameList.includes(item!.name as string))
 
   // 不是管理员，则过滤掉管理员菜单
   if (!isAdmin.value) {
@@ -47,9 +46,11 @@ function menuChange(path: string) {
   <div class="layout-header w-full h-[58px] px-2 flex items-center justify-between shadow">
     <div class="h-full flex  items-center">
       <img src="/logo.svg" alt="logo" style="width: 32px;height: 32px">
-      <h1 class="text-2xl  cursor-pointer ml-2" @click="jumpPage('dm')">
-        {{ VITE_APP_TITLE }}
-      </h1>
+      <RouterLink to="/shortUrl">
+        <h1 class="text-2xl  cursor-pointer ml-2">
+          {{ VITE_APP_TITLE }}
+        </h1>
+      </RouterLink>
     </div>
 
     <el-segmented v-model="curMenu" :options="menuDataList" @change="menuChange" />
@@ -72,11 +73,15 @@ function menuChange(path: string) {
       </el-popover>
 
       <p v-else class="cursor-pointer">
-        <span class="hover:text-blue-500" @click="jumpPage('login')">登录</span>
+        <RouterLink to="/login">
+          <span class="hover:text-blue-500">登录</span>
+        </RouterLink>
         ｜
-        <span class="hover:text-blue-500" @click="jumpPage('register')">
-          注册
-        </span>
+        <RouterLink to="/register">
+          <span class="hover:text-blue-500">
+            注册
+          </span>
+        </RouterLink>
       </p>
       <ThemeSwitch class="ml-2" />
     </div>
