@@ -16,7 +16,7 @@ const route = useRoute()
 
 const curMenu = ref(route.path)
 
-const ignoreRouteNameList = ['base', 'login', 'register', 'github.login']
+const ignoreRouteNameList = ['base', 'login', 'register']
 
 const menuDataList = computed(() => {
   let list = routes.filter(item => !ignoreRouteNameList.includes(item!.name as string))

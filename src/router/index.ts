@@ -69,14 +69,16 @@ const router = createRouter({
   routes,
 })
 
+const ignoreRouteNameList = ['base', 'login', 'register']
+
 router.beforeEach((to, from, next) => {
   if (to.path !== from.path)
     NProgress.start()
 
   const userStore = useUserStore()
 
-  // 未登录用户不能进入数据管理页面
-  if (to.fullPath.startsWith('/dm')) {
+  // 未登录用户不能进入数据管理页面--区分角色
+  if (!ignoreRouteNameList.includes(to.name as string)) {
     if (userStore.isLogin) {
       next()
     }
