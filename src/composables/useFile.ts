@@ -1,5 +1,4 @@
 import type { UploadProps } from 'element-plus'
-import { useUserStore } from '@/stores'
 
 export interface UseUploadOptsRes {
   uploadHeaders: {

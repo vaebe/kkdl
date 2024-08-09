@@ -1,6 +1,5 @@
 import fileDownload from 'js-file-download'
 import dayjs from 'dayjs'
-import { ElMessage } from 'element-plus'
 
 export type FileDownloadType = string | ArrayBuffer | ArrayBufferView | Blob
 
