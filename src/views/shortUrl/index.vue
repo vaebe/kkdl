@@ -46,6 +46,7 @@ const { open, reset: onSelectFileReset, onChange: onSelectFileChange } = useFile
   accept: '.xlsx',
   directory: false,
   multiple: false,
+  reset: true,
 })
 
 const addDialogRef = ref()
@@ -88,12 +89,12 @@ async function batchExport() {
       <el-row :gutter="10">
         <el-col :span="8">
           <el-form-item label="短链名称：">
-            <el-input v-model="searchForm.title" placeholder="请输入短链名称" />
+            <el-input v-model="searchForm.title" placeholder="请输入短链名称" clearable />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="跳转链接：">
-            <el-input v-model="searchForm.rawUrl" placeholder="请输入跳转链接" />
+            <el-input v-model="searchForm.rawUrl" placeholder="请输入跳转链接" clearable />
           </el-form-item>
         </el-col>
 

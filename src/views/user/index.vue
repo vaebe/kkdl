@@ -33,12 +33,12 @@ function openAddAndViewDialog(type: string, row?: any) {
       <el-row :gutter="10">
         <el-col :span="8">
           <el-form-item label="邮箱：">
-            <el-input v-model="searchForm.email" placeholder="请输入邮箱" />
+            <el-input v-model="searchForm.email" placeholder="请输入邮箱" clearable />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="昵称：">
-            <el-input v-model="searchForm.nickName" placeholder="请输入昵称" />
+            <el-input v-model="searchForm.nickName" placeholder="请输入昵称" clearable />
           </el-form-item>
         </el-col>
 

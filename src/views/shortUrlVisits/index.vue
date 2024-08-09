@@ -18,7 +18,7 @@ reset()
       <el-row :gutter="10">
         <el-col :span="8">
           <el-form-item label="短链：">
-            <el-input v-model="searchForm.code" placeholder="请输入短链" />
+            <el-input v-model="searchForm.code" placeholder="请输入短链" clearable />
           </el-form-item>
         </el-col>
 
