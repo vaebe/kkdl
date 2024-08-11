@@ -9,4 +9,12 @@ export default antfu({
      */
     css: true,
   },
+  ignores: [
+    'node_modules/*',
+    '/dist',
+    '/src/*.d.ts',
+    '**.json',
+    '**.svg',
+    '*.js',
+  ]
 })
