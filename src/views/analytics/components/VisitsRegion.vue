@@ -53,9 +53,9 @@ function getIcon(code: string) {
       >
         <div class="relative z-10 flex h-8 w-full max-w-[calc(100%-2rem)] items-center">
           <div class="z-10 flex items-center space-x-2 px-2">
-            <img :alt="item.countryCode" :src="getIcon(item.countryCode)" class="h-3 w-5">
+            <img v-if="item.countryCode" :alt="item.countryCode" :src="getIcon(item.countryCode)" class="h-3 w-5">
             <div class="truncate text-sm text-gray-800 underline-offset-4 group-hover:underline">
-              {{ item.name }}
+              {{ item.name || '未知' }}
             </div>
           </div>
           <div
