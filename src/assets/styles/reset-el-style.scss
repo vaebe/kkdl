@@ -1,5 +1,5 @@
 .reset-el-style {
-  --el-border-radius-base: 2px;
+  --el-border-radius-base: 6px;
 
   /* 组件 width  100% */
   .el-select,
@@ -86,5 +86,12 @@
 
   .el-divider--horizontal {
     margin: 12px 0;
+  }
+
+  /**
+  * el-card
+  */
+  .el-card {
+    --el-card-border-radius: var(--el-border-radius-base);
   }
 }

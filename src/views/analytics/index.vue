@@ -40,7 +40,7 @@ provide('searchForm', searchForm)
       <div class="mt-4 flex flex-col items-center justify-center">
         <VisitsTime class="w-11/12" />
 
-        <div class="w-11/12 my-2 grid grid-cols-2 gap-2">
+        <div class="w-11/12 my-6 grid grid-cols-2 gap-6">
           <VisitsRegion />
           <VisitsDevice />
         </div>

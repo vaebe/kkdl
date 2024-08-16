@@ -7,7 +7,7 @@ import LayoutHeader from '@/views/layout/components/Header.vue'
     <LayoutHeader />
 
     <el-scrollbar height="calc(100vh - 58px)">
-      <div style="margin: 18px">
+      <div style="margin: 14px">
         <router-view />
       </div>
     </el-scrollbar>
