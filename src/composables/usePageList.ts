@@ -16,15 +16,7 @@ interface PageOptions<T> {
 }
 
 // 列表
-export function usePageList<T>(opts: PageOptions<T>): {
-  listLoading: Ref<boolean>
-  reset: () => void
-  page: PaginationParameter
-  tableData: Ref<any[]>
-  handleSizeChange: (size: number) => void
-  handleCurrentChange: (cur: number) => void
-  removeRow: (params: any) => void
-} {
+export function usePageList<T>(opts: PageOptions<T>) {
   const {
     searchForm = {},
     getListApi,
@@ -42,12 +34,10 @@ export function usePageList<T>(opts: PageOptions<T>): {
     total: 0,
   })
 
-  // 获取列表loading
   const listLoading = ref(false)
+  const tableData = ref<any[]>([])
 
-  const tableData: Ref<any[]> = ref([])
-
-  const getList = (): void => {
+  async function getList() {
     listLoading.value = true
 
     const params = {
@@ -56,72 +46,66 @@ export function usePageList<T>(opts: PageOptions<T>): {
       ...customQueryParameters(),
     }
 
-    getListApi(params)
-      .then((res) => {
-        if (res.code === 0) {
-          const data = res.data || {}
-          tableData.value = data?.list || []
-          page.total = data?.total || 0
+    try {
+      const res = await getListApi(params)
+      if (res.code === 0) {
+        const { list = [], total = 0 } = res.data || {}
+        tableData.value = list
+        page.total = total
 
-          getListFunc(opts)
-        }
-      })
-      .catch(() => {
-        // code -1 拦截器当错误返回
+        getListFunc(opts)
+      }
+      else {
         tableData.value = []
         page.total = 0
-      })
-      .finally(() => {
-        listLoading.value = false
-      })
+      }
+    }
+    catch {
+      tableData.value = []
+      page.total = 0
+    }
+    finally {
+      listLoading.value = false
+    }
   }
 
-  const handleSizeChange = (size: number): void => {
+  function handleSizeChange(size: number) {
     page.pageSize = size
     sizeChangeFunc()
     getList()
   }
 
-  const handleCurrentChange = (cur: number): void => {
+  function handleCurrentChange(cur: number) {
     page.pageNo = cur
     currentChangeFunc()
     getList()
   }
 
-  const reset = (): void => {
+  function reset() {
     Object.assign(searchForm, resetObjToPrimitiveType(searchForm))
     resetFunc()
     handleCurrentChange(1)
   }
 
-  // 删除
-  const removeRow = (
-    params: any,
-    infoText?: string,
-    delSuccessInfo?: string,
-  ): void => {
+  function removeRow(params: any, infoText = '此操作将永久删除该数据, 是否继续?', delSuccessInfo = '删除成功') {
     if (!removeRowApi) {
       ElMessage.warning('请配置 removeRowApi 调用')
       return
     }
 
-    ElMessageBox.confirm(
-      infoText ?? '此操作将永久删除该数据, 是否继续?',
-      '提示',
-      {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      },
-    )
+    ElMessageBox.confirm(infoText, '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    })
       .then(async () => {
-        const res = await removeRowApi?.(params)
+        const res = await removeRowApi(params)
         if (res?.code === 0) {
-          ElMessage.success(delSuccessInfo ?? '删除成功')
+          ElMessage.success(delSuccessInfo)
           handleCurrentChange(1)
         }
       })
-      .finally(() => {})
+      .catch(() => {})
   }
 
   return {
@@ -148,56 +132,30 @@ interface PageListDialogOpts {
 }
 
 // 列表弹窗
-export function usePageListDialog(opts: PageListDialogOpts): {
-  dialogType: Ref<DialogType>
-  openDialog: (type: DialogType, data?: AnyObject) => void
-  dialogIsView: Ref<boolean>
-  dialogTitle: Ref<string>
-  dialogVisible: Ref<boolean>
-  dialogFormRef: Ref<FormInstance | undefined>
-  save: () => void
-} {
-  const {
-    saveForm = {},
-    openDialogFunc,
-    saveApi,
-    updateApi,
-    saveSuccessFunc,
-    beforeSaveFunc,
-  } = opts
+export function usePageListDialog(opts: PageListDialogOpts) {
+  const { saveForm = {}, openDialogFunc, saveApi, updateApi, saveSuccessFunc, beforeSaveFunc } = opts
 
   const dialogType = ref<DialogType>('add')
-  const dialogTitle = computed(() => {
-    const typeObj = {
-      add: '新增',
-      edit: '编辑',
-      view: '查看',
-    }
-    return typeObj[dialogType.value]
-  })
+  const dialogTypeObj: Record<DialogType, string> = {
+    add: '新增',
+    edit: '编辑',
+    view: '查看',
+  }
 
-  const dialogIsView = computed(() => {
-    return dialogType.value === 'view'
-  })
+  const dialogTitle = computed(() => dialogTypeObj[dialogType.value])
 
+  const dialogIsView = computed(() => dialogType.value === 'view')
   const dialogVisible = ref(false)
   const dialogFormRef = ref<FormInstance>()
 
-  const openDialog = async (
-    type: DialogType = 'add',
-    data?: AnyObject,
-  ): Promise<void> => {
+  async function openDialog(type: DialogType = 'add', data?: AnyObject) {
     if (type !== 'add' && !data) {
       console.error('openDialog 函数type类型不等于 add 时 data 必传')
       return
     }
 
     dialogType.value = type
-    if (type === 'add')
-      Object.assign(saveForm, resetObjToPrimitiveType(saveForm))
-    else
-      Object.assign(saveForm, cloneDeep(data))
-
+    Object.assign(saveForm, type === 'add' ? resetObjToPrimitiveType(saveForm) : cloneDeep(data))
     dialogVisible.value = true
 
     await nextTick()
@@ -206,29 +164,24 @@ export function usePageListDialog(opts: PageListDialogOpts): {
     openDialogFunc?.(cloneDeep(data ?? {}))
   }
 
-  const save = (): void => {
+  function save() {
     dialogFormRef.value?.validate(async (valid): Promise<void> => {
-      if (valid) {
-        // beforeSaveFunc 存在且返回 false 不继续进行
-        if (beforeSaveFunc && !(await beforeSaveFunc()))
-          return
-
-        const opts = cloneDeep(saveForm)
-
-        const res
-          = dialogType.value === 'add'
-            ? await saveApi?.(opts)
-            : await updateApi?.(opts)
-
-        if (res?.code === 0) {
-          saveSuccessFunc?.()
-
-          ElMessage.success('操作成功')
-          dialogVisible.value = false
-        }
-      }
-      else {
+      if (!valid) {
         ElMessage.warning('信息不完整，请检查必填项内容！')
+        return
+      }
+
+      if (beforeSaveFunc && !(await beforeSaveFunc()))
+        return
+
+      const opts = cloneDeep(saveForm)
+      const api = dialogType.value === 'add' ? saveApi : updateApi
+      const res = await api?.(opts)
+
+      if (res?.code === 0) {
+        saveSuccessFunc?.()
+        ElMessage.success('操作成功')
+        dialogVisible.value = false
       }
     })
   }
