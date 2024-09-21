@@ -89,10 +89,14 @@ function handleError(error: AnyObject): AnyObject {
   return error
 }
 
-// 尝试将响应数据格式化成jason 失败返回原数据
+// 尝试将响应数据格式化成JSON，失败返回原数据
 function formatTheResponseDataToJson<T>(data: T): T {
+  if (!(data instanceof ArrayBuffer)) {
+    return data
+  }
+
   const enc = new TextDecoder('utf-8')
-  const uint8Msg = new Uint8Array(data as ArrayBufferLike)
+  const uint8Msg = new Uint8Array(data)
   try {
     return JSON.parse(enc.decode(uint8Msg))
   }
