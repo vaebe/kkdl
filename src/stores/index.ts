@@ -1,10 +1,9 @@
 import { createPinia } from 'pinia'
-import piniaPersist from 'pinia-plugin-persist'
-
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import useUserStore from './modules/useUserStore'
 
 const pinia = createPinia()
-pinia.use(piniaPersist)
+pinia.use(piniaPluginPersistedstate)
 
 // 这里统一导出使用
 export { useUserStore }

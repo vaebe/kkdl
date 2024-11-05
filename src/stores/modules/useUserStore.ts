@@ -1,24 +1,30 @@
+import { cloneDeep } from 'lodash-es'
 import { getUserDetails, userLoginOut } from '@/api/login'
-import type { LoginResData, UserInfo } from '@/api/login'
+import type { LoginResData } from '@/api/login'
 import { resetObjToPrimitiveType } from '@/utils/tool'
+
+const defaultUserInfo = {
+  id: '',
+  email: '',
+  wxId: '',
+  nickName: '',
+  accountType: '',
+  role: '',
+  avatar: '',
+  createdAt: '',
+  updatedAt: '',
+  deletedAt: '',
+}
 
 const useUserStore = defineStore(
   'useUserStore',
   () => {
-    const userInfo = reactive({
-      id: '',
-      email: '',
-      wxId: 'string',
-      nickName: '',
-      accountType: '',
-      role: '',
-      avatar: '',
-    })
+    const userInfo = reactive(cloneDeep(defaultUserInfo))
 
     const loginResData = reactive({
       token: '',
       tokenExpire: '',
-      userInfo,
+      userInfo: cloneDeep(defaultUserInfo),
     })
 
     // 是否是管理员
@@ -32,11 +38,6 @@ const useUserStore = defineStore(
       Object.assign(userInfo, data.userInfo)
 
       router.push('/shortUrl')
-    }
-
-    // 获取用户信息
-    const getUserInfo = (): UserInfo => {
-      return loginResData.userInfo
     }
 
     // 刷新用户信息
@@ -76,7 +77,6 @@ const useUserStore = defineStore(
       userInfo,
       loginResData,
       setLoginResData,
-      getUserInfo,
       getToken,
       clearLoginInfo,
       loginOut,
@@ -87,9 +87,8 @@ const useUserStore = defineStore(
   },
   {
     persist: {
-      enabled: true,
-      // 将 userInfo 放到 sessionStorage 做持久化，不设置默认持久化全部数据
-      strategies: [{ storage: sessionStorage, paths: ['loginResData'] }],
+      storage: sessionStorage,
+      pick: ['loginResData'],
     },
   },
 )
