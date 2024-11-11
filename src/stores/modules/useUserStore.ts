@@ -88,7 +88,7 @@ const useUserStore = defineStore(
   {
     persist: {
       storage: sessionStorage,
-      pick: ['loginResData'],
+      pick: ['loginResData', 'userInfo'],
     },
   },
 )

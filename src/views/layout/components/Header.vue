@@ -31,7 +31,7 @@ const menuDataList = computed(() => {
 
   return list.map((item) => {
     return {
-      label: item.meta?.title,
+      label: item.meta?.title as string || '',
       value: `${item.path}`,
     }
   })
@@ -59,7 +59,7 @@ function menuChange(path: string) {
       <el-popover v-if="isLogin" placement="bottom" trigger="click">
         <template #reference>
           <p class="cursor-pointer hover:text-blue-500">
-            {{ userInfo.nickName }}
+            {{ userInfo?.nickName }}
           </p>
         </template>
         <ul class="text-center space-y-2">
