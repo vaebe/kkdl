@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
-import { useCountdown } from '../composables/useCountdown'
 import { emailVerificationCodeLogin, getCaptcha, userLogin } from '@/api/login'
+import { useCountdown } from '../composables/useCountdown'
 
 const loginTypeList = [
   {

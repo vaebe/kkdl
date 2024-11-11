@@ -1,6 +1,6 @@
+import type { ResultData } from './base'
 import { stringify } from 'qs'
 import Api from './base'
-import type { ResultData } from './base'
 
 export interface UserInfo {
   id: string

@@ -1,5 +1,5 @@
-import Api from './base'
 import type { ResultData } from './base'
+import Api from './base'
 
 export interface AnalyzeParams {
   code?: string

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
-import { useCountdown } from '@/views/login/composables/useCountdown'
 import { getCaptcha, userRegCheck, userRegister } from '@/api/login'
+import { useCountdown } from '@/views/login/composables/useCountdown'
 
 const LoginContainer = defineAsyncComponent(() => import('@/components/loginContainer/index.vue'))
 

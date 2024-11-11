@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { Icon } from '@iconify/vue'
 import {
   batchExportShortUrl,
   batchImportShortUrl,
@@ -7,6 +6,7 @@ import {
   getShortUrlList,
   templateDownloadShortUrl,
 } from '@/api/shortUrl.ts'
+import { Icon } from '@iconify/vue'
 
 const AddDialog = defineAsyncComponent(
   () => import('./components/AddDialog.vue'),

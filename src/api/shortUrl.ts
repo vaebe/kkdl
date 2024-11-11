@@ -1,6 +1,6 @@
-import Api from './base'
-import type { ResultData, ResultPageListData } from './base'
 import type { PaginationParameter } from '@/types'
+import type { ResultData, ResultPageListData } from './base'
+import Api from './base'
 
 export interface CreateParams {
   title: string

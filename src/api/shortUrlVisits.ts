@@ -1,6 +1,6 @@
-import Api from './base'
-import type { ResultPageListData } from './base'
 import type { PaginationParameter } from '@/types'
+import type { ResultPageListData } from './base'
+import Api from './base'
 
 export interface GetShortUrlVisitsListParams extends PaginationParameter {
   code: string

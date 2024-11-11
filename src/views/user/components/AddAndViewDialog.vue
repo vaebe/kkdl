@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { Plus } from '@element-plus/icons-vue'
+import type { UploadRes } from '@/api/common.ts'
 import type { FormRules, UploadProps } from 'element-plus'
 import { saveUserInfo, updateUserInfo } from '@/api/user.ts'
-import type { UploadRes } from '@/api/common.ts'
+import { Plus } from '@element-plus/icons-vue'
 
 const emit = defineEmits(['refreshData'])
 

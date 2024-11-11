@@ -1,8 +1,8 @@
-import { createApp } from 'vue'
 import { disableCache } from '@iconify/vue'
+import { createApp } from 'vue'
+import App from './App.vue'
 import router from './router'
 import store from './stores'
-import App from './App.vue'
 import 'ress/dist/ress.min.css'
 import '@/assets/styles/index.scss'
 

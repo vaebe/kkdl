@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { v4 as uuidv4 } from 'uuid'
 import { getMiniProgramCode } from '@/api/login'
+import { v4 as uuidv4 } from 'uuid'
 
 const loading = ref(true)
 function setLoading(type: boolean) {

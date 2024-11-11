@@ -1,7 +1,7 @@
-import { cloneDeep } from 'lodash-es'
-import { getUserDetails, userLoginOut } from '@/api/login'
 import type { LoginResData } from '@/api/login'
+import { getUserDetails, userLoginOut } from '@/api/login'
 import { resetObjToPrimitiveType } from '@/utils/tool'
+import { cloneDeep } from 'lodash-es'
 
 const defaultUserInfo = {
   id: '',
