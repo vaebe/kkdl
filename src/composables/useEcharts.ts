@@ -19,8 +19,9 @@ export function useEcharts() {
   function initChart(dom: HTMLElement, option: ECOption) {
     const echartsDom = echarts.getInstanceByDom(dom)
     // 加载过图表 清除后加载
-    if (echartsDom)
-      echartsDom?.dispose && echartsDom.dispose()
+    if (echartsDom && echartsDom?.dispose) {
+      echartsDom.dispose()
+    }
 
     const chartBox = echarts.init(dom)
     chartBox.setOption(option)

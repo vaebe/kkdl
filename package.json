@@ -7,8 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "postinstall": "husky install",
-    "lint": "eslint \"src/**/*.{tsx,js,ts,vue}\" --fix",
+    "prepare": "husky",
+    "lint": "eslint . --fix",
     "commit": "git-cz"
   },
   "dependencies": {
@@ -65,7 +65,7 @@
     "vue-tsc": "^2.1.10"
   },
   "lint-staged": {
-    "src/**/*.{tsx,ts,vue}": [
+    "*": [
       "eslint --fix"
     ]
   },
