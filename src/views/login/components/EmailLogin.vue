@@ -80,6 +80,8 @@ const { setLoginResData } = useUserStore()
 function login() {
   loginFormRef.value?.validate((val) => {
     if (val) {
+      loginLoading.value = true
+
       const api = curLoginType.value === '01'
         ? userLogin(loginForm)
         : emailVerificationCodeLogin({ email: loginForm.email, code: loginForm.verificationCode })
@@ -135,11 +137,10 @@ watch(current, (v) => {
 
     <el-button
       type="primary" class="w-full" :disabled="loginLoading"
-      :loading="loginLoading" @click="login"
+      :loading="loginLoading"
+      @click="login"
     >
-      <span class="ml-4">
-        登录
-      </span>
+      登录
     </el-button>
 
     <p
