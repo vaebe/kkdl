@@ -1,6 +1,6 @@
-import { useUserStore } from '@/stores/modules/useUserStore'
 import NProgress from 'nprogress'
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/modules/useUserStore'
 
 const routes: RouteRecordRaw[] = [
   {

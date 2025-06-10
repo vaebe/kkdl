@@ -58,16 +58,16 @@ function menuChange(path: string) {
     <div class="flex justify-end items-center">
       <el-popover v-if="isLogin" placement="bottom" trigger="click">
         <template #reference>
-          <p class="cursor-pointer hover:text-blue-500">
+          <p class="cursor-pointer hover:text-blue-500 font-medium">
             {{ userInfo?.nickName }}
           </p>
         </template>
         <ul class="text-center space-y-2">
-          <li class="cursor-pointer hover:text-blue-400" @click="loginOut">
-            退出登录
-          </li>
           <li class="cursor-pointer hover:text-blue-400">
             版本：1.0.0
+          </li>
+          <li class="cursor-pointer hover:text-blue-400" @click="loginOut">
+            退出登录
           </li>
         </ul>
       </el-popover>
@@ -83,6 +83,7 @@ function menuChange(path: string) {
           </span>
         </RouterLink>
       </p>
+
       <ThemeSwitch class="ml-2" />
     </div>
   </div>

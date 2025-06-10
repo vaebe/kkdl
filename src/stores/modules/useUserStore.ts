@@ -1,7 +1,7 @@
 import type { LoginResData } from '@/api/login'
+import { cloneDeep } from 'lodash-es'
 import { getUserDetails, userLoginOut } from '@/api/login'
 import { resetObjToPrimitiveType } from '@/utils/tool'
-import { cloneDeep } from 'lodash-es'
 
 const defaultUserInfo = {
   id: '',
@@ -50,12 +50,10 @@ const useUserStore = defineStore(
     const isLogin = computed(() => !!loginResData.userInfo.id)
 
     // 获取 token
-    const getToken = (): string => {
-      return loginResData.token
-    }
+    const getToken = () => loginResData.token
 
     // 清除登录信息
-    const clearLoginInfo = async () => {
+    const clearLoginInfo = () => {
       // 重置登录信息
       Object.assign(loginResData, resetObjToPrimitiveType(loginResData))
       Object.assign(userInfo, resetObjToPrimitiveType(userInfo))
@@ -64,13 +62,14 @@ const useUserStore = defineStore(
       localStorage.clear()
       sessionStorage.clear()
 
-      await router.push('/login')
+      router.push('/login')
     }
 
     // 退出登录
-    const loginOut = async () => {
-      await userLoginOut()
-      await clearLoginInfo()
+    const loginOut = () => {
+      // 去除对象的引用-否则下边 clearLoginInfo 执行后 token 是 ''
+      userLoginOut({ token: JSON.parse(JSON.stringify(loginResData)).token })
+      clearLoginInfo()
     }
 
     return {

@@ -1,8 +1,8 @@
-import type { AnyObject } from '@/types'
 import type { InternalAxiosRequestConfig } from 'axios'
-import { useUserStore } from '@/stores'
+import type { AnyObject } from '@/types'
 import axios from 'axios'
 import { stringify } from 'qs'
+import { useUserStore } from '@/stores'
 
 export interface ResultData<T> {
   code: number
@@ -38,10 +38,11 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const { getToken } = useUserStore()
-
-    // header 中添加 authorization
-    config.headers.authorization = `Bearer ${getToken() || ''}`
+    // 如果 token 不存在则尝试添加,如果存在则直接使用
+    if (!config.headers.authorization) {
+      const { getToken } = useUserStore()
+      config.headers.authorization = `Bearer ${getToken() || ''}`
+    }
 
     return config
   },
@@ -76,7 +77,7 @@ function handleError(error: AnyObject): AnyObject {
 
   const status401 = error.code === 401 || (response && response.status === 401)
   if (status401 && window.location.hash !== '#/login') {
-    useUserStore().clearLoginInfo().then()
+    useUserStore().clearLoginInfo()
     error.msg = '登录已过期请重新登录！'
   }
 

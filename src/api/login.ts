@@ -41,8 +41,13 @@ export function githubLogin(data: { code: string }): Promise<ResultData<LoginRes
 }
 
 // 用户退出登录
-export function userLoginOut(): Promise<ResultData<LoginResData>> {
-  return Api.get('/login/signOut')
+export function userLoginOut({ token }: { token: string }): Promise<ResultData<LoginResData>> {
+  const config = token
+    ? {
+        headers: { authorization: `Bearer ${token}` },
+      }
+    : {}
+  return Api.get('/login/signOut', config)
 }
 
 // 获取邮箱验证码
