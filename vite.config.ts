@@ -24,11 +24,6 @@ export default defineConfig({
           imports: ['RouteLocationRaw', 'RouteLocationNormalized', 'RouteRecordRaw', 'RouteLocation'],
           type: true,
         },
-        {
-          from: 'useEcharts',
-          imports: ['ECOption'],
-          type: true,
-        },
       ],
       dirs: [
         './src/composables',

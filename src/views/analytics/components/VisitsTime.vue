@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { type AnalyzeParams, analyzeShortLinkAccessByTime } from '@/api/analytics.ts'
+import type { AnalyzeParams } from '@/api/analytics.ts'
+import type { ECOption } from '@/composables/useEcharts'
+import { analyzeShortLinkAccessByTime } from '@/api/analytics.ts'
 
 const searchForm = inject<AnalyzeParams>('searchForm')
 
