@@ -1,30 +1,26 @@
 import type { LoginResData } from '@/api/login'
 import { cloneDeep } from 'lodash-es'
 import { getUserDetails, userLoginOut } from '@/api/login'
-import { resetObjToPrimitiveType } from '@/utils/tool'
-
-const defaultUserInfo = {
-  id: '',
-  email: '',
-  wxId: '',
-  nickName: '',
-  accountType: '',
-  role: '',
-  avatar: '',
-  createdAt: '',
-  updatedAt: '',
-  deletedAt: '',
-}
 
 const useUserStore = defineStore(
   'useUserStore',
   () => {
-    const userInfo = reactive(cloneDeep(defaultUserInfo))
+    const [userInfo, resetUserInfo] = useResetReactive({
+      id: '',
+      email: '',
+      wxId: '',
+      nickName: '',
+      accountType: '',
+      role: '',
+      avatar: '',
+      createdAt: '',
+      updatedAt: '',
+      deletedAt: '',
+    })
 
-    const loginResData = reactive({
+    const [tokenInfo, resetTokenInfo] = useResetReactive({
       token: '',
       tokenExpire: '',
-      userInfo: cloneDeep(defaultUserInfo),
     })
 
     // 是否是管理员
@@ -34,7 +30,9 @@ const useUserStore = defineStore(
 
     // 设置登录返回数据
     const setLoginResData = (data: LoginResData) => {
-      Object.assign(loginResData, data)
+      tokenInfo.token = data.token
+      tokenInfo.tokenExpire = data.tokenExpire
+
       Object.assign(userInfo, data.userInfo)
 
       router.push('/shortUrl')
@@ -47,16 +45,16 @@ const useUserStore = defineStore(
       })
     }
 
-    const isLogin = computed(() => !!loginResData.userInfo.id)
+    const isLogin = computed(() => !!userInfo.id)
 
     // 获取 token
-    const getToken = () => loginResData.token
+    const getToken = () => tokenInfo.token
 
     // 清除登录信息
     const clearLoginInfo = () => {
       // 重置登录信息
-      Object.assign(loginResData, resetObjToPrimitiveType(loginResData))
-      Object.assign(userInfo, resetObjToPrimitiveType(userInfo))
+      resetUserInfo()
+      resetTokenInfo()
 
       // 清除缓存的数据
       localStorage.clear()
@@ -68,33 +66,31 @@ const useUserStore = defineStore(
     // 退出登录
     const loginOut = () => {
       // 去除对象的引用-否则下边 clearLoginInfo 执行后 token 是 ''
-      userLoginOut({ token: JSON.parse(JSON.stringify(loginResData)).token })
+      userLoginOut({ token: cloneDeep(tokenInfo).token })
       clearLoginInfo()
     }
 
     return {
       userInfo,
-      loginResData,
       setLoginResData,
       getToken,
       clearLoginInfo,
       loginOut,
       isLogin,
       isAdmin,
+      tokenInfo,
       refreshUserInfo,
     }
   },
   {
     persist: {
       storage: sessionStorage,
-      pick: ['loginResData', 'userInfo'],
+      pick: ['userInfo', 'tokenInfo'],
     },
   },
 )
 
-// 导出 store
 export { useUserStore }
-export default useUserStore
 
 if (import.meta.hot)
   import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))

@@ -27,7 +27,7 @@ export default defineConfig({
       ],
       dirs: [
         './src/composables',
-        './src/stores',
+        './src/stores/modules',
       ],
     }),
     Components({

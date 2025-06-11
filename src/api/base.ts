@@ -2,7 +2,7 @@ import type { InternalAxiosRequestConfig } from 'axios'
 import type { AnyObject } from '@/types'
 import axios from 'axios'
 import { stringify } from 'qs'
-import { useUserStore } from '@/stores'
+import { useUserStore } from '@/stores/modules/useUserStore'
 
 export interface ResultData<T> {
   code: number
