@@ -85,8 +85,8 @@ async function batchExport() {
 
 <template>
   <el-card class="mb-2" :body-style="{ paddingBottom: '2px' }">
-    <el-form :model="searchForm" label-width="90px">
-      <el-row :gutter="10">
+    <el-form :model="searchForm" label-position="top">
+      <el-row :gutter="10" align="middle">
         <el-col :span="8">
           <el-form-item label="短链名称：">
             <el-input v-model="searchForm.title" placeholder="请输入短链名称" clearable />

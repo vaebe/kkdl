@@ -14,7 +14,6 @@
 
   /**
   * el-menu
-  * =========================================================================
   */
   .el-menu {
     border-right: none;
@@ -51,9 +50,9 @@
     background: var(--el-color-primary-light-9);
     border-radius: var(--el-border-radius-base);
   }
+
   /**
   * el-table
-  * =========================================================================
   */
   .el-table {
     .el-table__header-wrapper {
@@ -73,7 +72,6 @@
 
   /**
   * el-pagination
-  * =========================================================================
   */
   .el-pagination {
     justify-content: right;
@@ -93,12 +91,26 @@
   .el-card {
     --el-card-border-radius: var(--el-border-radius-base);
   }
+
+  /**
+  * el-form-item
+  */
+  .el-form {
+    .el-form-item--label-top .el-form-item__label {
+      margin-bottom: 2px;
+    }
+
+    .el-form-item__label {
+      // 点击 label 时不触发表单元素的事件
+      pointer-events: none;
+      font-weight: 500;
+    }
+  }
 }
 
 .dark .reset-el-style {
   /**
   * el-table
-  * =========================================================================
   */
   .el-table {
     .el-table__header-wrapper {
