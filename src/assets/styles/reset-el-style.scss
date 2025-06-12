@@ -56,15 +56,13 @@
   * =========================================================================
   */
   .el-table {
-    --el-table-header-bg-color: #e6e6e6;
-
     .el-table__header-wrapper {
-      --el-table-header-bg-color: #f0f2f5;
+      --el-table-header-bg-color: #eeeeee;
 
       border-radius: var(--el-border-radius-base) var(--el-border-radius-base) 0 0;
 
       thead {
-        color: #333333;
+        color: #0b0a0a;
       }
     }
 
@@ -94,5 +92,21 @@
   */
   .el-card {
     --el-card-border-radius: var(--el-border-radius-base);
+  }
+}
+
+.dark .reset-el-style {
+  /**
+  * el-table
+  * =========================================================================
+  */
+  .el-table {
+    .el-table__header-wrapper {
+      --el-table-header-bg-color: #0b0a0a;
+
+      thead {
+        color: #fafafa;
+      }
+    }
   }
 }

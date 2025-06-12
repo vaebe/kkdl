@@ -17,3 +17,13 @@
   --el-color-primary-light-9: #e6f4ff;
   --el-color-primary-dark-2: #0039b3;
 }
+
+.page-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+}
+
+.dark .page-title {
+  color: #ffffff;
+}

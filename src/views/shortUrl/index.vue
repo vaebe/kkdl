@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue'
 import {
   batchExportShortUrl,
   batchImportShortUrl,
@@ -6,7 +7,6 @@ import {
   getShortUrlList,
   templateDownloadShortUrl,
 } from '@/api/shortUrl.ts'
-import { Icon } from '@iconify/vue'
 
 const AddDialog = defineAsyncComponent(
   () => import('./components/AddDialog.vue'),
@@ -114,7 +114,7 @@ async function batchExport() {
 
   <el-card>
     <div class="flex items-center justify-between">
-      <span class="text-title">{{ $route.meta.title }}</span>
+      <span class="page-title">{{ $route.meta.title }}</span>
 
       <el-button-group class="ml-4">
         <el-button type="primary" @click="open()">

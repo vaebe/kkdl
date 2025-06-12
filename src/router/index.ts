@@ -23,7 +23,7 @@ const routes: RouteRecordRaw[] = [
         path: 'shortUrlVisits',
         name: 'shortUrlVisits',
         meta: {
-          title: '短链信息管理',
+          title: '短链访问信息',
         },
         component: () => import('@/views/shortUrlVisits/index.vue'),
       },

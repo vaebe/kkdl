@@ -38,7 +38,7 @@ reset()
 
   <el-card>
     <div class="flex items-center justify-between">
-      <span class="text-title">{{ $route.meta.title }}</span>
+      <span class="page-title">{{ $route.meta.title }}</span>
     </div>
 
     <el-table :data="tableData" stripe style="width: 100%" class="my-2">
