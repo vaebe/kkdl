@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { AnalyzeParams } from '@/api/analytics.ts'
+import type { AnalyzeShortLinkAccessByTimeInfo } from '@/api/analytics.ts'
 import type { ECOption } from '@/composables/useEcharts'
 import { analyzeShortLinkAccessByTime } from '@/api/analytics.ts'
 
@@ -7,14 +8,12 @@ const searchForm = inject<AnalyzeParams>('searchForm')
 
 const { initChart, echarts } = useEcharts()
 
+const list = ref<AnalyzeShortLinkAccessByTimeInfo[]>([])
+
 const visitsToTal = ref(0)
 
 async function initLineChart() {
-  const res = await analyzeShortLinkAccessByTime({ code: '', dateType: searchForm!.dateType })
-
-  const list = res.code === 0 ? res.data ?? [] : []
-
-  visitsToTal.value = list.reduce((a, b) => {
+  visitsToTal.value = list.value.reduce((a, b) => {
     return a + b.clicks
   }, 0)
 
@@ -33,7 +32,7 @@ async function initLineChart() {
     xAxis: {
       type: 'category',
       boundaryGap: false,
-      data: list.map(item => item.time),
+      data: list.value.map(item => item.time),
       axisTick: {
         show: false,
       },
@@ -51,7 +50,7 @@ async function initLineChart() {
       {
         name: 'Visits',
         type: 'line',
-        data: list.map(item => item.clicks),
+        data: list.value.map(item => item.clicks),
         areaStyle: {
           color: new echarts.graphic.LinearGradient(
             0,
@@ -80,22 +79,38 @@ async function initLineChart() {
   initChart(document.getElementById('lintChart') as HTMLElement, option)
 }
 
-const searchFormWatch = ref()
+const loading = ref(false)
+
+function getData() {
+  loading.value = true
+  list.value = []
+
+  analyzeShortLinkAccessByTime({ code: '', dateType: searchForm!.dateType })
+    .then((res) => {
+      if (res.code === 0) {
+        list.value = res.data ?? []
+        initLineChart()
+      }
+    })
+    .finally(() => {
+      loading.value = false
+    })
+}
 
 onMounted(() => {
-  searchFormWatch.value = watch(() => searchForm, () => {
-    if (searchForm?.dateType)
-      initLineChart()
+  watch(() => searchForm, () => {
+    if (searchForm?.dateType) {
+      getData()
+    }
   }, { immediate: true, deep: true })
-})
-
-onBeforeUnmount(() => {
-  searchFormWatch?.value()
 })
 </script>
 
 <template>
-  <div class="relative z-0 border border-gray-200 bg-white px-7 py-5 sm:rounded-lg sm:border-gray-100 sm:shadow-lg">
+  <div
+    v-loading="loading"
+    class="relative z-0 border border-gray-200 bg-white px-7 py-5 sm:rounded-lg sm:border-gray-100 sm:shadow-lg"
+  >
     <p class="my-2">
       <span>总数:</span>
       <span class="ml-2">{{ visitsToTal }}</span>

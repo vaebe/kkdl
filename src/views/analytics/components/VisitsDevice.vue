@@ -12,17 +12,28 @@ const curType = ref<AnalyzeDeviceParams['type']>('devices')
 
 const searchForm = inject<AnalyzeParams>('searchForm')
 
+const loading = ref(false)
 const list = ref<AnalyzeShortLinkAccessByDeviceInfo[]>([])
+
 function getData() {
-  analyzeShortLinkAccessByDevice({ code: '', dateType: searchForm!.dateType, type: curType.value }).then((res) => {
-    if (res.code === 0)
-      list.value = res.data ?? []
-  })
+  loading.value = true
+  list.value = []
+
+  analyzeShortLinkAccessByDevice({ code: '', dateType: searchForm!.dateType, type: curType.value })
+    .then((res) => {
+      if (res.code === 0) {
+        list.value = res.data ?? []
+      }
+    })
+    .finally(() => {
+      loading.value = false
+    })
 }
 
 const searchFormWatch = watch(() => searchForm, () => {
-  if (searchForm?.dateType)
+  if (searchForm?.dateType) {
     getData()
+  }
 }, { immediate: true, deep: true })
 
 onBeforeUnmount(() => {
@@ -44,7 +55,10 @@ function getPercentage(item: AnalyzeShortLinkAccessByDeviceInfo) {
 </script>
 
 <template>
-  <div class="relative z-0 border border-gray-200 bg-white px-7 py-5 sm:rounded-lg sm:border-gray-100 sm:shadow-lg">
+  <div
+    v-loading="loading"
+    class="relative z-0 border border-gray-200 bg-white px-7 py-5 sm:rounded-lg sm:border-gray-100 sm:shadow-lg"
+  >
     <el-segmented v-model="curType" class="my-2" :options="typeList" block @change="getData" />
 
     <el-scrollbar style="height: 40vh">
