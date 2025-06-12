@@ -4,6 +4,8 @@ import type { AnalyzeShortLinkAccessByTimeInfo } from '@/api/analytics.ts'
 import type { ECOption } from '@/composables/useEcharts'
 import { analyzeShortLinkAccessByTime } from '@/api/analytics.ts'
 
+const CardBox = defineAsyncComponent(() => import('./CardBox.vue'))
+
 const searchForm = inject<AnalyzeParams>('searchForm')
 
 const { initChart, echarts } = useEcharts()
@@ -107,16 +109,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    v-loading="loading"
-    class="relative z-0 border border-gray-200 bg-white px-7 py-5 sm:rounded-lg sm:border-gray-100 sm:shadow-lg"
-  >
+  <CardBox v-loading="loading" class="relative z-0 ">
     <p class="my-2">
       <span>总数:</span>
       <span class="ml-2">{{ visitsToTal }}</span>
     </p>
     <div id="lintChart" class="h-[240px] " />
-  </div>
+  </CardBox>
 </template>
 
 <style scoped lang="scss">

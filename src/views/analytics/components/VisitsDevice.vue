@@ -2,6 +2,8 @@
 import type { AnalyzeDeviceParams, AnalyzeParams, AnalyzeShortLinkAccessByDeviceInfo } from '@/api/analytics.ts'
 import { analyzeShortLinkAccessByDevice } from '@/api/analytics.ts'
 
+const CardBox = defineAsyncComponent(() => import('./CardBox.vue'))
+
 const typeList = [
   { label: 'Devices', value: 'devices' },
   { label: 'Browsers', value: 'browsers' },
@@ -55,10 +57,7 @@ function getPercentage(item: AnalyzeShortLinkAccessByDeviceInfo) {
 </script>
 
 <template>
-  <div
-    v-loading="loading"
-    class="relative z-0 border border-gray-200 bg-white px-7 py-5 sm:rounded-lg sm:border-gray-100 sm:shadow-lg"
-  >
+  <CardBox v-loading="loading" class="relative z-0">
     <el-segmented v-model="curType" class="my-2" :options="typeList" block @change="getData" />
 
     <el-scrollbar style="height: 40vh">
@@ -82,7 +81,7 @@ function getPercentage(item: AnalyzeShortLinkAccessByDeviceInfo) {
         </p>
       </div>
     </el-scrollbar>
-  </div>
+  </CardBox>
 </template>
 
 <style scoped lang="scss">
