@@ -51,25 +51,26 @@
     background: var(--el-color-primary-light-9);
     border-radius: var(--el-border-radius-base);
   }
+  /**
+  * el-table
+  * =========================================================================
+  */
+  .el-table {
+    --el-table-header-bg-color: #e6e6e6;
 
-  // 伪元素实现 菜单栏圆点
-  .el-menu-item.is-active::after {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    display: block;
-    width: 4px;
-    height: 12px;
-    margin-top: -6px;
-    content: '';
-    background: var(--el-fill-color) !important;
-  }
+    .el-table__header-wrapper {
+      --el-table-header-bg-color: #f0f2f5;
 
-  i.iconfont {
-    margin-right: 10px;
-    margin-left: 10px;
-    font-size: 20px;
-    color: var(--el-text-color-regular) !important;
+      border-radius: var(--el-border-radius-base) var(--el-border-radius-base) 0 0;
+
+      thead {
+        color: #333333;
+      }
+    }
+
+    .el-popper {
+      max-width: 400px;
+    }
   }
 
   /**
