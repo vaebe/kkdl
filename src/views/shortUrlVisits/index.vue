@@ -5,7 +5,7 @@ const searchForm = reactive({
   code: '',
 })
 
-const { reset, page, tableData, handleCurrentChange } = usePageList({
+const { reset, page, tableData, handleCurrentChange, listLoading } = usePageList({
   searchForm,
   getListApi: getShortUrlVisitsList,
 })
@@ -41,7 +41,7 @@ reset()
       <span class="page-title">{{ $route.meta.title }}</span>
     </div>
 
-    <el-table :data="tableData" stripe style="width: 100%" class="my-2">
+    <el-table v-loading="listLoading" :data="tableData" stripe style="width: 100%" class="my-4">
       <el-table-column type="index" label="序号" width="60" fixed="left" />
       <el-table-column label="短链" prop="shortUrl" min-width="90" fixed="left" />
       <el-table-column label="跳转链接" prop="rawUrl" min-width="300" />

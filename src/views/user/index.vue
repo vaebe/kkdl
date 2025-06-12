@@ -1,9 +1,10 @@
 <script lang="ts" setup>
+import type { DialogType } from '@/composables/usePageList'
 import { getUserList, removeUser } from '@/api/user.ts'
 import { getCodeNameByCodeId } from '@/utils/tool.ts'
 
-const AddAndViewDialog = defineAsyncComponent(
-  () => import('./components/AddAndViewDialog.vue'),
+const AddDialog = defineAsyncComponent(
+  () => import('./components/AddDialog.vue'),
 )
 
 const searchForm = reactive({
@@ -12,7 +13,7 @@ const searchForm = reactive({
   wxId: '',
 })
 
-const { reset, page, tableData, handleCurrentChange, removeRow } = usePageList({
+const { reset, page, tableData, handleCurrentChange, removeRow, listLoading } = usePageList({
   searchForm,
   getListApi: getUserList,
   removeRowApi: removeUser,
@@ -21,9 +22,9 @@ reset()
 
 const { roleEnums, accountTypeEnums } = useEnums()
 
-const addAndViewDialogRef = ref()
-function openAddAndViewDialog(type: string, row?: any) {
-  addAndViewDialogRef.value.openDialog(type, row)
+const addDialogRef = useTemplateRef('addDialogRef')
+function openAddDialog(type: DialogType, row?: any) {
+  addDialogRef.value?.openDialog(type, row)
 }
 </script>
 
@@ -59,12 +60,12 @@ function openAddAndViewDialog(type: string, row?: any) {
   <el-card>
     <div class="flex items-center justify-between">
       <span class="page-title">{{ $route.meta.title }}</span>
-      <el-button @click="openAddAndViewDialog('add')">
+      <el-button @click="openAddDialog('add')">
         新增
       </el-button>
     </div>
 
-    <el-table :data="tableData" stripe style="width: 100%" class="my-2">
+    <el-table v-loading="listLoading" :data="tableData" stripe style="width: 100%" class="my-4">
       <el-table-column type="index" label="序号" width="60" />
       <el-table-column label="头像" prop="avatar" min-width="80">
         <template #default="scope">
@@ -86,10 +87,10 @@ function openAddAndViewDialog(type: string, row?: any) {
       <el-table-column label="创建时间" prop="createdAt" width="180" />
       <el-table-column label="操作" width="160" fixed="right" align="center">
         <template #default="scope">
-          <el-button type="primary" link @click="openAddAndViewDialog('view', scope.row)">
+          <el-button type="primary" link @click="openAddDialog('view', scope.row)">
             查看
           </el-button>
-          <el-button type="warning" link @click="openAddAndViewDialog('edit', scope.row)">
+          <el-button type="warning" link @click="openAddDialog('edit', scope.row)">
             修改
           </el-button>
           <el-button type="danger" link @click="removeRow({ id: scope.row.id })">
@@ -109,7 +110,7 @@ function openAddAndViewDialog(type: string, row?: any) {
     />
   </el-card>
 
-  <AddAndViewDialog ref="addAndViewDialogRef" @refresh-data="reset" />
+  <AddDialog ref="addDialogRef" @refresh-data="reset" />
 </template>
 
 <style lang="scss" scoped></style>

@@ -17,7 +17,7 @@ const searchForm = reactive({
   rawUrl: '',
 })
 
-const { reset, page, tableData, handleCurrentChange, removeRow } = usePageList({
+const { reset, page, tableData, handleCurrentChange, removeRow, listLoading } = usePageList({
   searchForm,
   getListApi: getShortUrlList,
   removeRowApi: deleteShortUrl,
@@ -132,7 +132,7 @@ async function batchExport() {
       </el-button-group>
     </div>
 
-    <el-table :data="tableData" stripe style="width: 100%" class="my-2">
+    <el-table v-loading="listLoading" :data="tableData" stripe style="width: 100%" class="my-4">
       <el-table-column type="index" label="序号" width="60" fixed="left" />
       <el-table-column label="短链名称" prop="title" min-width="200" />
       <el-table-column label="短链" prop="shortUrl" min-width="260">

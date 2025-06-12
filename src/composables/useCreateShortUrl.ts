@@ -1,5 +1,5 @@
-import { createShortUrl as shortUrlCreate } from '@/api/shortUrl.ts'
 import { ElLoading } from 'element-plus'
+import { createShortUrl as shortUrlCreate } from '@/api/shortUrl.ts'
 
 interface CreateShortUrlOpts {
   cb?: () => void
