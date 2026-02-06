@@ -59,8 +59,7 @@ async function batchExport() {
 </script>
 
 <template>
-  <section class="flex flex-col gap-3">
-    <!-- 顶部搜索 + 操作区 -->
+  <section class="flex flex-col gap-4">
     <el-card class="rounded-xl" :body-style="{ paddingBottom: '4px' }">
       <header class="mb-3 flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
         <div>
