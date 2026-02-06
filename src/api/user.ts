@@ -1,5 +1,5 @@
-import type { PaginationParameter } from '@/types'
 import type { ResultData, ResultPageListData } from './base'
+import type { PaginationParameter } from '@/types'
 import Api from './base'
 
 interface GetUserListParams extends PaginationParameter {
