@@ -46,7 +46,8 @@ reset()
       <el-table-column label="短链" prop="shortUrl" min-width="90" fixed="left" />
       <el-table-column label="跳转链接" prop="rawUrl" min-width="300" />
       <el-table-column label="ip" prop="ip" min-width="140" />
-      <el-table-column label="userAgent" prop="userAgent" min-width="300" />
+      <el-table-column label="访问时间" prop="createdAt" min-width="180" />
+      <el-table-column label="userAgent" prop="userAgent" min-width="400" />
       <el-table-column label="浏览器名称" prop="browserName" min-width="140" />
       <el-table-column label="浏览器版本" prop="browserVersion" min-width="100" />
       <el-table-column label="设备型号" prop="deviceModel" min-width="100" />
@@ -54,13 +55,11 @@ reset()
       <el-table-column label="浏览器引擎版本" prop="engineVersion" min-width="140" />
       <el-table-column label="操作系统名称" prop="osName" min-width="140" />
       <el-table-column label="操作系统版本" prop="osVersion" min-width="140" />
-      <el-table-column label="ip" prop="ip" min-width="140" />
       <el-table-column label="洲" prop="continent" min-width="140" />
       <el-table-column label="国家" prop="country" min-width="140" />
       <el-table-column label="市" prop="city" min-width="140" />
       <el-table-column label="纬度" prop="lat" min-width="140" />
       <el-table-column label="经度" prop="lon" min-width="140" />
-      <el-table-column label="访问时间" prop="createdAt" min-width="180" />
     </el-table>
     <el-pagination
       background
