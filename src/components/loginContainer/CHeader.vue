@@ -10,7 +10,7 @@ function jumpHome() {
 </script>
 
 <template>
-  <div class="w-full h-[58px] px-4 shadow flex items-center justify-between">
+  <div class="w-full h-14.5 px-4 shadow flex items-center justify-between">
     <div class="w-full h-full flex items-center">
       <img src="/logo.svg" alt="logo" style="width: 32px;height: 32px">
       <h1 class="text-2xl text-black cursor-pointer ml-2" @click="jumpHome">

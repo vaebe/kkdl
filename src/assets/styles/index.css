@@ -1,0 +1,49 @@
+@import 'element-plus/theme-chalk/el-message-box.css';
+@import 'element-plus/theme-chalk/el-overlay.css';
+@import 'element-plus/theme-chalk/el-loading.css';
+@import 'element-plus/theme-chalk/dark/css-vars.css';
+@import './reset-el-style.scss';
+@import 'nprogress/nprogress.css';
+@import 'tailwindcss';
+
+:root {
+  --layout-menu-width: 240px;
+  --layout-header-height: 58px;
+  --el-color-primary: #0062ff;
+  --el-color-primary-light-3: #2982ff;
+  --el-color-primary-light-5: #52a0ff;
+  --el-color-primary-light-7: #7abaff;
+  --el-color-primary-light-8: #a3d3ff;
+  --el-color-primary-light-9: #e6f4ff;
+  --el-color-primary-dark-2: #0039b3;
+}
+
+/* tailwindcss 配置 */
+@theme {
+  --darkMode: class;
+
+  /* 扩展 primary 颜色 */
+  --color-primary-50: #e6f4ff;
+  --color-primary-100: #a3d3ff;
+  --color-primary-200: #7abaff;
+  --color-primary-300: #52a0ff;
+  --color-primary-400: #2982ff;
+  --color-primary-500: #0062ff;
+  --color-primary-600: #004cd9;
+  --color-primary-700: #0039b3;
+  --color-primary: #0062ff; /* 对应 DEFAULT */
+}
+
+.light {
+  color-scheme: light;
+}
+
+.page-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+}
+
+.dark .page-title {
+  color: #ffffff;
+}

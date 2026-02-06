@@ -1,4 +1,5 @@
 import { resolve } from 'node:path'
+import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
 import { visualizer } from 'rollup-plugin-visualizer'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -36,14 +37,8 @@ export default defineConfig({
     compression(),
     visualizer(),
     vueDevTools(),
+    tailwindcss(),
   ],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        api: 'modern',
-      },
-    },
-  },
   optimizeDeps: {
     include: [
       'vue',

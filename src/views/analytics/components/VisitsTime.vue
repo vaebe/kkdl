@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { AnalyzeParams } from '@/api/analytics.ts'
-import type { AnalyzeShortLinkAccessByTimeInfo } from '@/api/analytics.ts'
+import type { AnalyzeParams, AnalyzeShortLinkAccessByTimeInfo } from '@/api/analytics.ts'
 import type { ECOption } from '@/composables/useEcharts'
 import { analyzeShortLinkAccessByTime } from '@/api/analytics.ts'
 
