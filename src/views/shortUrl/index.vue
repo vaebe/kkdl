@@ -54,7 +54,7 @@ async function templateDownload() {
 async function batchExport() {
   const res = await batchExportShortUrl(searchForm)
   downloadStreamingFile({ data: res, name: '短链管理', type: '.xlsx' })
-  ElMessage.success('导出成功!')
+  ElMessage.success('导出短链列表成功!')
 }
 </script>
 
@@ -83,8 +83,8 @@ async function batchExport() {
               批量导出
             </el-button>
           </el-button-group>
-          <el-button type="success" class="min-w-[96px]" @click="addShortUrl">
-            新增短链
+          <el-button type="primary" class="min-w-24" @click="addShortUrl">
+            新增
           </el-button>
         </div>
       </header>

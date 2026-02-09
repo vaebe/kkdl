@@ -67,8 +67,8 @@ function copyText(str: string) {
 
         <section class="mb-2 flex flex-col gap-2 text-xs text-(--el-text-color-regular)">
           <div class="flex items-center gap-2">
-            <span class="w-14 shrink-0 text-[11px] text-(--el-text-color-placeholder)">
-              短链地址
+            <span class="shrink-0 text-[11px] text-(--el-text-color-placeholder)">
+              短链
             </span>
             <div class="flex min-w-0 items-center gap-1">
               <el-link
@@ -77,7 +77,7 @@ function copyText(str: string) {
                 :href="getRowShortUrl(item.shortUrl)"
                 class="max-w-full truncate text-xs"
               >
-                {{ getRowShortUrl(item.shortUrl) }}
+                {{ item.shortUrl }}
               </el-link>
               <el-tooltip content="复制短链" placement="top">
                 <button
@@ -118,21 +118,13 @@ function copyText(str: string) {
         </section>
 
         <footer class="mt-1 flex items-center justify-between border-t border-(--el-border-color-lighter) pt-2 text-[11px] text-(--el-text-color-placeholder)">
-          <span class="max-w-[120px] truncate">
+          <span class="max-w-30 truncate">
             ID: {{ item.id }}
           </span>
-          <el-popconfirm
-            title="确认删除该短链？"
-            confirm-button-text="确定"
-            cancel-button-text="取消"
-            @confirm="item.id != null && emit('delete', { id: item.id })"
-          >
-            <template #reference>
-              <el-button type="danger" size="small" link>
-                删除
-              </el-button>
-            </template>
-          </el-popconfirm>
+
+          <el-button type="danger" size="small" link @click=" emit('delete', { id: item.id })">
+            删除
+          </el-button>
         </footer>
       </article>
     </div>
