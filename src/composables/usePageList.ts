@@ -97,6 +97,7 @@ export function usePageList<T>(opts: PageOptions<T>) {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       type: 'warning',
+      center: true,
     })
       .then(async () => {
         const res = await removeRowApi(params)
