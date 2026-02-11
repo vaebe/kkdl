@@ -39,14 +39,16 @@ export default defineConfig({
     vueDevTools(),
     tailwindcss(),
   ],
-  optimizeDeps: {
-    include: [
-      'vue',
-      'vue-router',
-      '@vueuse/core',
-      'dayjs',
-      'dayjs/plugin/localizedFormat',
-    ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'framework': ['vue', 'vue-router', '@vueuse/core'],
+          'echarts': ['echarts'],
+          'lodash-es': ['lodash-es'],
+        },
+      },
+    },
   },
   resolve: {
     alias: [{ find: '@', replacement: resolve(__dirname, 'src') }],
