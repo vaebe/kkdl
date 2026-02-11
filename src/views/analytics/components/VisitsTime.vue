@@ -3,7 +3,7 @@ import type { AnalyzeParams, AnalyzeShortLinkAccessByTimeInfo } from '@/api/anal
 import type { ECOption } from '@/composables/useEcharts'
 import { analyzeShortLinkAccessByTime } from '@/api/analytics.ts'
 
-const CardBox = defineAsyncComponent(() => import('./CardBox.vue'))
+const CardBox = defineAsyncComponent(() => import('@/components/CardBox.vue'))
 
 const searchForm = inject<AnalyzeParams>('searchForm')
 
@@ -113,7 +113,7 @@ onMounted(() => {
       <span>总数:</span>
       <span class="ml-2">{{ visitsToTal }}</span>
     </p>
-    <div id="lintChart" class="h-[240px] " />
+    <div id="lintChart" class="h-60" />
   </CardBox>
 </template>
 

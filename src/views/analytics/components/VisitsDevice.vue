@@ -2,7 +2,7 @@
 import type { AnalyzeDeviceParams, AnalyzeParams, AnalyzeShortLinkAccessByDeviceInfo } from '@/api/analytics.ts'
 import { analyzeShortLinkAccessByDevice } from '@/api/analytics.ts'
 
-const CardBox = defineAsyncComponent(() => import('./CardBox.vue'))
+const CardBox = defineAsyncComponent(() => import('@/components/CardBox.vue'))
 
 const typeList = [
   { label: 'Devices', value: 'devices' },

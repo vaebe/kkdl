@@ -2,7 +2,7 @@
 import type { AnalyzeParams, AnalyzeRegionParams, AnalyzeShortLinkAccessByRegionInfo } from '@/api/analytics.ts'
 import { analyzeShortLinkAccessByRegion } from '@/api/analytics.ts'
 
-const CardBox = defineAsyncComponent(() => import('./CardBox.vue'))
+const CardBox = defineAsyncComponent(() => import('@/components/CardBox.vue'))
 
 const typeList = [{ label: 'Countries', value: 'countries' }, { label: 'Cities', value: 'cities' }]
 const curType = ref<AnalyzeRegionParams['type']>('countries')

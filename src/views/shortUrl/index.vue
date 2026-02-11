@@ -4,7 +4,7 @@ import { batchExportShortUrl, batchImportShortUrl, deleteShortUrl, getShortUrlLi
 import ShortUrlList from './components/ShortUrlList.vue'
 
 const AddDialog = defineAsyncComponent(() => import('./components/AddDialog.vue'))
-const CardBox = defineAsyncComponent(() => import('./components/CardBox.vue'))
+const CardBox = defineAsyncComponent(() => import('@/components/CardBox.vue'))
 
 const searchForm = reactive({
   title: '',

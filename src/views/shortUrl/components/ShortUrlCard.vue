@@ -4,7 +4,7 @@ import { Icon } from '@iconify/vue'
 
 const props = defineProps<{ item: ShortUrlInfo }>()
 
-const CardBox = defineAsyncComponent(() => import('./CardBox.vue'))
+const CardBox = defineAsyncComponent(() => import('@/components/CardBox.vue'))
 
 const { VITE_APP_BASE_URL } = import.meta.env
 const rowShortUrl = computed(() => VITE_APP_BASE_URL?.replace('/api', `/${props.item.shortUrl}`))
