@@ -24,7 +24,15 @@ const list = ref<AnalyzeShortLinkAccessByTimeInfo[]>([])
 
 const visitsTotal = ref(0)
 
+const canvasRef = ref<HTMLCanvasElement | null>(null)
+
 let chartInstance: any = null
+
+useResizeObserver(document.body, debounce(() => {
+  if (chartInstance) {
+    chartInstance.resize()
+  }
+}, 100))
 
 function initChart(dom: HTMLCanvasElement, config: any) {
   const existingChart = Chart.getChart(dom)
@@ -36,13 +44,7 @@ function initChart(dom: HTMLCanvasElement, config: any) {
   if (!ctx)
     throw new Error('无法获取 canvas 上下文')
 
-  const chart = new Chart(ctx, config)
-
-  useResizeObserver(document.body, debounce(() => {
-    chart.resize()
-  }, 100))
-
-  return chart
+  return new Chart(ctx, config)
 }
 
 function initLineChart() {
@@ -50,7 +52,7 @@ function initLineChart() {
     return a + b.clicks
   }, 0)
 
-  const canvas = document.getElementById('visitsTimeChart') as HTMLCanvasElement
+  const canvas = canvasRef.value
   if (!canvas)
     return
 
@@ -169,7 +171,7 @@ onBeforeUnmount(() => {
       <span class="ml-2">{{ visitsTotal }}</span>
     </p>
     <div class="h-60">
-      <canvas id="visitsTimeChart" />:
+      <canvas ref="canvasRef" />
     </div>
   </CardBox>
 </template>
