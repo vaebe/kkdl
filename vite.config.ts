@@ -44,7 +44,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           'framework': ['vue', 'vue-router', '@vueuse/core'],
-          'echarts': ['echarts'],
           'lodash-es': ['lodash-es'],
         },
       },
