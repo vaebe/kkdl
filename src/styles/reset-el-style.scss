@@ -18,7 +18,7 @@
   .el-menu {
     border-right: none;
 
-    // icon
+    /* icon */
     .el-icon {
       margin-top: -5px;
       margin-right: 10px;
@@ -100,8 +100,8 @@
       margin-bottom: 2px;
     }
 
+    /* 点击 label 时不触发表单元素的事件 */
     .el-form-item__label {
-      // 点击 label 时不触发表单元素的事件
       pointer-events: none;
       font-weight: 500;
     }
