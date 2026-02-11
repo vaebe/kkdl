@@ -103,10 +103,13 @@ export function usePageList<T>(opts: PageOptions<T>) {
         const res = await removeRowApi(params)
         if (res?.code === 0) {
           ElMessage.success(delSuccessInfo)
-          handleCurrentChange(1)
+          // 列表有多条数据就继续查询当前页的数组 否则查询第一条
+          handleCurrentChange(tableData.value.length > 1 ? page.pageNo : 1)
         }
       })
-      .catch(() => {})
+      .catch(() => {
+        ElMessage.error('删除发生错误！')
+      })
   }
 
   return {
