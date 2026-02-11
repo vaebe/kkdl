@@ -68,7 +68,6 @@ defineExpose({
   <el-form
     :model="info"
     label-width="120px"
-    size="large"
     label-position="top"
     status-icon
   >

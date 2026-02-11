@@ -27,13 +27,22 @@ provide('searchForm', searchForm)
 </script>
 
 <template>
-  <div class="analytics w-[100vw] h-[100vh] bg-gray-50 ">
+  <div class="analytics w-screen h-screen bg-gray-50 ">
     <el-scrollbar style="height: 100vh">
       <CHeader class="sticky top-0" />
 
       <div class="w-11/12 mx-auto my-6 bg-gray-50 flex justify-end">
-        <el-select v-model="searchForm.dateType" placeholder="Select" size="large" style="width: 240px">
-          <el-option v-for="item in options" :key="item.code" :label="item.name" :value="item.code" />
+        <el-select
+          v-model="searchForm.dateType"
+          placeholder="Select"
+          style="width: 240px"
+        >
+          <el-option
+            v-for="item in options"
+            :key="item.code"
+            :label="item.name"
+            :value="item.code"
+          />
         </el-select>
       </div>
 
