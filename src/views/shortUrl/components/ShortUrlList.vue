@@ -16,7 +16,7 @@ const emit = defineEmits<{
 
 const { VITE_APP_BASE_URL } = import.meta.env
 function getRowShortUrl(url: string): string {
-  return VITE_APP_BASE_URL?.replace('api', url)
+  return VITE_APP_BASE_URL?.replace('/api', `/${url}`)
 }
 
 const { copy, isSupported } = useClipboard()
