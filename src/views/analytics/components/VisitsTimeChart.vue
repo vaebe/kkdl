@@ -22,7 +22,7 @@ const searchForm = inject<AnalyzeParams>('searchForm')
 
 const list = ref<AnalyzeShortLinkAccessByTimeInfo[]>([])
 
-const visitsToTal = ref(0)
+const visitsTotal = ref(0)
 
 let chartInstance: any = null
 
@@ -46,7 +46,7 @@ function initChart(dom: HTMLCanvasElement, config: any) {
 }
 
 function initLineChart() {
-  visitsToTal.value = list.value.reduce((a, b) => {
+  visitsTotal.value = list.value.reduce((a, b) => {
     return a + b.clicks
   }, 0)
 
@@ -166,10 +166,10 @@ onBeforeUnmount(() => {
   <CardBox v-loading="loading" class="relative z-0">
     <p class="my-2">
       <span>总数:</span>
-      <span class="ml-2">{{ visitsToTal }}</span>
+      <span class="ml-2">{{ visitsTotal }}</span>
     </p>
     <div class="h-60">
-      <canvas id="visitsTimeChart" />
+      <canvas id="visitsTimeChart" />:
     </div>
   </CardBox>
 </template>
