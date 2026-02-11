@@ -4,6 +4,7 @@ import { batchExportShortUrl, batchImportShortUrl, deleteShortUrl, getShortUrlLi
 import ShortUrlList from './components/ShortUrlList.vue'
 
 const AddDialog = defineAsyncComponent(() => import('./components/AddDialog.vue'))
+const CardBox = defineAsyncComponent(() => import('./components/CardBox.vue'))
 
 const searchForm = reactive({
   title: '',
@@ -59,8 +60,8 @@ async function batchExport() {
 </script>
 
 <template>
-  <section class="flex flex-col gap-4">
-    <el-card class="rounded-xl" :body-style="{ paddingBottom: '4px' }">
+  <div>
+    <CardBox class="mb-4">
       <header class="mb-3 flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
         <div>
           <h2 class="m-0 text-lg font-semibold text-(--el-text-color-primary)">
@@ -73,7 +74,7 @@ async function batchExport() {
 
         <div class="flex flex-wrap items-center justify-end gap-2 md:justify-end">
           <el-button-group>
-            <el-button type="primary" @click="open()">
+            <el-button @click="open()">
               批量导入
             </el-button>
             <el-button @click="templateDownload">
@@ -122,7 +123,7 @@ async function batchExport() {
           </el-col>
         </el-row>
       </el-form>
-    </el-card>
+    </CardBox>
 
     <!-- 列表区（拆分为子组件） -->
     <ShortUrlList
@@ -134,5 +135,5 @@ async function batchExport() {
     />
 
     <AddDialog ref="addDialogRef" @refresh-data="reset" />
-  </section>
+  </div>
 </template>
