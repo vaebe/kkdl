@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const CHeader = defineAsyncComponent(() => import('./components/CHeader.vue'))
-const VisitsTime = defineAsyncComponent(() => import('./components/VisitsTime.vue'))
+const VisitsTimeChart = defineAsyncComponent(() => import('./components/VisitsTimeChart.vue'))
 const VisitsRegion = defineAsyncComponent(() => import('./components/VisitsRegion.vue'))
 const VisitsDevice = defineAsyncComponent(() => import('./components/VisitsDevice.vue'))
 
@@ -47,7 +47,7 @@ provide('searchForm', searchForm)
       </div>
 
       <div class="mt-4 flex flex-col items-center justify-center">
-        <VisitsTime class="w-11/12" />
+        <VisitsTimeChart class="w-11/12" />
 
         <div class="w-11/12 my-6 grid grid-cols-2 gap-6">
           <VisitsRegion />
